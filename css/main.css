@@ -3,6 +3,8 @@
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
+/*Currently lifted from https://ruby-on-wheels.github.io/ and Bootstrap. Not sure why mine doesn't have it....
+questions for later.*/
 .intro-header {
     background:no-repeat center center;
     background-color:gray;
@@ -77,8 +79,6 @@
         font-size:30px
     }
 }
-
-
 
 
 
