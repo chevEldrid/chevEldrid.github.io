@@ -1,0 +1,25 @@
+{
+  "name": "my-website",
+  "version": "1.0.0",
+  "description": "My website",
+  "main": "app.js",
+  "directories": {
+    "doc": "doc"
+  },
+  "scripts": {
+    "test": "echo \\\"Error: no test specified\\\" &amp;&amp; exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chevEldrid/Personal-Website.git"
+  },
+  "author": "Chev Eldrid",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/chevEldrid/Personal-Website/issues"
+  },
+  "homepage": "https://github.com/chevEldrid/Personal-Website#readme",
+  "dependencies": {
+    "popper.js": "^1.12.5"
+  }
+}

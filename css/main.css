@@ -80,6 +80,37 @@ questions for later.*/
     }
 }
 
+.post-preview>a{
+    color:#404040
+}
+.post-preview>a:hover,
+.post-preview>a:focus{
+    text-decoration:none;
+    color:#f2b452
+}
+.post-preview>a>.post-title{
+    font-size:30px;
+    margin-top:10px;
+    margin-bottom:10px
+}
+.post-preview>a>.post-subtitle{
+    margin:0;
+    font-weight:300;
+    margin-bottom:10px
+}
+.post-preview>.post-meta{
+    color:gray;
+    font-size:.75em;
+    font-weight:300;
+    margin-top:0;
+    margin-bottom:10px
+}
+@media only screen and (min-width: 768px){
+    .post-preview>a>.post-title{
+        font-size:36px
+    }
+}
+
 
 
 
