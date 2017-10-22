@@ -110,8 +110,15 @@ questions for later.*/
         font-size:36px
     }
 }
-
-
+.bio>a{
+    color:#212529;
+    text-decoration: none;
+}
+.bio>a:hover,
+.bio>a:focus{
+    text-decoration: none;
+    color:#228B22;
+}
 
 
 
