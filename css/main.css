@@ -3,8 +3,7 @@
 /* ==========================================================================
 Author's custom styles
 ========================================================================== */
-/*Currently lifted from https://ruby-on-wheels.github.io/ and Bootstrap. Not sure why mine doesn't have it....
-questions for later.*/
+/*Style for picture header*/
 .intro-header {
     background:no-repeat center center;
     background-color:gray;
@@ -79,7 +78,7 @@ questions for later.*/
         font-size:30px
     }
 }
-
+/*blog blurbs on home page*/
 .post-preview>a{
     color:#404040
 }
@@ -110,6 +109,7 @@ questions for later.*/
         font-size:36px
     }
 }
+/*Styling Specific to about page*/
 .bio>a{
     color:#212529;
     text-decoration: none;
@@ -119,8 +119,16 @@ questions for later.*/
     text-decoration: none;
     color:#228B22;
 }
-
-
+/*Styling for blog page content*/
+.post>a{
+    color:#212529;
+    text-decoration: underline;
+    font-weight: bold;
+}
+.post>a:hover,
+.post>a:focus{
+    color:#228B22;
+}
 
 
 
