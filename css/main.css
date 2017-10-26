@@ -87,6 +87,9 @@ Author's custom styles
 .post-preview>a{
     color:#404040
 }
+.post-preview>a>h2{
+    font-weight: bold;
+}
 .post-preview>a:hover,
 .post-preview>a:focus{
     text-decoration:none;
