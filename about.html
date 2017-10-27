@@ -57,6 +57,26 @@
                     <p class="bio">Hi! My name is Chev, and I'm a 3<sup>rd</sup> year Computer Science student at Northeastern University. Outside of coding I like to <a href="https://http://chevstravels.blogspot.com/">travel</a>, read books, and play <a href="https://tappedout.net/users/Nero64/mtg-decks/">Magic: The Gathering.</a></p>
                     <p class="bio">What drew me to Computer Science in the first place was the ability to create something out of nothing. Anyone can sit down on a Sunday afternoon and create a website or build a <a href="https://github.com/oakreid/Commander-Damage-Tracker">cool app with their friend,</a> and that's just incredible. I love what Computer Science has given me the power to do and I want to share that with others.</p>
                     <p class="bio">If you like what you see or are interested in any of the projects I've mentioned, there are links to my gitHub and LinkedIn at the bottom of the page and a download link for my resume! Let me know what you think!</p>
+                    <h2 id="about-head"></h2>
+                    <p id="about-text"></p>
+                    <button onclick="work()">Work</button>
+                    <button onclick="school()">School</button>
+                    <!--Attempting image button-->
+                    <button id="close-image" onclick="travel()"></button>
+                    <script>
+                        function work() {
+                            document.getElementById("about-head").innerHTML="GMO";
+                            document.getElementById("about-text").innerHTML="My first co-op";
+                        }
+                        function school() {
+                            document.getElementById("about-head").innerHTML="Northeastern University";
+                            document.getElementById("about-text").innerHTML="My Alma Mater";
+                        }
+                        function travel() {
+                            document.getElementById("about-head").innerHTML="Kunming China";
+                            document.getElementById("about-text").innerHTML="My Study Abroad";
+                        }
+                    </script>
                     <p class="resume">
                         <a href="/Resume.pdf" download>Download resume (.pdf)</a>
                     </p>
