@@ -22,7 +22,8 @@
         <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
         <!-- -->
-        <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+        <!--Custom javascript for picture links-->
+        <script src="js/picture-story.js"></script>
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
@@ -54,32 +55,23 @@
         <main role="main" class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 blog-main mx-auto">
-                    <p class="bio">Hi! My name is Chev, and I'm a 3<sup>rd</sup> year Computer Science student at Northeastern University. Outside of coding I like to <a href="https://http://chevstravels.blogspot.com/">travel</a>, read books, and play <a href="https://tappedout.net/users/Nero64/mtg-decks/">Magic: The Gathering.</a></p>
-                    <p class="bio">What drew me to Computer Science in the first place was the ability to create something out of nothing. Anyone can sit down on a Sunday afternoon and create a website or build a <a href="https://github.com/oakreid/Commander-Damage-Tracker">cool app with their friend,</a> and that's just incredible. I love what Computer Science has given me the power to do and I want to share that with others.</p>
-                    <p class="bio">If you like what you see or are interested in any of the projects I've mentioned, there are links to my gitHub and LinkedIn at the bottom of the page and a download link for my resume! Let me know what you think!</p>
+                    <p class="bio">Hi! My name is Chev, and I'm a 3<sup>rd</sup> year Computer Science student at Northeastern University. </p>
+                    <p class="bio">Select a picture to learn more!</p>
                     <h2 id="about-head"></h2>
                     <p id="about-text"></p>
-                    <button onclick="work()">Work</button>
-                    <button onclick="school()">School</button>
-                    <!--Attempting image button-->
-                    <button id="close-image" onclick="travel()"></button>
-                    <script>
-                        function work() {
-                            document.getElementById("about-head").innerHTML="GMO";
-                            document.getElementById("about-text").innerHTML="My first co-op";
-                        }
-                        function school() {
-                            document.getElementById("about-head").innerHTML="Northeastern University";
-                            document.getElementById("about-text").innerHTML="My Alma Mater";
-                        }
-                        function travel() {
-                            document.getElementById("about-head").innerHTML="Kunming China";
-                            document.getElementById("about-text").innerHTML="My Study Abroad";
-                        }
-                    </script>
-                    <p class="resume">
-                        <a href="/Resume.pdf" download>Download resume (.pdf)</a>
-                    </p>
+                    <div class="resume-pictures">
+                        <a href="#"><button id="school-image" onclick="school()">Northeastern</button></a>
+
+                        <a href="#"><button id="china-image" onclick="china()"></button></a>
+
+                        <a href="#"><button id="gmo-image" onclick="work()"></button></a>
+
+                        <a href="#"><button id="italy-image" onclick="italy()"></button></a>
+
+                        <a href="#"><button id="home-image" onclick="home()"></button></a>
+
+                        <a href="#"><button id="hobby-image" onclick="hobby()">Hobbies</button></a>
+                    </div>
                 </div>
             </div>
         </main>
@@ -114,9 +106,7 @@
 
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
 
-        <script src="/js/vendor/bootstrap.min.js"></script>
-
-        <script src="/js/main.js"></script>
+        <script src="/js/bootstrap.min.js"></script>
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
         <script>
