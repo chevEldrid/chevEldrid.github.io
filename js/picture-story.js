@@ -4,7 +4,7 @@ function work() {
 }
 function school() {
     document.getElementById("about-head").innerHTML="Northeastern University";
-    document.getElementById("about-text").innerHTML="Located in the heart of Boston, Northeastern has given me many of the tools I need to pursue a career in tech. From tutoring Fundamentals of Computer science to building a website from scratch with my fraternity. Nothing has seemed impossible.";
+    document.getElementById("about-text").innerHTML="Located in the heart of Boston, Northeastern has given me many of the tools I need to pursue a career in tech. From tutoring Fundamentals of Computer science to building a website from scratch with my fraternity, nothing has seemed impossible.";
 }
 function china() {
     document.getElementById("about-head").innerHTML="Kunming, China";
@@ -20,5 +20,5 @@ function home() {
 }
 function hobby() {
     document.getElementById("about-head").innerHTML="Hobby";
-    document.getElementById("about-text").innerHTML="Outside of coding I like to read books, travel, and play Magic the Gathering.";
+    document.getElementById("about-text").innerHTML="Outside of coding I like to read books, travel, and play Magic the Gathering. I also really enjoy videogaming";
 }
