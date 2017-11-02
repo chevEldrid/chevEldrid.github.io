@@ -1,24 +1,24 @@
 function work() {
     document.getElementById("about-head").innerHTML="GMO";
-    document.getElementById("about-text").innerHTML="I spent my first co-op at GMO, an asset management company located at Rowes Wharf in Boston. As part of the Data Governance team I was responsible for maintaining lineage for market data and creating a comprehensive user interface for the rest of the company to access the information.";
+    document.getElementById("about-text").innerHTML="For my first six-month co-op I knew I wanted to do something a little different than straight Computer Science. I wanted to work in an industry that applied the methods I was taught but built off of them. So I accepted a position at GMO, an asset management company as part of the Data Governance team. I use mostly SQL and a Data management platform in my day-to-day. What I <i>really</i> want to do is continue adding automation to the Data Governance workflow, so far its all been in-platform but I look forward to learning about API connectivity in creating external scripts to do some of the more menial data science work>";
 }
 function school() {
     document.getElementById("about-head").innerHTML="Northeastern University";
     document.getElementById("about-text").innerHTML="Located in the heart of Boston, Northeastern has given me many of the tools I need to pursue a career in tech. From tutoring Fundamentals of Computer science to building a website from scratch with my fraternity, nothing has seemed impossible.";
 }
 function china() {
-    document.getElementById("about-head").innerHTML="Kunming, China";
-    document.getElementById("about-text").innerHTML="Last summer I spent a month in Southern China studying Mandarin. It was an amazing experience that really helped me decide I wanted to pursue a minor in Chinese.";
+    document.getElementById("about-head").innerHTML="China";
+    document.getElementById("about-text").innerHTML="For a few years now I've wanted to study Mandarin, learn something so incredibly different from English or any other western language. So last summer when I was given the opportunity to travel to Kunming, China and study for a half semester at Yunnan University I jumped on it! While I started formal Mandarin studies the year before, I was not at all prepared for the demands of total immersion. That being said, apart from once trying to order milk tea from a Dumpling shop... I did reasonably okay! Spending mornings in class and afternoons exploring the city with local language partners it really was an unforgettable experience.";
 }
 function italy() {
     document.getElementById("about-head").innerHTML="Italy";
-    document.getElementById("about-text").innerHTML="In the summer after my Freshman year of college I travelled across Italy to learn about science and technology after the Roman Empire. Over the course of a month I travelled with a group of Northeastern students from Rome to Venice learning everything from the economics of Coffee to the best Aqueduct practices.";
+    document.getElementById("about-text").innerHTML="One of the things I love to do most is travel: be it just a road trip with friends or spending a summer studying abroad I try to take every opportunity I can. After Freshman year, I joined a Northeastern program that spent a month exploring Italy. Focusing on science and technological developments after the Roman Empire, we spent a lot of the time learning about the Rennaissance and the many revolutions of the time period. Be it the expansive influence of Da Vinci or the economics of coffee, there was always something new to learn. I really do hope to get back some day.";
 }
 function home() {
-    document.getElementById("about-head").innerHTML="Home";
-    document.getElementById("about-text").innerHTML="I was born and raised in Saratoga Springs, a small city in Upstate New York.";
+    document.getElementById("about-head").innerHTML="Saratoga Springs, New York";
+    document.getElementById("about-text").innerHTML="Saratoga is home to a racetrack and the site of a critical Revolutionary War battle. Personally, I'm more interested in the nearby orchards, driving to Taco Bell at 2 A.M. for some Baja Blast, going downtown to play firsbee in the park, or kayaking in the Summer. I think Saratoga is a fantastic town to grow up in, and I still try to visit home whenever I can.";
 }
 function hobby() {
-    document.getElementById("about-head").innerHTML="Hobby";
-    document.getElementById("about-text").innerHTML="Outside of coding I like to read books, travel, and play Magic the Gathering. I also really enjoy videogaming";
+    document.getElementById("about-head").innerHTML="Hobbies";
+    document.getElementById("about-text").innerHTML="When I'm not working or otherwise coding I like to do any number of things: whether it be meeting up with a friend to play some videogames, getting together with high school buddies for some <i>Magic: The Gathering</i>, or just spending an afternoon reading a book. I feel it's important to find a balance. ";
 }
