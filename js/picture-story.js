@@ -20,5 +20,5 @@ function home() {
 }
 function hobby() {
     document.getElementById("about-head").innerHTML="Hobbies";
-    document.getElementById("about-text").innerHTML="When I'm not working or otherwise coding I like to do any number of things: whether it be meeting up with a friend to play some videogames, getting together with high school buddies for some <i>Magic: The Gathering</i>, or just spending an afternoon reading a book. I feel it's important to find a balance. ";
+    document.getElementById("about-text").innerHTML="When I'm not working or otherwise coding I like to do any number of things: whether it be meeting up with a friend to play some videogames, getting together with high school buddies for some <i>Magic: The Gathering</i>, going on an <a href='http://chevstravels.blogspot.com/'>adventure</a>, or just spending an afternoon reading a book. I feel it's important to find a balance. ";
 }
