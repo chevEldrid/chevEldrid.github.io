@@ -1,6 +1,6 @@
 {
     "icons": [{
-        "src": "icon.png",
+        "src": "mountainIcon.png",
         "sizes": "192x192",
         "type": "image/png"
     }],
