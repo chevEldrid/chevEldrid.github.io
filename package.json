@@ -1,5 +1,5 @@
 {
-  "name": "my-website",
+  "name": "cheveldrid",
   "version": "1.0.0",
   "description": "My website",
   "main": "app.js",
@@ -7,19 +7,22 @@
     "doc": "doc"
   },
   "scripts": {
-    "test": "echo \\\"Error: no test specified\\\" &amp;&amp; exit 1"
+    "test": "standard && node my-tests.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/chevEldrid/Personal-Website.git"
+    "url": "git+https://github.com/chevEldrid/chevEldrid.github.io.git"
   },
   "author": "Chev Eldrid",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/chevEldrid/Personal-Website/issues"
+    "url": "https://github.com/chevEldrid/chevEldrid.github.io/issues"
   },
-  "homepage": "https://github.com/chevEldrid/Personal-Website#readme",
+  "homepage": "https://github.com/chevEldrid/chevEldrid.github.io#readme",
   "dependencies": {
-    "popper.js": "^1.12.5"
+    "bootstrap": "^4.0.0-alpha.6",
+    "jquery": "^3.2.1",
+    "popper.js": "^1.12.7",
+    "tooltip.js": "^1.1.7"
   }
 }
