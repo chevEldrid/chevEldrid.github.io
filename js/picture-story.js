@@ -1,4 +1,3 @@
-
 function work() {
     "use strict";
     document.getElementById("about-head").innerHTML = "GMO";
