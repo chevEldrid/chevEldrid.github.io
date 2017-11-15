@@ -1,0 +1,65 @@
+/**
+ * Tooltip Styles
+ * Original Author and Inspiration: https://codepen.io/cbracco/pen/qzukg
+ */
+/*Specifically color of tooltip box*/
+/*Positioning for tooltip box + arrow in relation to tooltipped content*/
+/* Attribute required for things that need the tooltip */
+/* Also didn't know you could make custom attributes...so that's awesome */
+[data-tooltip] {
+  position: relative;
+  z-index: 2;
+  cursor: pointer;
+  /* Before the tooltip is selected, set the tooltip to invisible and transparent */
+  /* Actual positioning of the tooltip */
+  /* Triangle hack to make tooltip look like a speech bubble */ }
+  [data-tooltip]:before, [data-tooltip]:after {
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none; }
+  [data-tooltip]:before {
+    position: absolute;
+    /*Pertentange-based distance above*/
+    bottom: 150%;
+    /*Pertentage-based distance horizontal*/
+    left: 50%;
+    /*Vertical Distance from original content, 
+    Could be manipulated to change tooltip position*/
+    margin-bottom: 5px;
+    /*Horizontal Distance*/
+    margin-left: -80px;
+    /*padding above and below words in tooltip*/
+    padding: 10px;
+    /*Set width of tooltip*/
+    width: 160px;
+    /*rounded corners of tooltip*/
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    /*Color for tooltip, using og rgb and newer hsla formats*/
+    background-color: #000;
+    background-color: rgba(51, 51, 51, 0.9);
+    /*Color of tooltip content*/
+    color: #fff;
+    content: attr(data-tooltip);
+    text-align: center;
+    font-size: 14px;
+    line-height: 1.2; }
+  [data-tooltip]:after {
+    position: absolute;
+    bottom: 150%;
+    left: 50%;
+    margin-left: -5px;
+    width: 0;
+    border-top: 5px solid #000;
+    border-top: 5px solid rgba(51, 51, 51, 0.9);
+    border-right: 5px solid transparent;
+    border-left: 5px solid transparent;
+    content: " ";
+    font-size: 0;
+    line-height: 0; }
+  [data-tooltip]:hover:before, [data-tooltip]:hover:after {
+    visibility: visible;
+    opacity: 1; }
+
+/*# sourceMappingURL=tooltip.css.map */
