@@ -6,3 +6,4 @@ node_modules
 #source files (.scss and the like)
 src
 .sass-cache
+blog/postTemplate.html
