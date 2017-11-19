@@ -4,3 +4,4 @@
 User-agent: *
 Disallow: /blog/
 Disallow: /about.html
+Sitemap: https://cheveldrid.github.io/sitemap.xml
