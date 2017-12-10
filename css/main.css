@@ -235,3 +235,7 @@ button {
     float: left; } }
 
 /*# sourceMappingURL=main.css.map */
+#term {
+    height: 300px;
+    width: default;
+}
