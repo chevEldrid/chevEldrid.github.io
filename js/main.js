@@ -164,15 +164,15 @@ var hQ = {
 };
 
 function hQItemsReport(term) {
-    term.echo('Report')
+    term.echo('You reach the office of Agent X, pause for a moment to collect yourself outside, and proceed with some apprehension. Surely she\'ll want to hear about Nicaragua...');
 };
 
 function hQItemsCallHome(term) {
-    term.echo('Call home');
+    term.echo('You decide to spend a moment phoning home. After all, it has been a while. Ever since the robbery...');
 };
 
 function hQItemsLeave(term) {
-    term.echo('Leave');
+    term.echo('You\'ve done all you came here to do. Now time to scedaddle.');
 };
 /*
     =========================================================
@@ -185,7 +185,7 @@ jQuery(document).ready(function($) {
 	//attempt at array of commands
     loadRoom(SPoker);
 	if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-        window.location.href = "https://www.linkedin.com/in/sacheverel-eldrid-497057135/";
+        window.location.href = "https://github.com/chevEldrid/chevEldrid.github.io/blob/master/js/main.js";
     } else {
 		//this holds the interpreter function...where we figure out what to do with the text
 		$('#term').terminal(function(input) {
