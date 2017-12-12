@@ -208,7 +208,12 @@ button {
 
   #hobby-image {
     background-image: url("/img/hobbies.jpg");
-    float: none; } }
+    float: none; } 
+    
+  #coding-image {
+      background-image: url("/img/coding.jpg");
+      float: none; }
+}
 @media (min-width: 1001px) {
   #china-image {
     background-image: url("/img/china-button.jpg");
@@ -232,7 +237,10 @@ button {
 
   #home-image {
     background-image: url("/img/saratoga-lake.jpg");
-    float: left; } }
+    float: left; }
+
+  #coding-image {
+    background-image: url("/img/coding.jpg"); } }
 
 /*# sourceMappingURL=main.css.map */
 #term {

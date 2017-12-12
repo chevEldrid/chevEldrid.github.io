@@ -1,11 +1,11 @@
 $(document).ready(function(){
 	$("#home-image").click(function(){
         $("#about-head").text("Home");
-		$("#about-text").html("Saratoga is home to a racetrack and the site of a critical Revolutionary War battle. Personally, I'm more interested in the nearby orchards, driving to Taco Bell at 2 A.M. for some Baja Blast, going downtown to play firsbee in the park, or kayaking in the Summer. I think Saratoga is a fantastic town to grow up in, and I still try to visit home whenever I can.");
+		$("#about-text").html("Saratoga is home to a racetrack and the site of a critical Revolutionary War battle. Personally, I'm more interested in the nearby orchards, driving to Taco Bell at 2 A.M. for some Baja Blast, going downtown to play firsbee in the park, or kayaking in the summer. I think Saratoga is a fantastic town to grow up in, and I still try to visit home whenever I can.");
 	});
 	$("#china-image").click(function(){
         $("#about-head").text("China");
-		$("#about-text").html("For a few years now I've wanted to study Mandarin, learn something so incredibly different from English or any other western language. So last summer when I was given the opportunity to travel to Kunming, China and study for a half semester at Yunnan University I jumped on it! While I started formal Mandarin studies the year before, I was not at all prepared for the demands of total immersion. That being said, apart from once trying to order milk tea from a Dumpling shop... I did reasonably okay! Spending mornings in class and afternoons exploring the city with local language partners it really was an unforgettable experience.");
+		$("#about-text").html("For a few years now I've wanted to study Mandarin, learn something so incredibly different from English or any other western language. So last summer when I was given the opportunity to travel to Kunming, China and study for a half semester at Yunnan University I jumped on it! While I started formal Mandarin studies the year before, I was not at all prepared for the demands of total immersion. That being said, apart from once trying to order milk tea from a dumpling shop... I did reasonably okay! Spending mornings in class and afternoons exploring the city with local language partners it really was an unforgettable experience.");
     });
 	$("#gmo-image").click(function(){
         $("#about-head").text("Work");
@@ -21,6 +21,10 @@ $(document).ready(function(){
     });
 	$("#school-image").click(function(){
         $("#about-head").text("Northeastern University");
-		$("#about-text").html("Located in the heart of Boston, Northeastern has given me many of the tools I need to pursue a career in tech. From tutoring Fundamentals of Computer science to building a website from scratch with my fraternity, nothing has seemed impossible.");
+		$("#about-text").html("Located in the heart of Boston, Northeastern has given me many of the tools I need to pursue a career in tech. From tutoring Fundamentals of Computer Science to building a <a href='http://nufiji.com/'>website</a> from scratch with my fraternity, nothing has seemed impossible.");
+    });
+    $("#coding-image").click(function(){
+        $("#about-head").text("Programming Languages");
+        $("#about-text").html("Over the past few years I've come into contact with a lot of different languages, each with their own subtle differences. Some of the ones I feel most comfortable using are (click on the language names to see examples):<ul><li><a href='https://github.com/oakreid/Commander-Damage-Tracker'>Java</a></li><li><a href='https://github.com/chevEldrid/chevEldrid.github.io'>HTML and CSS</a></li><li><a href='https://github.com/chevEldrid/chevEldrid.github.io/tree/master/js'>JavaScript</a></li></ul>");
     });
 });
