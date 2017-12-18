@@ -170,7 +170,7 @@ function use(term, args) {
 			var thingName = things[i].name.toUpperCase();
 			if(thingName == args.toUpperCase()) {
 				exists = true;
-				if(things[i].cond) {
+				if(things[i].cond()) {
 					things[i].use(term);
 					player.backpack.splice(i, 1);
 				}
@@ -268,7 +268,7 @@ function parseInput(input) {
 */
 function createCharacter() {
 	player = {
-		name: 'Agent X',
+		name: 'Agent Zed',
 		pronoun: 'they',
 		backpack: [],
 		money: 50,
@@ -290,7 +290,14 @@ function endHijack() {
 	hijack = false;
 	promptPos = 0;
 }
-
+/*
+	PURPOSE: Return a random integer within the supplied range
+*/
+function getRandomInt(min, max) {
+	min = Math.ceil(min);
+	max = Math.floor(max);
+	return Math.floor(Math.random() * (max - min)) + min;
+};
 /*
     =========================================================
     |           Specific Rooms and functions                |
@@ -302,7 +309,7 @@ var pokerChip = {
 	name: 'poker chip',
 	desc: 'a blue poker chip with a skull in the center',
 	takeable: true,
-	cond: false,
+	cond: function() {return false;},
 	use: function(term) {}
 };
 var ashTray = {
@@ -319,7 +326,7 @@ var matchBook = {
 	name: 'match book',
 	desc: 'a small book of matches with what looks like an old ship wheel on the front.',
 	takeable: true,
-	cond: false
+	cond: function() {return false;}
 };
 //The Bar itself
 var theBar = {
@@ -418,7 +425,6 @@ function pokerRaise(term) {
 	basicEcho('Eventually. the fifth card in the center is flipped and you find among the cards two Jacks and a 2 staring back. Full House. You\'ve won! Deciding that\'s enough for one day you get up to leave...', term);
 	pokerBacktoBar(term);
 };
-
 /*
 	PURPOSE: Story progression if you call the bet in the card game
 	SIDE EFFECTS: player will either lose health or money
@@ -453,41 +459,140 @@ var warehouseBandages = {
 	name: 'bandages',
 	desc: 'Some gauze and medical tape',
 	takeable: true,
-	cond: function() {return (player.health <= 90);},
-use: function(term) { player.health += 10; basicEcho('You wrap the guaze around your stomach, wincing through the process but feeling better for it', term);}
+	cond: function() {return player.health <= 90;},
+	use: function(term) { player.health += 10; basicEcho('You wrap the guaze around your stomach, wincing through the process but feeling better for it', term);}
 };
-
+var warehouseGun = {
+	name: 'pistol',
+	desc: 'a small pistol, probably owned by one of the currently snoozing assailants',
+	takeable: true,
+	cond: function() {return false;}
+};
 var warehouse = {
 	name: 'Warehouse',
 	desc: 'The Warehouse smells faintly of oil and rust. It\'s been a long time since the days it probebly housed a car assembly line, but the stains on the floor indicate it hasn\'t been unoccupied',
-	items: [warehouseBandages],
+	items: [warehouseBandages, warehouseGun],
 	actions: ['follow her'],
 	effects: [leaveWarehouse]
 };
-
+/*
+	PURPOSE: To provide an exit to the Car and feature more dynamic situations with checking backpack for items.
+	SIDE EFFECTS: Changes room and available actions.
+*/
 function leaveWarehouse(term) {
-	loadRoom(hQ);
+	if(player.backpack.includes(warehouseGun)) {
+		basicEcho('"Glad to see you\'re not the dawdling type, let\'s move"', term);
+		basicEcho('She takes one of your arms and rests it on her shoulders, hoping to take some of the weight off while simultaneously speeding up your exit into the street.', term); 
+		basicEcho('An idling car\'s driver chastises her for taking so long and motions for the two of you to hurry it up and get into the back seat. The sound of squealing tires isn\'t far off.', term);
+		basicEcho('Before you\'re even fully in the small car, the impatiant driver guns the engine and rockets down the cobblestone road.', term);
+		loadRoom(carRoom);
+	}
+	else {
+		basicEcho('"You sure you want to leave that here? It\'ll do us more good than it\'ll do them..." your companion says frankly, motioning towards the weapon on the ground a few feet away',term);
+	}
 };
+//Room 4 - Car
+//An attempt at a more action and timing based sequence in a text adventure...because reasons
+var carBottle = {
+	name: 'bottle',
+	desc: 'A half filled bottle of rum rolling around on the floor of the back seat',
+	takeable: true,
+	cond: function() {return (curRoom === carRoom);},
+	use: function(term) {basicEcho('You pull out the bottle, "Hey gimme that," the other backseat occupant says, she turns to the driver. "Nigel, pass me my lighter and that rag. With any luck..." she tosses the molotov out of the window, hitting the oncoming car directly in the windshield. Direct hit.', term); carRoom.enemyHealth -= 20; }
+};
+var carRoom = {
+	name: 'Car',
+	desc:'The car is barrelling down small, windy roads narrowly avoiding certain death every few seconds. Gunshots ring out and bullets ricochet off of the small frame. You hope this isn\'t a rental.',
+	items: [carBottle],
+	actions: ['shoot', 'talk to driver'],
+	effects: [carShoot, function(term) { basicEcho('"I\'m a little busy! Try shooting back!"', term);}],
+	enemyHealth: 50
+};
+/*
+	PURPOSE: To fire at the pursuing cars
+	SIDE EFFECTS: May cause health decrease
+*/
+function carShoot(term) {
+	basicEcho('You twist your body out of the side window and aim at the oncoming shooters', term);
+	var odds = getRandomInt(1, 6);
+	if(odds === 5) {
+		player.health -= 10;
+		basicEcho('A bullet grazes your shoulder, you cry out and miss the shot.', term);
+		basicEcho('"Keep trying!" Yells the driver.', term);
+	}
+	else {
+		if(odds === 3) {
+			carRoom.enemyHealth -= 20;
+			basicEcho('Critical hit! You\'ve shot a tire! Someone in your car cheers.', term);
+		}
+		else {
+			carRoom.enemyHealth -= 10;
+			basicEcho('You manage to hit the other car, blowing out a window', term);
+		}
+		
+		if(carRoom.enemyHealth >= 30) {
+			basicEcho('"Just keep firing!"', term);
+		}
+		else if(carRoom.enemyHealth < 30 && carRoom.enemyHealth > 10) {
+			basicEcho('"I think I can see the engine smoking! A couple more shots should do it!"', term);
+		}
+		else if(carRoom.enemyHealth > 0){
+			basicEcho('"It\'s on its last legs now! Finish it off!"', term);
+		}
+		else {
+			basicEcho('With a magnificant bang, the front of your pursuers\' car erupts in flames and the warped mass of metal shutters to a stop. You\'ve made it.', term);
+			basicEcho('After a few more tense minutes evading authorities, everyone is finally calm enough for introductions. You find yourself sharing a car with two fellow Agents: X and Y. The Driver, Y, tells you you\'re all on your way back to HQ for debriefing', term);
+			loadRoom(hQ);
+			basicEcho(curRoom.desc, term);
+		}
+	}
+};
+
+
 //Room 5 - HQ
-var hQItems = [];
+var hQPicture = {
+	name: 'framed photo',
+	desc: 'You pick up the small framed photo that has sat on your desk for months. You smile, remembering how happy that day was with Eliza',
+	takeable: false
+};
+var hQPlant = {
+	name: 'desk plant',
+	desc: '...you probably should have watered it around 3 months ago. It\'s been dead a while.',
+	takeable: false
+};
+var lighter = {
+	name: 'lighter',
+	desc: 'It\'s a small silver lighter from your father.',
+	takeable: true,
+	cond: function() {return false; }
+};
+var hQburger = {
+	name: 'burger',
+	desc: 'takeout from yesterday, never did manage to finish it...your stomach growls its opinion.',
+	takeable: true,
+	cond: function() {return(player.health <= 95);},
+	use: function(term) {player.health += 5; basicEcho('You finish off the burger, probably the first solid food you\'ve had since last night', term);}
+};
+//The actual Room
 var hQ = {
     name: 'Headquarters',
     desc: 'A hollowed-out enclave deep under London full of state-of-the-art equipment capable of amazing things. Agents bustle in every direction, each on their own mission to save the world.',
-    items: hQItems,
+    items: [hQPicture, hQPlant, lighter, hQburger],
     actions: ['report', 'call home', 'leave'],
     effects: [hQItemsReport, hQItemsCallHome, hQItemsLeave]
 };
 
 function hQItemsReport(term) {
-    term.echo('You reach the office of Agent Y, pause for a moment to collect yourself outside, and proceed with some apprehension. Surely she\'ll want to hear about Nicaragua...');
+    basicEcho('After taking a few moments to collect yourself, you decide it\'s time to head to the debriefing...and receive word on your next assignment!', term);
+	basicEcho('---------------\nAt this point Chapter 1 is now over, feel free to continue looking around the base or start over with [F5] (Although I will warn you, this chapter is heavily scripted so not much will change). Stay tuned for more!', term);
 };
 
 function hQItemsCallHome(term) {
-    term.echo('You decide to spend a moment phoning home. After all, it has been a while. Ever since the robbery...');
+    basicEcho('It has been a while since you\'ve called home...maybe Mom and Dad deserve a ring.\nIt\'s a pleasant enough conversation, of course you can\'t tell them anything about your job, but they do love hearing about your weekends in Europe.', term);
 };
 
 function hQItemsLeave(term) {
-    term.echo('You\'ve done all you came here to do. Now time to scedaddle.');
+    basicEcho('You stand up and walk towards the exit, but remember you probably shouldn\'t leave without that debriefing...', term);
 };
 /*
     =========================================================
@@ -499,7 +604,7 @@ function hQItemsLeave(term) {
 jQuery(document).ready(function($) {
 	//GAME INITIALIZERS
 	//loads starting room
-    loadRoom(theBar);
+    loadRoom(hQ);
 	//Creates a generic character
 	createCharacter();
 	if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
@@ -507,27 +612,35 @@ jQuery(document).ready(function($) {
     } else {
 		//this holds the interpreter function...where we figure out what to do with the text
 		$('#term').terminal(function(input) {
-			//"If you are currently not in the middle of doing something else..."
-			if(!hijack) {
-				//calls parsing function
-				//literally no idea why I have to do this...by this I mean the saving the extras as args
-				var args = parseInput(input);
-				var known = false;
-				for(i = 0; i < actions.length; i++) {
-					if(command.toUpperCase() === actions[i].toUpperCase()) {
-						known = true;
-						effects[i](this, args);
-						//storing previous command for potential hijack
-						prevAction = effects[i];
-						break;
+			//"If you're currently not dead..."
+			if(player.health > 0) {
+				//"If you are currently not in the middle of doing something else..."
+				if(!hijack) {
+					//TO PUT SOME SPACE IN THE TERMINAL AND BREAK IT UP A LITTLE
+					this.echo(' ');
+					//calls parsing function
+					//literally no idea why I have to do this...by this I mean the saving the extras as args
+					var args = parseInput(input);
+					var known = false;
+					for(i = 0; i < actions.length; i++) {
+						if(command.toUpperCase() === actions[i].toUpperCase()) {
+							known = true;
+							effects[i](this, args);
+							//storing previous command for potential hijack
+							prevAction = effects[i];
+							break;
+						}
+					}
+					if(!known) {
+						this.echo('unknown command, if you\'re stuck, type "help" for options!', {keepWords: true});
 					}
 				}
-				if(!known) {
-					this.echo('unknown command, if you\'re stuck, type "help" for options!', {keepWords: true});
+				else {
+					prevAction(this, input);
 				}
 			}
 			else {
-				prevAction(this, input);
+				this.echo('Well, you\'re dead. That kinda blows. Press [F5] to try again!', {keepWords: true});
 			}
 		}, {
 		//this is the second: descriptors
@@ -536,3 +649,4 @@ jQuery(document).ready(function($) {
     });
     }
 });
+
