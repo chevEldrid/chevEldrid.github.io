@@ -1,0 +1,132 @@
+<!doctype html>
+<html class="no-js" lang="en">
+    <head>
+        <meta name="robots" content="noindex" />
+         <!--Meta data organized, based on MDN info -->
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">       
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+            <link rel="mountainIcon" href="mountainIcon.png">
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+        <style>
+            body {
+                font-family: 'Ubuntu', sans-serif;
+                padding-top: 50px;
+                padding-bottom: 20px;
+                margin:0;
+            }
+        </style>
+            <link rel="stylesheet" href="/css/main.css">
+        <!-- Custom Fonts -->
+            <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+            <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+        <!--Title of page-->
+        <title>Introduction to OpenGL</title>
+        <!--consistent across pages-->
+        <meta property="og:type" content="website">
+        <meta property="og:site_name" content="Chev Eldrid's Design Blog">
+        <!--Different by page-->
+        <meta propert="og:title" content="Introduction to OpenGL">
+        <!--tooltips!-->
+        <link rel="stylesheet" href="/css/tooltip.min.css">
+    </head>
+    <body>
+        <nav class="navbar navbar-default navbar-expand-lg navbar-light bg-light fixed-top">
+             <div>
+            <a class="navbar-brand" href="https://cheveldrid.github.io">Home</a>
+            <a class="navbar-brand" href="/blog">Blog</a>
+            <a class="navbar-brand" href="/about">About</a>
+            </div>
+        </nav>
+        <!--Put a new photo in here-->
+        <header class="intro-header" style="background-image: url('/img/viewFromEden.jpg')" title="Sunset from Mt. Eden, Spring 2018">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 mx-auto">
+                        <div class="site-heading">
+                            <h1 class="post-name">Introduction to OpenGL</h1>
+                            <p class="post-name"><i>March 9, 2018</i></p>
+                        </div>
+                    </div>
+                </div>
+            </div>   
+        </header>
+
+        <!-- The Main Blog section of the website -->
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 blog-main mx-auto">
+
+                    <p class="post">It's crazy to think I'm already almost done with the second week of classes, but time really does fly here. Hopefully I remain this on top of my assignments for the rest of this semester...</p>
+                    <h2>OpenGL</h2>
+                    <p class="post">For a long time I've wanted to be a game designer. Taking amazing stories and building them into experiences for a wide audience to enjoy seems like a dream come true. Multiple times I would get together with some of my closest friends and draft up complicated ideas and mechanics that seemed no farther than an intense afternoon away. Yet, there was always a hurdle that stunted progress past the mid-eighties. The reason why I've primarily stuck with designing in text windows, or "Text-Adventures," has been my complete and total fear of graphics. Where do they come from? How do you make them? What sorcery allows sprites to jump or characters in FPS-style games to aim down sights? Sure, I'm familiar with the ideas of Sprite sheets or 3D modelling, but only at a very high level. Finding I learn best in a structured environment this illogical fear of pictures is part of what made me take Computer Graphics here at the University of Auckland. I wanted to know how these things work at a base level, how to understand terminology with CG and eventually, how to incorporate graphics into experiences in games and software that extend past white text on a black screen. </p>
+                    <p class="post">Enter, OpenGL. Introduced to us on the second day of class OpenGL is "...a cross-language, cross-platform application programming interface (API) for rendering 2D and 3D vector graphics." (<a href="https://en.wikipedia.org/wiki/OpenGL">Wikipedia</a>) The first building block of many modern graphic design programs. While big designers might not go down to the OpenGL level over say, <a href="https://www.autodesk.com/products/maya/overview">Autodesk Maya</a>, it's still incredibly helpful to understand on what base programs like Maya are being run.</p>
+                    <p class="post">
+                        <img src="/img/visualStudioCode.PNG" class="img-fluid" alt="Visual Studio displaying shape code">
+                    </p>
+                    <h2>Visual Studio</h2>
+                    <p class="post">The way we would be using OpenGL is through a C++ library in an online tool with instructions provided to us on how to install the setup at home if you wished. Knowing how often I'm going to want to tinker with design and just mess around I knew setting up a home environment was a must, and the easiest way appeared to be through Visual Studio. A little background: one of the first languages I was introduced to when I started getting into programming was C++. I haven't used it quite as much as Java but through classes like embedded design it hasn't strayed too far from my mind. I was used to Netbeans mostly but thought, foolishly, how hard can Visual Studio be to learn? The answer in my case was very. Initial installation wasn't so much a problem, nor was setting up my first program. So for using base C++ functionality Visual Studio is pretty great, it takes almost no time to create and test .exe files or programs with constant feedback from the software. However when it comes to adding external libraries, sometimes Visual is a nightmare. Since almost every installation has a different setup, knowing where to put library and header files in the swamp of directories is a nightmare. Most of the advice online is outdated by the time you find it and then digging around yourself if you don't know exactly what you're looking for can be like feeling your way through a labrynth. Eventually, I had given up on actually putting OpenGL files directly onto my computer and instead using the built-in package installer for Visual. This is a good solution, but does require installing the packages with every project. It wasn't until another student in my class pointed out exaclty where to store the files in Visual Studio Community Edition 2017 that I got libraries working correctly with no package installation. It was a lot of work creating my first circle.</p>
+                    <p class="post">That being said, since the initial installation using OpenGL has worked wonderfully and testing homework problems by spinning them up or learning the differences between a <a href="https://www.khronos.org/registry/OpenGL-Refpages/gl2.1/xhtml/glBegin.xml">triangle fan and triangle strip </a> has been a relatively great time!</p>
+                    <p class="post">
+                        <img src="/img/visualStudioShape.PNG" class="img-fluid" alt="Example shape from Visual Studio">
+                    </p>
+                    <p class="post">This is the shape created by the code above. In the most simplistic terms, your openGL program will consist of three parts: main, init, and display. The main function does what you would expect it to do and after initializing your program, displays the graphic you've created. The window around the graphic is defined in the init() function identifying the overall size of the window while the display() function does the actual graphic definition.</p>
+                    <p class="post">Looking closesly at the code pictured above you will see two key method calls: glBegin(), and glEnd(). Inbetween these two I've called a very simplistic helper method that basically places vertices from a list above onto the window created by init(). Then, depending on the argument in glBegin, these verteces will be connected into some kind of shape which here is a "Triangle Fan"; using the initial vertex, trangles are traced with every subsequent pair of verteces back to the original vertex. It's really cool! Even if it takes a minute to wrap your head around. </p>
+                    <h2>Coming Soon...</h2>
+                    <p class="post">Of course 2-Dimensional graphics don't go as far as they used to with modern applications so starting this week I've begun to learn about 3D figures and the crazy math behind lighting and shadow effects. Definitely more of a learning curve but not impossible! I'll be updating next week with more info on those more intense features but for now enjoy making some simple shapes! A great tutorial I found for this stuff is linked <a href="http://in2gpu.com/2014/11/29/setting-opengl-visual-studio-using-nuget/">here</a>. It also goes into how to setup OpenGL with the package editor to avoid messing with install files if you want the easier way.</p>
+                    <hr>
+                    <ul class="pager">
+                        <li class="previous">
+                            <a href="/blog/mar-1-2018.html" data-tooltip="March 1, 2018">&larr; Previous Post</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </main>
+        <hr>
+
+        <footer>
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 mx-auto">
+                    <ul class="list-inline text-center">
+                        <li>
+                            <a href="https://github.com/chevEldrid">
+                                <img src="/img/smLinks/GitHub-Mark-32px.png" alt="Github">
+                            </a>
+                            <a href="https://www.linkedin.com/in/sacheverel-eldrid-497057135/">
+                                <img src="/img/smLinks/in%20circle.png" alt="LinkedIn"/>
+                            </a>
+                            <a href="mailto:chev424@gmail.com?Subject=Website" target="_top">
+                                <img src="/img/smLinks/email.png" alt="Email me"/>
+                            </a>
+                            <a href="https://chevstravels.blogspot.com/">
+                                <img src="/img/smLinks/blogger.png" alt="Blog"/>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <p class="text-center">&copy; Sacheverel Eldrid 2018</p>
+        </footer>
+
+        <!-- /container -->        
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
+
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+        <script>
+            (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+                                                                    function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+                                   e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+                                   e.src='//www.google-analytics.com/analytics.js';
+                                   r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+            ga('create','UA-109687520-1','auto');ga('send','pageview');
+        </script>
+    </body>
+</html>
