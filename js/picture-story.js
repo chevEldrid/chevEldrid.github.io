@@ -27,4 +27,8 @@ $(document).ready(function(){
         $("#about-head").text("Programming Languages");
         $("#about-text").html("Over the past few years I've come into contact with a lot of different languages, each with their own subtle differences. Some of the ones I feel most comfortable using are (click on the language names to see examples):<ul><li><a href='https://github.com/oakreid/Commander-Damage-Tracker'>Java</a></li><li><a href='https://github.com/chevEldrid/chevEldrid.github.io'>HTML and CSS</a></li><li><a href='https://github.com/chevEldrid/chevEldrid.github.io/tree/master/js'>JavaScript</a></li></ul>");
     });
+    $("#nz-image").click(function(){
+        $("#about-head").text("Studying in New Zealand");
+        $("#about-text").html("Currently I'm spending a semester at the University of Auckland studying Computer Graphics, Systems, and Human Computer Interaction. When I'm not studying, I've enjoyed exploring the city and doing an extensive amount of traveling on weekends.")
+    });
 });

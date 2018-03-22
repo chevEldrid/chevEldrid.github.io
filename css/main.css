@@ -294,6 +294,11 @@ button {
     background-image: url("/img/coding.jpg");
     float: none;
   }
+    
+  #nz-image {
+    background-image: url("/img/bay-of-islands.jpg");
+    float: none;
+  }
 }
 @media (min-width: 1001px) {
   #china-image {
@@ -328,6 +333,12 @@ button {
 
   #coding-image {
     background-image: url("/img/coding.jpg");
+    float: left;
+  }
+    
+  #nz-image {
+    background-image: url("/img/bay-of-islands.jpg");
+    float: right;
   }
 }
 
