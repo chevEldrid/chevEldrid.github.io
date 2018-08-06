@@ -1,0 +1,121 @@
+<!Doctype HTML>
+<head>
+  <meta cbarset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.css">
+    <!--  -->
+    <title>Planechase</title>
+    <style type="text/css">
+      /*Universal Properties*/
+      body {
+        background-color: black;
+        color: white;
+        
+      }
+      
+      #Plane-image {
+        transform:  rotate(90deg);
+      }
+      
+      
+    </style>
+</head>
+<body onload="loadDoc()">
+  <main role="main" class="container">
+    <div class="row">
+      <div class="col-md-offset-2 col-md-10">
+        <div class="text-center">
+          <img class="img-fluid mx-auto d-block" id="Plane-image" />
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-10">
+        <div class="text-center">
+          <p class="btn btn-light" onclick="nextPlane()">Advance</p>
+          <p class="btn btn-light" onclick="rollDie()">Roll</p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-10">
+        <div class="text-center">
+          <h1 id="Chaos-roll"></h1>
+        </div>
+      </div>
+    </div>
+  </main>
+  <script>
+    //global variables
+    //stores cards
+    var cards;
+    //stores current deck index
+    var index;
+    //keeps track of times nothing is rolled to show players
+    var nothingCount = 0;
+    //sets up deck of planes
+    function loadDoc() {
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          var response = JSON.parse(this.responseText);
+          cards = response.data;
+          index = 0;
+          cards = shuffle(cards);
+          //document.getElementById("Plane-image").innerHTML = response.total_cards;
+          document.getElementById("Plane-image").src = cards[index].image_uris.small;
+          index++;
+        }
+      };
+      xhttp.open("GET", "https://api.scryfall.com/cards/search?q=t%3Aplane", true);
+      xhttp.send();
+    };
+    //separate for use later: shuffle method
+    function shuffle(array) {
+      var currentIndex = array.length, temporaryValue, randomIndex;
+
+      // While there remain elements to shuffle...
+      while (0 !== currentIndex) {
+
+        // Pick a remaining element...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+
+        // And swap it with the current element.
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+      }
+
+    return array;
+  }
+  //returns the image of the next plane in sequence
+  function nextPlane() {
+      document.getElementById("Plane-image").src = cards[index].image_uris.small;
+      index++;
+    }
+    
+  //returns either a number or Chaos
+  function rollDie() {
+    var result;
+    randomIndex = Math.floor(Math.random()* 6);
+    randomIndex++;
+    if(randomIndex == 6) {
+      result = "Chaos";
+      nothingCount = 0;
+    }
+    else if(randomIndex == 1) {
+      result = "Planeswalk";
+      nothingCount = 0;
+      nextPlane();
+    }
+    else {
+      nothingCount ++;
+      result = ("Nothing x" + nothingCount);
+      
+    }
+    document.getElementById("Chaos-roll").innerHTML = result;
+  }
+  </script>
+</body>
+</html>
