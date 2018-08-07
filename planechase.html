@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.css">
     <!--  -->
-    <title>Planechase</title>
+        <title>Planechase</title>
     <style type="text/css">
       /*Universal Properties*/
       body {
@@ -12,8 +12,19 @@
         color: white;
         
       }
+        
+      #Plane-image {
+        height: 50%;
+        width: 50%;
+        transform:  rotate(90deg) translateX(-25%) translateY(25%);
+        margin: 0 0 0 0;
+      }
       
-      @media (max-width: 799px) {
+        .rotation-correction {
+          transform: translateY(-200px);
+        }
+      
+      @media (max-device-width: 400px) {
         #Plane-image {
           height: 100%;
           width: 100%;
@@ -30,23 +41,6 @@
         }
         
       }
-      
-      @media (min-width: 800px) {
-        
-        #Plane-image {
-          height: 50%;
-          width: 50%;
-          transform:  rotate(90deg) translateX(-25%) translateY(25%);
-          margin: 0 0 0 0;
-        }
-        
-        .rotation-correction {
-          transform: translateY(-200px);
-        }
-          
-      }
-      
-      
       
     </style>
 </head>
