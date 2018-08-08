@@ -10,7 +10,10 @@
       body {
         background-color: black;
         color: white;
-        
+      }
+      
+      .modal {
+        color: black;
       }
       
       #Plane-image {
@@ -38,9 +41,6 @@
         }
       }
       
-      
-      
-      
     </style>
 </head>
 <body onload="loadDoc()">
@@ -55,8 +55,12 @@
     <div class="row">
       <div class="col-md-10">
         <div class="text-center rotation-correction mobile-view">
-          <p class="btn btn-light" onclick="nextPlane()">Advance</p>
-          <p class="btn btn-light" onclick="rollDie()">Roll</p>
+          <button type="button" class="btn btn-light" onclick="prevPlane()">Return</button>
+          <button type="button" class="btn btn-light" onclick="nextPlane()">Advance</button>
+          <button type="button" class="btn btn-light" onclick="rollDie()">Roll</button>
+          <button type="button" class="btn btn-light" onclick="loadPlaneList()" data-toggle="modal" data-target="#exampleModal">
+            Settings
+          </button>
         </div>
       </div>
     </div>
@@ -67,16 +71,45 @@
         </div>
       </div>
     </div>
+    
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Planechase Settings</h5>
+            <button type="button" class="close" data-dismiss="modal" onclick="clearList()" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Filter Planelist</p>
+            <ul id="Planelist"></ul>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="resetDeck()">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </main>
+  
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" ></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
   <script>
     //global variables
-    //stores cards
+    //stores total list of cards from set
     var cards;
+    //stores total list of cards filtered from set
+    var filteredCards;
     //stores current deck index
     var index;
     //keeps track of times nothing is rolled to show players
     var nothingCount = 0;
-    //sets up deck of planes
+    //current deck source
+    var deckSource = "official";
+    //sets up default deck of planes, official ones
     function loadDoc() {
       var xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function() {
@@ -85,9 +118,10 @@
           cards = response.data;
           index = 0;
           cards = shuffle(cards);
+          //store copy users will manipulate
+          filteredCards = cards;
           //document.getElementById("Plane-image").innerHTML = response.total_cards;
-          document.getElementById("Plane-image").src = cards[index].image_uris.normal;
-          index++;
+          document.getElementById("Plane-image").src = filteredCards[index].image_uris.normal;
         }
       };
       xhttp.open("GET", "https://api.scryfall.com/cards/search?q=t%3Aphenomenon+OR+t%3Aplane", true);
@@ -96,28 +130,55 @@
     //separate for use later: shuffle method
     function shuffle(array) {
       var currentIndex = array.length, temporaryValue, randomIndex;
-
       // While there remain elements to shuffle...
       while (0 !== currentIndex) {
-
         // Pick a remaining element...
         randomIndex = Math.floor(Math.random() * currentIndex);
         currentIndex -= 1;
-
         // And swap it with the current element.
         temporaryValue = array[currentIndex];
         array[currentIndex] = array[randomIndex];
         array[randomIndex] = temporaryValue;
       }
-
     return array;
   }
+  //resets deck (after a filter change)
+  function resetDeck() {
+    shuffle(filteredCards);
+    index = 0;
+    document.getElementById("Plane-image").src = filteredCards[index].image_uris.normal;
+    var planes = document.getElementById("Planelist")
+    while(planes.hasChildNodes()) {
+      planes.removeChild(planes.childNodes[0]);
+    }
+  }
+  
+  //just clears the modal list
+  function clearList() {
+    var planes = document.getElementById("Planelist")
+    while(planes.hasChildNodes()) {
+      planes.removeChild(planes.childNodes[0]);
+    }
+  }
+  
   //returns the image of the next plane in sequence
   function nextPlane() {
-      document.getElementById("Plane-image").src = cards[index].image_uris.normal;
-      index++;
+      if(index < filteredCards.length) {
+        index++;
+      }
+      else {
+        index=0;
+      }
+      document.getElementById("Plane-image").src = filteredCards[index].image_uris.normal;
     }
     
+  //returns previous plane in sequence
+  function prevPlane() {
+    if(index > 0) {
+      index--;
+    }
+    document.getElementById("Plane-image").src = filteredCards[index].image_uris.normal;
+  }
   //returns either a number or Chaos
   function rollDie() {
     var result;
@@ -138,6 +199,67 @@
       
     }
     document.getElementById("Chaos-roll").innerHTML = result;
+  }
+  //loads a list of all available planes and styles according to inclusion in filteredCards
+  function loadPlaneList() {
+    clearList();
+    var i;
+    var j;
+    var planeList = document.getElementById("Planelist");
+    for (i = 0; i < cards.length; i++) {
+      var li=document.createElement("li");
+      var found = false;
+      for (j = 0; j < filteredCards.length; j++) {
+        if(cards[i].name === filteredCards[j].name)
+        {
+          found = true;
+          var button = document.createElement('button');
+          button.innerHTML = '-';
+          button.onclick = removePlane;
+          button.value = i+"";
+          li.appendChild(button);
+          break;
+        }
+      }
+      
+      if(!found) {
+        var button = document.createElement('button');
+          button.innerHTML = '+';
+          button.onclick = addPlane;
+          button.value = i+"";
+          li.appendChild(button);
+      }
+      
+      li.appendChild(document.createTextNode("  "+cards[i].name));
+      planeList.appendChild(li);
+    }
+  };
+  
+  //removes plane from filteredPlane list
+  function removePlane() {
+    var cardIndex = parseInt(this.value);
+    var cardsTemp = [];
+    var cardName = cards[cardIndex].name;
+    this.innerHTML = '+';
+    this.onclick = addPlane;
+    var x;
+    for(x = 0; x < filteredCards.length; x++) {
+      if(!(cardName === filteredCards[x].name)) {
+        cardsTemp.push(filteredCards[x]);
+      }
+    }
+    filteredCards = cardsTemp;
+    //alert(filteredCards);return false;
+    
+  }
+  
+  //adds plane to filteredPlane list
+  function addPlane() {
+    var cardIndex = parseInt(this.value);
+    this.innerHTML = '-';
+    this.onclick = removePlane;
+    filteredCards.push(cards[cardIndex]);
+    //alert('here be no dragons');return false;
   }
   </script>
 </body>
