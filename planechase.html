@@ -1,266 +1,274 @@
 <!Doctype HTML>
-<head>
-  <meta cbarset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.css">
-    <!--  -->
-    <title>Planechase</title>
-    <style type="text/css">
-      /*Universal Properties*/
-      body {
-        background-color: black;
-        color: white;
-      }
-      
-      .modal {
-        color: black;
-      }
-      
-      #Plane-image {
-        height: 65%;
-        width: 65%;
-        transform:  rotate(90deg) translateX(-25%) translateY(20%);
-        margin: 0 0 0 0;
-      }
-      
-      .rotation-correction {
-        transform: translateY(-100px);
-      }
+  <head>
+    <meta cbarset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.css">
+      <!--  -->
+      <title>Planechase</title>
+      <style type="text/css">
+        /*Universal Properties*/
+        body {
+          background-color: black;
+          color: white;
+        }
         
-      
-      @media (min-device-width: 701px) {
+        .modal {
+          color: black;
+        }
+        
         #Plane-image {
-          height: 50%;
-          width: 50%;
-          transform:  rotate(90deg) translateX(-25%) translateY(25%);
+          height: 65%;
+          width: 65%;
+          transform:  rotate(90deg) translateX(-25%) translateY(20%);
           margin: 0 0 0 0;
         }
         
         .rotation-correction {
-          transform: translateY(-200px);
+          transform: translateY(-100px);
         }
-      }
-      
-    </style>
-</head>
-<body onload="loadDoc()">
-  <main role="main" class="container">
-    <div class="row">
-      <div class="col-md-offset-2 col-md-10">
-        <div class="text-center">
-          <img align="right" class="img-fluid mx-auto d-block" id="Plane-image" />
+          
+        
+        @media (min-device-width: 701px) {
+          #Plane-image {
+            height: 50%;
+            width: 50%;
+            transform:  rotate(90deg) translateX(-25%) translateY(25%);
+            margin: 0 0 0 0;
+          }
+          
+          .rotation-correction {
+            transform: translateY(-200px);
+          }
+        }
+        
+      </style>
+  </head>
+  <body onload="loadDoc()">
+    <main role="main" class="container">
+      <div class="row">
+        <div class="col-md-offset-2 col-md-10">
+          <div class="text-center">
+            <img align="right" class="img-fluid mx-auto d-block" id="Plane-image" />
+          </div>
         </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-md-10">
-        <div class="text-center rotation-correction mobile-view">
-          <button type="button" class="btn btn-light" onclick="prevPlane()">Return</button>
-          <button type="button" class="btn btn-light" onclick="nextPlane()">Advance</button>
-          <button type="button" class="btn btn-light" onclick="rollDie()">Roll</button>
-          <button type="button" class="btn btn-light" onclick="loadPlaneList()" data-toggle="modal" data-target="#exampleModal">
-            Settings
-          </button>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-10">
-        <div class="text-center mobile-view mobile-counter">
-          <h1 class="rotation-correction" id="Chaos-roll"></h1>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Planechase Settings</h5>
-            <button type="button" class="close" data-dismiss="modal" onclick="clearList()" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
+      <div class="row">
+        <div class="col-md-10">
+          <div class="text-center rotation-correction mobile-view">
+            <button type="button" class="btn btn-light" onclick="prevPlane()">Return</button>
+            <button type="button" class="btn btn-light" onclick="nextPlane()">Advance</button>
+            <button type="button" class="btn btn-light" onclick="rollDie()">Roll</button>
+            <button type="button" class="btn btn-light" onclick="loadPlaneList()" data-toggle="modal" data-target="#exampleModal">
+              Settings
             </button>
           </div>
-          <div class="modal-body">
-            <p>Filter Planelist</p>
-            <ul id="Planelist"></ul>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="resetDeck()">Save changes</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-10">
+          <div class="text-center mobile-view mobile-counter">
+            <h1 class="rotation-correction" id="Chaos-roll"></h1>
           </div>
         </div>
       </div>
-    </div>
-  </main>
-  
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" ></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-  <script>
-    //global variables
-    //stores total list of cards from set
-    var cards;
-    //stores total list of cards filtered from set
-    var filteredCards;
-    //stores current deck index
-    var index;
-    //keeps track of times nothing is rolled to show players
-    var nothingCount = 0;
-    //current deck source
-    var deckSource = "official";
-    //sets up default deck of planes, official ones
-    function loadDoc() {
-      var xhttp = new XMLHttpRequest();
-      xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-          var response = JSON.parse(this.responseText);
-          cards = response.data;
-          index = 0;
-          cards = shuffle(cards);
-          //store copy users will manipulate
-          filteredCards = cards;
-          //document.getElementById("Plane-image").innerHTML = response.total_cards;
-          document.getElementById("Plane-image").src = filteredCards[index].image_uris.normal;
-        }
+      
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Planechase Settings</h5>
+              <button type="button" class="close" data-dismiss="modal" onclick="clearList()" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>Filter Planelist</p>
+              <ul id="Planelist"></ul>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="resetDeck()">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" ></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <script>
+      //global variables
+      //stores total list of cards from set
+      var cards;
+      //stores total list of cards filtered from set
+      var filteredCards;
+      //stores current deck index
+      var index;
+      //keeps track of times nothing is rolled to show players
+      var nothingCount = 0;
+      //current deck source
+      var deckSource = "official";
+      //sets up default deck of planes, official ones
+      function loadDoc() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            var response = JSON.parse(this.responseText);
+            cards = response.data;
+            index = 0;
+            cards = shuffle(cards);
+            //store copy users will manipulate
+            filteredCards = cards;
+            //document.getElementById("Plane-image").innerHTML = response.total_cards;
+            document.getElementById("Plane-image").src = filteredCards[index].image_uris.normal;
+          }
+        };
+        xhttp.open("GET", "https://api.scryfall.com/cards/search?q=t%3Aphenomenon+OR+t%3Aplane", true);
+        xhttp.send();
       };
-      xhttp.open("GET", "https://api.scryfall.com/cards/search?q=t%3Aphenomenon+OR+t%3Aplane", true);
-      xhttp.send();
-    };
-    //separate for use later: shuffle method
-    function shuffle(array) {
-      var currentIndex = array.length, temporaryValue, randomIndex;
-      // While there remain elements to shuffle...
-      while (0 !== currentIndex) {
-        // Pick a remaining element...
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-        // And swap it with the current element.
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
-      }
-    return array;
-  }
-  //resets deck (after a filter change)
-  function resetDeck() {
-    shuffle(filteredCards);
-    index = 0;
-    document.getElementById("Plane-image").src = filteredCards[index].image_uris.normal;
-    var planes = document.getElementById("Planelist")
-    while(planes.hasChildNodes()) {
-      planes.removeChild(planes.childNodes[0]);
+      //separate for use later: shuffle method
+      function shuffle(array) {
+        var currentIndex = array.length, temporaryValue, randomIndex;
+        // While there remain elements to shuffle...
+        while (0 !== currentIndex) {
+          // Pick a remaining element...
+          randomIndex = Math.floor(Math.random() * currentIndex);
+          currentIndex -= 1;
+          // And swap it with the current element.
+          temporaryValue = array[currentIndex];
+          array[currentIndex] = array[randomIndex];
+          array[randomIndex] = temporaryValue;
+        }
+      return array;
     }
-  }
-  
-  //just clears the modal list
-  function clearList() {
-    var planes = document.getElementById("Planelist")
-    while(planes.hasChildNodes()) {
-      planes.removeChild(planes.childNodes[0]);
-    }
-  }
-  
-  //returns the image of the next plane in sequence
-  function nextPlane() {
-      if(index < filteredCards.length) {
-        index++;
+    //resets deck (after a filter change)
+    function resetDeck() {
+      shuffle(filteredCards);
+      index = 0;
+      document.getElementById("Plane-image").src = filteredCards[index].image_uris.normal;
+      var planes = document.getElementById("Planelist")
+      while(planes.hasChildNodes()) {
+        planes.removeChild(planes.childNodes[0]);
       }
-      else {
-        index=0;
+    }
+    
+    //just clears the modal list
+    function clearList() {
+      var planes = document.getElementById("Planelist")
+      while(planes.hasChildNodes()) {
+        planes.removeChild(planes.childNodes[0]);
+      }
+    }
+    
+    //returns the image of the next plane in sequence
+    function nextPlane() {
+        if(index < filteredCards.length - 1 ) {
+          index++;
+        }
+        else {
+          index = 0;
+        }
+        document.getElementById("Plane-image").src = filteredCards[index].image_uris.normal;
+      }
+      
+    //returns previous plane in sequence
+    function prevPlane() {
+      if(index > 0) {
+        index--;
       }
       document.getElementById("Plane-image").src = filteredCards[index].image_uris.normal;
     }
-    
-  //returns previous plane in sequence
-  function prevPlane() {
-    if(index > 0) {
-      index--;
+    //returns either a number or Chaos
+    function rollDie() {
+      var result;
+      randomIndex = Math.floor(Math.random()* 6);
+      randomIndex++;
+      if(randomIndex == 6) {
+        result = "Chaos";
+        nothingCount = 0;
+      }
+      else if(randomIndex == 1) {
+        result = "Planeswalk";
+        nothingCount = 0;
+        nextPlane();
+      }
+      else {
+        nothingCount ++;
+        result = ("Nothing x" + nothingCount);
+        
+      }
+      document.getElementById("Chaos-roll").innerHTML = (result);
     }
-    document.getElementById("Plane-image").src = filteredCards[index].image_uris.normal;
-  }
-  //returns either a number or Chaos
-  function rollDie() {
-    var result;
-    randomIndex = Math.floor(Math.random()* 6);
-    randomIndex++;
-    if(randomIndex == 6) {
-      result = "Chaos";
-      nothingCount = 0;
-    }
-    else if(randomIndex == 1) {
-      result = "Planeswalk";
-      nothingCount = 0;
-      nextPlane();
-    }
-    else {
-      nothingCount ++;
-      result = ("Nothing x" + nothingCount);
-      
-    }
-    document.getElementById("Chaos-roll").innerHTML = result;
-  }
-  //loads a list of all available planes and styles according to inclusion in filteredCards
-  function loadPlaneList() {
-    clearList();
-    var i;
-    var j;
-    var planeList = document.getElementById("Planelist");
-    for (i = 0; i < cards.length; i++) {
-      var li=document.createElement("li");
-      var found = false;
-      for (j = 0; j < filteredCards.length; j++) {
-        if(cards[i].name === filteredCards[j].name)
-        {
-          found = true;
+    //loads a list of all available planes and styles according to inclusion in filteredCards
+    function loadPlaneList() {
+      clearList();
+      var i;
+      var j;
+      var planeList = document.getElementById("Planelist");
+      for (i = 0; i < cards.length; i++) {
+        var li=document.createElement("li");
+        var found = false;
+        for (j = 0; j < filteredCards.length; j++) {
+          if(cards[i].name === filteredCards[j].name)
+          {
+            found = true;
+            var button = document.createElement('button');
+            button.innerHTML = 'Remove';
+            button.onclick = removePlane;
+            button.classList.add("btn");
+            button.classList.add("btn-danger");
+            button.value = i+"";
+            li.appendChild(button);
+            break;
+          }
+        }
+        
+        if(!found) {
           var button = document.createElement('button');
-          button.innerHTML = '-';
-          button.onclick = removePlane;
-          button.value = i+"";
-          li.appendChild(button);
-          break;
+            button.innerHTML = 'Add';
+            button.onclick = addPlane;
+            button.classList.add("btn");
+            button.classList.add("btn-success");
+            button.value = i+"";
+            li.appendChild(button);
+        }
+        
+        li.appendChild(document.createTextNode("  "+cards[i].name));
+        planeList.appendChild(li);
+      }
+    };
+    
+    //removes plane from filteredPlane list
+    function removePlane() {
+      var cardIndex = parseInt(this.value);
+      var cardsTemp = [];
+      var cardName = cards[cardIndex].name;
+      this.innerHTML = 'Add';
+      this.onclick = addPlane;
+      this.classList.remove("btn-danger");
+      this.classList.add("btn-success");
+      var x;
+      for(x = 0; x < filteredCards.length; x++) {
+        if(!(cardName === filteredCards[x].name)) {
+          cardsTemp.push(filteredCards[x]);
         }
       }
-      
-      if(!found) {
-        var button = document.createElement('button');
-          button.innerHTML = '+';
-          button.onclick = addPlane;
-          button.value = i+"";
-          li.appendChild(button);
-      }
-      
-      li.appendChild(document.createTextNode("  "+cards[i].name));
-      planeList.appendChild(li);
+      filteredCards = cardsTemp;
+      return false;
+      //alert(filteredCards);return false;
     }
-  };
-  
-  //removes plane from filteredPlane list
-  function removePlane() {
-    var cardIndex = parseInt(this.value);
-    var cardsTemp = [];
-    var cardName = cards[cardIndex].name;
-    this.innerHTML = '+';
-    this.onclick = addPlane;
-    var x;
-    for(x = 0; x < filteredCards.length; x++) {
-      if(!(cardName === filteredCards[x].name)) {
-        cardsTemp.push(filteredCards[x]);
-      }
+    //adds plane to filteredPlane list
+    function addPlane() {
+      var cardIndex = parseInt(this.value);
+      this.innerHTML = 'Remove';
+      this.onclick = removePlane;
+      this.classList.remove("btn-success");
+      this.classList.add("btn-danger");
+      filteredCards.push(cards[cardIndex]);
+      return false;
+      //alert('here be no dragons');return false;
     }
-    filteredCards = cardsTemp;
-    //alert(filteredCards);return false;
-    
-  }
-  
-  //adds plane to filteredPlane list
-  function addPlane() {
-    var cardIndex = parseInt(this.value);
-    this.innerHTML = '-';
-    this.onclick = removePlane;
-    filteredCards.push(cards[cardIndex]);
-    //alert('here be no dragons');return false;
-  }
-  </script>
-</body>
-</html>
+    </script>
+  </body>
+  </html>
