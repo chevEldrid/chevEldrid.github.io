@@ -24,8 +24,8 @@
         }
         
         #Plane-image-imgur {
-          height: 65%;
-          width: 65%;
+          height: 70%;
+          width: 70%;
           margin: 0 0 0 0;
         }
         
@@ -43,8 +43,8 @@
           }
           
           #Plane-iamge-imgur {
-            height: 50%;
-            width: 50%;
+            height: 65%;
+            width: 65%;
             margin: 0 0 0 0;
           }
           
@@ -79,9 +79,18 @@
         </div>
       </div>
       <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+          <div class="text-center">
+            <p id="Credit"></p>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-1"></div>
         <div class="col-md-10">
           <div class="text-center mobile-view mobile-counter">
-            <h1 class="rotation-correction" id="Chaos-roll"></h1>
+            <h1 id="Chaos-roll"></h1>
           </div>
         </div>
       </div>
@@ -149,13 +158,13 @@
             cards = shuffle(cards);
             //store copy users will manipulate
             filteredCards = cards;
-            var image = document.getElementById(curImageID);
-            image.id = "Plane-image";
-            curImageID = "Plane-image";
-            image.src = getImage(index);
-            image.align="right";
-            document.getElementById("Button-row").classList.toggle("rotation-correction");
-            
+            updateImageFields("Plane-image", "right");
+            toggleCorrection();
+            document.getElementById("Credit").Text="";
+            var credit = document.getElementById("Credit")
+            while(credit.hasChildNodes()) {
+              credit.removeChild(credit.childNodes[0]);
+            }
           }
         };
         xhttp.open("GET", "https://api.scryfall.com/cards/search?q=t%3Aphenomenon+OR+t%3Aplane", true);
@@ -203,13 +212,10 @@
             filteredCards = filterIndecies(toRemove, cards);
             index = 0;
             filteredCards = shuffle(filteredCards);
-            //alert(filteredCards.length);
-            var image = document.getElementById(curImageID);
-            image.id = "Plane-image-imgur";
-            curImageID = "Plane-image-imgur";
-            image.src = getImage(index);
-            image.align = "center";
-            document.getElementById("Button-row").classList.toggle("rotation-correction");
+            updateImageFields("Plane-iamge-imgur", "center");
+            toggleCorrection();
+            var node = document.createTextNode("Created by Imgur user: Blithium");
+            document.getElementById("Credit").appendChild(node);
           }
         };
         var url = ("https://api.imgur.com/3/album/" + albumCode);
@@ -217,6 +223,22 @@
         var authValue = ("Client-ID "+imgurClientID);
         xhttp.setRequestHeader("Authorization", authValue);
         xhttp.send();
+      };
+      
+      //updates necessary fields of image with new ID
+      //sets src to first img in list
+      function updateImageFields(imageID, alignment) {
+        var image = document.getElementById(curImageID);
+        image.id = imageID;
+        curImageID = imageID;
+        image.src = getImage(index);
+        image.align = alignment;
+      };
+      
+      //because need to move everything around when rotate scryfall
+      function toggleCorrection() {
+        document.getElementById("Button-row").classList.toggle("rotation-correction");
+        document.getElementById("Chaos-roll").classList.toggle("rotation-correction");
       };
       
       //returns image @ given index based on deckSource
@@ -230,15 +252,6 @@
           return filteredCards[ind].link;
         }
       };
-      
-    function getImageID(){
-      if(deckSource === 0){
-        return "Plane-image";
-      }
-      else if(deckSource === 1){
-        return "Plane-image-imgur";
-      }
-    }
       
     //separate for use later: shuffle method
     function shuffle(array) {
@@ -254,7 +267,7 @@
           array[randomIndex] = temporaryValue;
         }
       return array;
-    }
+    };
     //resets deck (after a filter change)
     function resetDeck() {
       shuffle(filteredCards);
@@ -273,7 +286,7 @@
       while(planes.hasChildNodes()) {
         planes.removeChild(planes.childNodes[0]);
       }
-    }
+    };
     
     //returns the image of the next plane in sequence
     function nextPlane() {
@@ -285,7 +298,7 @@
         }
         //getImage(index);
         document.getElementById(curImageID).src = getImage(index);
-      }
+      };
       
     //returns previous plane in sequence
     function prevPlane() {
@@ -294,7 +307,7 @@
       }
       //getImage(index);
       document.getElementById(curImageID).src = getImage(index);
-    }
+    };
     //returns either a number or Chaos
     function rollDie() {
       var result;
@@ -315,7 +328,7 @@
         
       }
       document.getElementById("Chaos-roll").innerHTML = (result);
-    }
+    };
     //loads a list of all available planes and styles according to inclusion in filteredCards
     function loadPlaneList() {
       clearList();
@@ -379,8 +392,7 @@
       }
       filteredCards = cardsTemp;
       return false;
-      //alert(filteredCards);return false;
-    }
+    };
     //adds plane to filteredPlane list
     function addPlane() {
       var cardIndex = parseInt(this.value);
@@ -390,8 +402,7 @@
       this.classList.add("btn-danger");
       filteredCards.push(cards[cardIndex]);
       return false;
-      //alert('here be no dragons');return false;
-    }
+    };
     </script>
   </body>
   </html>
