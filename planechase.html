@@ -56,8 +56,8 @@
           .rotation-correction {
             transform: translateY(-200px);
           }
-            
-           .minimized {
+          
+          .minimized {
             height: 5%;
             width: 5%;
           }
@@ -169,7 +169,7 @@
             //store copy users will manipulate
             filteredCards = cards;
             updateImageFields("Plane-image", "right");
-            toggleCorrection();
+            toggleCorrection(true);
             document.getElementById("Credit").Text="";
             var credit = document.getElementById("Credit")
             while(credit.hasChildNodes()) {
@@ -220,7 +220,7 @@
             index = 0;
             filteredCards = shuffle(filteredCards);
             updateImageFields("Plane-iamge-imgur", "center");
-            toggleCorrection();
+            toggleCorrection(false);
             var node = document.createTextNode("Created by Imgur user: Blithium");
             document.getElementById("Credit").appendChild(node);
           }
@@ -243,9 +243,19 @@
       };
       
       //because need to move everything around when rotate scryfall
-      function toggleCorrection() {
-        document.getElementById("Button-row").classList.toggle("rotation-correction");
-        document.getElementById("Chaos-roll").classList.toggle("rotation-correction");
+      function toggleCorrection(toCorrect) {
+        if(toCorrect) {
+          if(!document.getElementById("Button-row").classList.contains("rotation-correction")) {
+            document.getElementById("Button-row").classList.add("rotation-correction");
+            document.getElementById("Chaos-roll").classList.add("rotation-correction");
+          }
+        }
+        else {
+          if(document.getElementById("Button-row").classList.contains("rotation-correction")) {
+            document.getElementById("Button-row").classList.remove("rotation-correction");
+            document.getElementById("Chaos-roll").classList.remove("rotation-correction");
+          }
+        }
       };
       
       //returns image @ given index based on deckSource
