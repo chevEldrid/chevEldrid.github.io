@@ -32,6 +32,11 @@
         .rotation-correction {
           transform: translateY(-100px);
         }
+        
+        .minimized {
+          height: 5%;
+          width: 5%;
+        }
           
         
         @media (min-device-width: 701px) {
@@ -178,7 +183,6 @@
       
       //gets rid of things at particular indeces i.e. non-planes
       function filterIndecies(toRemove, toRemoveFrom) {
-        //alert(toRemoveFrom.length);
         var e;
         var f;
         var tempCards = new Array();
@@ -188,14 +192,12 @@
             if(e === toRemove[f] ){
               found = true;
               break;
-              //tempCards.push(toRemoveFrom[e]);
             }
           }
           if(!found) {
             tempCards.push(toRemoveFrom[e]);
           }
         }
-        //alert(tempCards.length);
         return tempCards;
       };
       
@@ -314,11 +316,13 @@
       randomIndex = Math.floor(Math.random()* 6);
       randomIndex++;
       if(randomIndex == 6) {
-        result = "Chaos";
+        //result = "Chaos";
+        result = "<img class='minimized' src='chaos.png' />";
         nothingCount = 0;
       }
       else if(randomIndex == 1) {
-        result = "Planeswalk";
+        //result = "Planeswalk";
+        result = "<img class='minimized' src='walker.png' />";
         nothingCount = 0;
         nextPlane();
       }
