@@ -359,11 +359,11 @@ var altarSteps = {
 jQuery(document).ready(function($) {
 	//GAME INITIALIZERS
 	//loads starting room
-    //loadRoom(yourApartment);
-    loadRoom(parkEast);
+    loadRoom(yourApartment);
+    //loadRoom(parkEast);
 	//Creates a generic character
-    //createTemplateCharacter();
-    createKCodeCharacter();
+    createTemplateCharacter();
+    //createKCodeCharacter();
 	//loads room connections
 	loadRoomConnections();
 	if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
