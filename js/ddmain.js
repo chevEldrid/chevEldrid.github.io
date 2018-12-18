@@ -214,7 +214,7 @@ var parkNorth = {
 	enemies:[]
 };
 //the most complex interaction in game to date: depending on what keys you have and state of Och Ness Monster 
-function unlockGate(term, args) {
+function unlockGate(term) {
 	var hasKeyOne = hasItem('Half a Key');
 	var hasKeyTwo = hasItem('Other half of a Key');
     var hasKeyThree = hasItem('Och Key');
@@ -239,12 +239,14 @@ function unlockGate(term, args) {
     }
     //once the monster is defeated and you have the whole key...
     else if(hasKeyOne && hasKeyTwo && hasKeyThree) {
-        basicEcho('With a last gutteral yell, the creature slips defeated deep into the murky water. You unlock the gate, revealing a new path.', term);
-		parkEast.connections.push(treasureTrove);
-		parkEast.directions.push('to gated area');
-		removeItem('Half a Key');
-		removeItem('Other half of a Key');
-		removeItem('Och Key');
+		basicEcho('With a last gutteral yell, the creature slips defeated deep into the murky water. You unlock the gate, revealing a new path.', term);
+		if(parkEast.connections.length < 2) {
+			parkEast.connections.push(treasureTrove);
+			parkEast.directions.push('to gated area');
+			removeItem('Half a Key');
+			removeItem('Other half of a Key');
+			removeItem('Och Key');
+		}
 	}
 }
 
@@ -321,9 +323,12 @@ function exitPark(term){
         basicEcho('You make a move towards the exit, but a very large creature that resembles a Cthulu on steroids blocks your path with a meaty tentacle', term);
     }
     else {
-        basicEcho('The heavy having been defeated, a path opens to the altar...', term);
-        parkExit.directions.push('to altar steps');
-        parkExit.connections.push(altarSteps);
+		basicEcho('The heavy having been defeated, a path opens to the altar...', term);
+		basicEcho('FINAL WORD OF WARNING: You have reached the Endgame. To proceed up the altar steps means no turning back. Make your peace with that.', term);
+		if(parkExit.connections.length < 2) {
+			parkExit.directions.push('to altar steps');
+        	parkExit.connections.push(altarSteps);
+		}
     }
 }
 
@@ -339,15 +344,162 @@ var parkExit = {
     connections:[parkSouth]
 };
 
+function battleSwordsman(term) {
+	if(altarSteps.enemies.length == 0 && !altarSteps.bossAppeared) {
+		basicEcho('With a roar, the four wounded arms are discarded and The Swordsman rushes forward', term);
+		altarSteps.bossAppeared = true;
+		enemies.push(swordsman);
+	}
+	else if(altarSteps.enemies.length == 0 && altarSteps.bossAppeared) {
+		basicEcho('With The Swordsman vanquished, the path into the cathedral opens...', term);
+		if(altarSteps.connections.length < 1) {
+			altarSteps.directions.push('into cathedral');
+			altarSteps.connections.push(cathedral);
+		}
+	}
+	else {
+		basicEcho('You dive for the door but find the path blocked by enemies', term);
+	}
+}
+
+function talkToSwordsman(term) {
+	if(altarSteps.enemies.length < 1 && altarSteps.bossAppeared) {
+		basicEcho('You find the Swordsman pretty incapbale of converstaion at the current point in time', term);
+	}
+	else {
+		basicEcho('"You have done well for a human, but your life has reached its pre-destined conclusion. We knew you would come, ' + player.name + ', the Philospher foretold it. So I have been dispatched to keep you at bay. You shall not pass farther into this holy ground. My blades and I are determined to keep you where you stand."', term);
+	}
+}
+// ||Room 14 - Altar Steps
 var altarSteps = {
     name: 'Steps of the Altar',
-    desc:'So funny story...this room is actually kind of under construction...so it\'s not actually finished yet. I hope you enjoyed the journey so far!',
-    items:[milk()],
-    actions:[],
-    effects:[],
-    enemies:[],
-    directions:['back to park'],
-    connections:[parkExit]
+	desc: 'The steps give way to large stone plateau surrounded by ornate corinthian columns. Sounds reminiscent of nails on a chalkboard cry in unison as four great broadswords chisel their way towards you: each in the arm of a heavily armored Oktopi Warrior. It stands before you with an air of indifference, barring passage to the cathedral beyond.',
+	items:[milk()],
+    actions:['enter cathedral', 'talk to swordsman'],
+    effects:[battleSwordsman, talkToSwordsman],
+    enemies:[broadSwordA(), broadSwordB(), broadSwordC(), broadSwordD()],
+    directions:[],
+	connections:[],
+	bossAppeared: false
+};
+
+function talkToPhilosopher(term, args) {
+	if(promptPos == 0) {
+		basicEcho('"Greetings, greetings '+player.name+', I\'ve been expecting you. Tell me, what do you seek here?"', term);
+		hijack = true;
+		promptPos++;
+	}
+	else if(promptPos == 1) {
+		philosopherWords.push(args);
+		basicEcho('"Mmm yes, and what has been your most efficient method of getting what you want so far?"', term);
+		promptPos++;
+	}
+	else if(promptPos == 2) {
+		philosopherWords.push(args);
+		basicEcho('"Now, here\'s a fun one if you\'ll indulge me: What makes us able to conquor you like you conquored our cousins on this blue marble?"', term);
+		promptPos++;
+	}
+	else if(promptPos == 3) {
+		philosopherWords.push(args);
+		basicEcho('"Thank you, I believe that\'s quite enough to get a good idea of your character.', term);
+		//first response
+		basicEcho('You\'ve decided that more than anything in the world. You want ' + philosopherWords[0], term);
+		//second
+		basicEcho('You might even do it by '+philosopherWords[1], term);
+		//third
+		basicEcho('And you think we can conquor you because we\'re just your superiors in every way. Is this your creed?" [y/n]', term);
+		promptPos++;
+	}
+	else if(promptPos == 4) {
+		var result = args.toUpperCase();
+		if(result[0] == 'Y') {
+			basicEcho('"Ah brilliant, brilliant! I can get behind someone with ideals like these. You may proceed to the antichamber"', term);
+			if(cathedral.connections.length < 1) {
+				cathedral.directions.push('to garden');
+				cathedral.connections.push(garden);
+			}
+		}
+		else {
+			basicEcho('Well, now you\'ve just wasted my time. Come back when you\'re ready to talk...until then..." The Oktopi throws his chalice at your face, bruising you. You lose 10 life before it grabs another glass.', term);
+			player.health -= 10;
+		}
+		endHijack();
+	}
+}
+
+// ||Room 15 - Cathedral
+var cathedral = {
+	name: 'The Cathedral',
+	desc: 'The air wafting in from the deep, dark halls begins to smell of brine and the sea. While this building does resemble a cathedral, there is a decidedly alien twist on the design. You continue to walk and eventually reach a small pool, teeming with fish and a lone Oktopi in the middle drinking heavily from a stone chalice.',
+	items: [longIsland()],
+	actions: ['talk to Oktopi'],
+	effects: [talkToPhilosopher],
+	enemies:[],
+	directions:[],
+	connections:[]
+};
+function maskOn(term) {
+	basicEcho('You decide to trust the little fella and put the mask on. It waves at you before swimming speedily away...you start to feel sick...head pounding and stomach groaning with pain...but, it passes. Maybe you should lay off the moldy sandwiches?', term);
+	if(garden.directions.length < 1) {
+		basicEcho('A new path opens up. A path to the Throne Room', term);
+		garden.directions.push('to Throne Room');
+		garden.connections.push(throneRoom);
+	}
+}
+
+function swimSurface(term) {
+	basicEcho('You throw the mask into the depths and make a triumphant attempt to reach the surface. You don\'t need handouts...', term);
+	if(player.health <= 50) {
+		basicEcho('...but you should have taken the mask. Try as you might, you just can\'t reach the top and the depths swallow you. You are dead.', term);
+		player.health = 0;
+	}
+	else {
+		basicEcho('This time, you had the strength. After a long and arduous swim you make it: but at a heavy cost. You\'ve lost 50 health', term);
+		player.health -= 50;
+		if(garden.directions.length < 1) {
+			basicEcho('A new path opens up. A path to the Throne Room', term);
+			garden.directions.push('to Throne Room');
+			garden.connections.push(throneRoom);
+		}
+	}
+}
+// ||Room 16 - The Garden
+var garden = {
+	name: 'The Garden',
+	desc: 'The garden is unlike any you have ever seen. For starters, it\'s all underwater and you\'re unable to breath until a friendly creature swims by and gives you a mask. Sadly however, this eight-legged life form did not have time to study english before coming to Earth and therefore cannot tell you whether or not the mask will help or hurt you. Your choices are: [swim to surface] - take your chances without the mask? or [put on mask] - accept the gracious offering from your new friend?',
+	items: [],
+	actions: ['swim to surface', 'put on mask'],
+	effects: [swimSurface, maskOn],
+	enemies: [],
+	directions: [],
+	connections:[]
+};
+
+function timeWarp(term) {
+	if(throneRoom.enemies.length < 1) {
+		basicEcho('The Monarch having been dealt with, you head back to your apartment for some R&R. Everything in the game is how you left it-this is more just for kicks.', term);
+		loadRoom(yourApartment);
+	}
+	else {
+		basicEcho('The Monarch has a strict no warping policy. I don\'t make the rules', term);
+	}
+}
+
+function instaDeath(term) {
+	basicEcho('Squidward is one of the closest things the Oktopi have to a role model down here on earth (No, they don\'t know he\'s a squid) and the Monarch finds your impersonation highly insulting. You are smooshed like pancake.', term);
+	player.health = 0;
+}
+
+// ||Room 17 - The Throne Room
+var throneRoom = {
+	name: 'Throne Room',
+	desc: 'A magnificent amphitheater complete with regal depictions of proud and noble Oktopi. Their battles, the creation of their culture, and the crash-landing of the octopuses on Earth. Apparently that was a time of great peril for the Oktopi...The monarch stands before you. It makes its intentions known through a large bellow-but does not approach.',
+	items: [deepDish(), milk(), bobRossTape()],
+	actions: ['warp to beginning', 'impersonate squidward'],
+	effects: [timeWarp, instaDeath],
+	enemies: [oktopiMonarch()],
+	directions: [],
+	connections: []
 };
 /*
     =========================================================
@@ -360,7 +512,7 @@ jQuery(document).ready(function($) {
 	//GAME INITIALIZERS
 	//loads starting room
     loadRoom(yourApartment);
-    //loadRoom(parkEast);
+    //loadRoom(cathedral);
 	//Creates a generic character
     createTemplateCharacter();
     //createKCodeCharacter();

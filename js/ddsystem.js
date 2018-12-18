@@ -397,6 +397,10 @@ var hijack = false;
 var prevAction = null;
 //for multi-level interactions, a way to keep track of your place
 var promptPos = 0;
+//ENDGAME FUNCTIONALITY
+//for the philospher madlibs
+var philosopherWords = [];
+
 //GAME FUNCTIONS
 /*
 	PURPOSE: Load the currently available actions and effects
@@ -501,17 +505,15 @@ function containsItem(itemName) {
 	PURPOSE: Create a basic player with starting values for health and sanity
 */
 function createCharacter(playerName) {
-	var grace = playerName.localeCompare('Grace');
-	var test = playerName.localeCompare('Chev');
-	if(grace == 0) {
+	if(playerName.toUpperCase() == 'OAKLEY') {
 		player = {
-			name: 'Grace',
-			backpack: [sterekFanfic(), longIsland()],
-			sanity: 30,
-			health: 80
-		};
+			name: 'Big Poppa',
+			backpack: [moldySandwich(), moldySandwich(), moldySandwich(), milk()],
+			sanity: 50,
+			health: 50
+		}
 	}
-	else if(test == 0) {
+	else if(playerName.toUpperCase() == 'CHEV') {
 		player = {
 			name: 'Chev',
 			backpack: [stopSign(), milk(), calamari()],
@@ -520,12 +522,36 @@ function createCharacter(playerName) {
 			equip: oldSword
 		};
 	}
+	else if(playerName.toUpperCase() == 'GRACE') {
+		player = {
+			name: 'Grace',
+			backpack: [sterekFanfic(), longIsland(), babyOctopus()],
+			sanity: 30,
+			health: 80
+		};
+	}
+	else if(playerName.toUpperCase() == 'JOSH') {
+		player = {
+			name: 'Frat Bro',
+			backpack: [longIsland(), longIsland(), longIsland()],
+			sanity: 40,
+			health: 60
+		};
+	}
+	else if(playerName.toUpperCase() == 'UUDDLRLRBASTART') {
+		player = {
+			name: 'Knight Man',
+			backpack: [deepDish(), deepDish(), bladeOfAtlantis(), babyOctopus()],
+			sanity: 100,
+			health: 100
+		}
+	}
 	else {
 		player = {
 			name: playerName,
 			backpack: [],
 			sanity: 50,
-			health: 100
+			health: 50
 		};
 	}
 };
@@ -541,7 +567,7 @@ function createTemplateCharacter() {
 function createKCodeCharacter() {
     player = {
         name: 'Hax0r',
-        backpack: [mysteryMeat(), milk(), calamari()],
+        backpack: [mysteryMeat(), milk(), calamari(), babyOctopus()],
         sanity: 100,
         health: 100,
     };

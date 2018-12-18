@@ -236,6 +236,31 @@ function ochKey(){
 	);
 }
 
+function babyOctopus(){
+	return new Item(
+		'Baby Octopus',
+		'An adorable baby octopus you\'ve cared for since birth in a small container',
+		true,
+		function(){return (curRoom.name == 'Throne Room')},
+		function(term){basicEcho('You show the Oktopi Monarch your baby Octopus, proving not all humans are bad. Some care about the Octopuses and the Oktopi. It makes a gesture not unlike a bow...and disappears', term); curRoom.enemies = []; player.backpack.push(credits()); basicEcho('You received CREDITS!', term);},
+		1,
+		false,
+		0
+	);
+}
+
+function credits(){
+	return new Item(
+		'credits',
+		'game credits',
+		true,
+		function(){return true;},
+		function(term){basicEcho('Thanks for playing! This concludes the rediculousness that is Dark Depths v1! Your code is: ALFALFA', term); basicEcho('Happy Holidays!', term);},
+		1,
+		false,
+		0
+	);
+}
 //weapons
 var oldSword = {
 	name: 'Old Sword',
@@ -300,6 +325,19 @@ function mysteryMeat(){
 	);
 }
 
+function bladeOfAtlantis(){
+	return new Item(
+		'Blade of Atlantis',
+		'Neptune himself has wielded this blade',
+		true,
+		function(){return false;},
+		function(){return false;},
+		0,
+		true,
+		20
+	);
+}
+
 /* =============================
    |     Special Enemies       |
    ============================= */
@@ -323,7 +361,73 @@ function ochNessMonster(){
 		true
 	);
 }
+//Oktopi Altar enemies
+//Swordsman
+function broadSwordA(){
+	return new Enemy(
+		'Broadsword Oblivion',
+		'Destroyer of worlds and man',
+		45,
+		10,
+		[milk(), moldySandwich()],
+		false
+	);
+}
 
+function broadSwordB(){
+	return new Enemy(
+		'Broadsword Decimator',
+		'Conquorer of dream and time',
+		45,
+		10,
+		[milk(), deepDish()],
+		false
+	);
+}
+
+function broadSwordC(){
+	return new Enemy(
+		'Broadsword Squidslayer',
+		'Nary a sea creature has escaped it\'s righteous might',
+		55,
+		10,
+		[chiliFinger(), longIsland()],
+		false
+	);
+}
+
+function broadSwordD(){
+	return new Enemy(
+		'Broadsword Oceanmaster',
+		'A gift from the Oktopi God of the Sea',
+		45,
+		10,
+		[],
+		false
+	);
+}
+
+function swordsman(){
+	return new Enemy(
+		'The Swordsman',
+		'A force to fear throughout the cosmos. Nary a creature escapes his blade',
+		20,
+		20,
+		[bladeOfAtlantis()],
+		true
+	);
+}
+
+function oktopiMonarch(){
+	return new Enemy(
+		'Oktopi Monarch',
+		'A creature so massive, and so brutal...but also with a kind and gentle heart. It just wants what is best for its people',
+		100,
+		10,
+		[credits()],
+		true
+	);
+}
 /* =============================
    |     Generic Enemies       |
    ============================= */
@@ -334,7 +438,7 @@ function oktopiFootSoldier() {
 		'A somewhat menacing shock trooper',
 		10,
 		10,
-		[longIsland(), fishFood()],
+		[longIsland(), fishFood(), chiliFinger()],
 		false
 	);
 }
@@ -354,7 +458,7 @@ function oktopiHeavy() {
         'A massive brute of an Oktopi',
         20,
         15,
-        [],
+        [deepDish(), calamari()],
         false
     );
 }
