@@ -2,7 +2,4 @@
 
 # Allow crawling of all content
 User-agent: *
-Disallow: /blog/
-Disallow: /about.html
-Disallow: /game.html
 Sitemap: https://cheveldrid.github.io/sitemap.xml

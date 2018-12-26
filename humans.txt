@@ -12,4 +12,3 @@
 # TECHNOLOGY COLOPHON
 
     CSS3, HTML5, Javascript
-    Apache Server Configs, jQuery, Modernizr, Normalize.css, Bootstrap, Boilerplate
