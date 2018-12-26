@@ -1,4 +1,7 @@
 # chevEldrid.github.io
-Personal Web project hoping to illustrate things I'm working on while also trying out new web tech.
+Simple personal site to provide links to previous projects and technologies
 
-The homepage is located at index.html with blog posts stored in the /blog folder
+SIDE PROJECTS:
+Connected to this site are several projects
+    planechase - a webapp to simulate the MTG Planechase varient, also supports custom decks
+    darkdepths - text adventure using the latest iteration of a fun game engine my friend and I built in high school
