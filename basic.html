@@ -32,7 +32,7 @@
         
       </style>
   </head>
-  <body>
+  <body onload="loadDoc()">
     <main role="main" class="container">
       <div class="row">
         <div class="col-md-1"></div>
@@ -49,7 +49,7 @@
             <button type="button" class="btn btn-light" onclick="dropCount()">-</button>
             <button id="CCount" cmccount="0" type="button" class="btn btn-light" onclick="generate()">x = 0</button>
             <button type="button" class="btn btn-light" onclick="addCount()">+</button>
-            <button type="button" class="btn btn-light" onclick="loadOptions()" data-toggle="modal" data-target="#exampleModal">
+            <button type="button" class="btn btn-light" data-toggle="modal" data-target="#exampleModal">
               Settings
             </button>
           </div>
@@ -75,10 +75,15 @@
               </button>
             </div>
             <div class="modal-body">
-                <!--Want to keep around in case future options are added-->
+                <form action="">
+                    <input type="radio" name="format" value="standard"> Standard<br>
+                    <input type="radio" name="format" value="modern"> Modern<br>
+                    <input type="radio" name="format" value="legacy" checked> Legacy<br>
+                    <input type="radio" name="format" value="vintage"> Vintage<br>
+                </form>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="resetDeck()">Save changes</button>
+              <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="changeFormat()">Save changes</button>
             </div>
           </div>
         </div>
@@ -92,7 +97,29 @@
       //global variables
       //current image-id
       var curImageID = "Card-image";
+      //current format
+      var legalFormat = "legacy";
+        //remind us what we're playing...
+        function loadDoc() {
+            var xhttp = new XMLHttpRequest();
+            var requestString = "https://api.scryfall.com/cards/search?q=t%3Avanguard+name%3Amomir";
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    var response = JSON.parse(this.responseText);
+                    var card = response.data[0];
+                    updateImageField(card.image_uris.normal);
+                }
+            };
+        xhttp.open("GET", requestString, true);
+        xhttp.send();
+        }
 
+
+      //changes selected format for cardpool    
+      function changeFormat() {
+          var tempFormat = document.querySelector('input[name = "format"]:checked').value;
+          legalFormat = tempFormat;
+      }
       //starting specific coding for momir basic
       function generate() {
           var genButton = document.getElementById("CCount");
@@ -104,6 +131,8 @@
       function addCount() {
           var genButton = document.getElementById("CCount");
           var newX = parseInt(genButton.getAttribute('cmccount'))+1;
+          if (newX > 16)
+            newX = 16;
           genButton.setAttribute('cmccount', newX);
           genButton.innerText = "x = "+newX;
       }
@@ -121,12 +150,15 @@
       //given a value x: returns a random creature with x cmc
       function generateCard(x) {
         var xhttp = new XMLHttpRequest();
-        var requestString = "https://api.scryfall.com/cards/random?q=t%3Acreature+cmc%3D" + x;
+        var requestString = "https://api.scryfall.com/cards/random?q=t%3Acreature+f%3A" + legalFormat +"+cmc%3D" + x;
         xhttp.onreadystatechange = function() {
           if (this.readyState == 4 && this.status == 200) {
             var response = JSON.parse(this.responseText);
             var card = response;
             updateImageField(card.image_uris.normal);
+          }
+          else if (this.status == 404) {
+              alert("No Creature exists at this cmc...");
           }
         };
         xhttp.open("GET", requestString, true);
