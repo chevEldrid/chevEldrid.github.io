@@ -80,6 +80,7 @@
                     <input type="radio" name="format" value="modern"> Modern<br>
                     <input type="radio" name="format" value="legacy" checked> Legacy<br>
                     <input type="radio" name="format" value="vintage"> Vintage<br>
+                    <input type="checkbox" name="chaos" value="1"> Chaos Mode<br>
                 </form>
             </div>
             <div class="modal-footer">
@@ -99,6 +100,8 @@
       var curImageID = "Card-image";
       //current format
       var legalFormat = "legacy";
+      //additional variable for chaos modes
+      var creaturesOnly = true;
         //remind us what we're playing...
         function loadDoc() {
             var xhttp = new XMLHttpRequest();
@@ -118,7 +121,14 @@
       //changes selected format for cardpool    
       function changeFormat() {
           var tempFormat = document.querySelector('input[name = "format"]:checked').value;
+          var tempChaos = document.querySelector('input[name = "chaos"]').checked;
           legalFormat = tempFormat;
+          if(tempChaos) {
+            creaturesOnly = false;
+          }
+          else {
+            creaturesOnly = true;
+          }
       }
       //starting specific coding for momir basic
       function generate() {
@@ -150,7 +160,11 @@
       //given a value x: returns a random creature with x cmc
       function generateCard(x) {
         var xhttp = new XMLHttpRequest();
-        var requestString = "https://api.scryfall.com/cards/random?q=t%3Acreature+f%3A" + legalFormat +"+cmc%3D" + x;
+        var typeFilter = "";
+        if(creaturesOnly) {
+          typeFilter = "t%3Acreature+";
+        }
+        var requestString = "https://api.scryfall.com/cards/random?q="+typeFilter+"f%3A" + legalFormat +"+cmc%3D" + x;
         xhttp.onreadystatechange = function() {
           if (this.readyState == 4 && this.status == 200) {
             var response = JSON.parse(this.responseText);
