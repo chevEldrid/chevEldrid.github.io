@@ -22,6 +22,12 @@
             margin: 0 0 0 0;
         }
 
+        .prev-card {
+          height: 25%;
+          width: 25%;
+          margin: 0 0 0 0;
+        }
+
         @media only screen and (min-width: 600px) {
           #Card-image {
             height: 50%;    
@@ -53,6 +59,8 @@
               Settings
             </button>
           </div>
+          <h3 class="text-center">Card History</h3>
+            <div id="Prev-cards"></div>
         </div>
       </div>
       <div class="row">
@@ -98,6 +106,8 @@
       //global variables
       //current image-id
       var curImageID = "Card-image";
+      //id of div for all called images
+      var prevImageChain = "Prev-cards";
       //current format
       var legalFormat = "legacy";
       //additional variable for chaos modes
@@ -170,6 +180,7 @@
             var response = JSON.parse(this.responseText);
             var card = response;
             updateImageField(card.image_uris.normal);
+            updatePrevImages(card.image_uris.normal);
           }
           else if (this.status == 404) {
               alert("No Creature exists at this cmc...");
@@ -184,6 +195,25 @@
       function updateImageField(imageSrc) {
         var image = document.getElementById(curImageID);
         image.src = imageSrc;
+      };
+
+      //adds new image to list of previous images
+      //adds to top of list
+      function updatePrevImages(imageSrc) {
+        var image = document.createElement("img");
+        image.setAttribute("src", imageSrc);
+        image.onclick = function(e) { this.parentNode.removeChild(this) };
+        image.classList.add('prev-card');
+        image.classList.add('img-fluid'); 
+        image.classList.add('mx-auto');
+        image.classList.add('d-block');
+        var imageList = document.getElementById(prevImageChain);
+        imageList.insertBefore(image, imageList.childNodes[0]);
+      };
+
+      //removes card from list of prev cards (useful if creature destroyed)
+      function removePrevImage() {
+
       };
     </script>
   </body>
