@@ -149,6 +149,8 @@
       var index;
       //keeps track of times nothing is rolled to show players
       var nothingCount = 0;
+      //keeps track of times chaos is rolled in a row to show players
+      var chaosCount = 0;
       //current deck source: 0=official, 1=imgur
       var deckSource = 0;
       //api credentials for imgur
@@ -330,19 +332,25 @@
       var result;
       randomIndex = Math.floor(Math.random()* 6);
       randomIndex++;
-      if(randomIndex == 6) {
+      if(randomIndex <= 6) {
+        chaosCount ++;
         //result = "Chaos";
-        result = "<img class='minimized' src='chaos.png' />";
+        result = "<img class='minimized' src='./img/chaos.png' />";
+        if(chaosCount > 1) {
+          result+=(" x" + chaosCount);
+        }
         nothingCount = 0;
       }
       else if(randomIndex == 1) {
         //result = "Planeswalk";
-        result = "<img class='minimized' src='walker.png' />";
+        result = "<img class='minimized' src='./img/walker.png' />";
         nothingCount = 0;
+        chaosCount = 0;
         nextPlane();
       }
       else {
         nothingCount ++;
+        chaosCount = 0;
         result = ("Nothing x" + nothingCount);
         
       }
