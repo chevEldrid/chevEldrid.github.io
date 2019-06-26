@@ -1,5 +1,5 @@
 # www.robotstxt.org/
-
 # Allow crawling of all content
 User-agent: *
+Disallow: /webdir.html
 Sitemap: https://cheveldrid.github.io/sitemap.xml
