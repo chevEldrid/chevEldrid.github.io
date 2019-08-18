@@ -23,17 +23,6 @@
         <link rel="mountainIcon" href="mountainIcon.png">
         <link href="https://fonts.googleapis.com/css?family=Courgette" rel="stylesheet">
         <style>
-
-
-            body {
-                text-align: center;
-                position: absolute;
-                top: 25%;
-                width: 100%;
-                font-family: Helvetica;
-                color: #4f5b66
-            }
-            
             h1 {
                 font-size: 16pt;
                 font-size: calc(16pt + 3vw);
@@ -48,6 +37,14 @@
             }
             #Name {
                 margin: 0 0 0.5em 0;
+            }
+            .content {
+                text-align: center;
+                font-family: Helvetica;
+                color: #4f5b66;
+                position: relative;
+                top: 50%;
+                transform: perspective(1px) translateY(50%);
             }
             .intro {
                 margin: 0 0 1em 0;
@@ -72,22 +69,24 @@
         </style>
     </head>
     <body>
-        <h1 id="Name" class="centered">Chev Eldrid</h1>
-        <p class="intro">Current student of Computer Science at Northeastern University</p>
-        <p class="bio">Projects include <a href="https://cheveldrid.github.io/darkdepths" target="_blank">Text Adventures</a>, <a href="https://github.com/chevEldrid/chevEldrid.github.io/blob/master/planechase.html" target="_blank">Web App development</a>, and <a href="https://www.hackster.io/chev-eldrid/magic-the-gathering-card-pricer-a5e819" target="_blank">Card Sorters</a></p>
-        <p class="bio">Industry experience working with SQL, C#, ASP.Net, HTML/CSS, and Javascript</p>
-        <ul class="centered list-inline">
-            <li>
-                <a class="smLink" href="https://github.com/chevEldrid" target="_blank">
-                    <img src="/img/GitHub-Mark-32px.png" alt="Github">
-                </a>
-                <a class="smLink" href="https://www.linkedin.com/in/chev-eldrid-497057135/" target="_blank">
-                    <img src="/img/in%20circle.png" alt="LinkedIn"/>
-                </a>
-                <a class="smLink" href="mailto:chev424@gmail.com?Subject=Website" target="_top">
-                    <img src="/img/email.png" alt="Email me"/>
-                </a>
-            </li>
-        </ul>
+        <div class="content">
+            <h1 id="Name">Chev Eldrid</h1>
+            <p class="intro">Current student of Computer Science at Northeastern University</p>
+            <p class="bio">Projects include <a href="https://cheveldrid.github.io/darkdepths" target="_blank">Text Adventures</a>, <a href="https://github.com/chevEldrid/chevEldrid.github.io/blob/master/planechase.html" target="_blank">Web App development</a>, and <a href="https://www.hackster.io/chev-eldrid/magic-the-gathering-card-pricer-a5e819" target="_blank">Card Sorters</a></p>
+            <p class="bio">Industry experience working with Ruby, React, SQL, C#, and HTML/CSS</p>
+            <ul class="centered list-inline">
+                <li>
+                    <a class="smLink" href="https://github.com/chevEldrid" target="_blank">
+                        <img src="/img/GitHub-Mark-32px.png" alt="Github">
+                    </a>
+                    <a class="smLink" href="https://www.linkedin.com/in/chev-eldrid-497057135/" target="_blank">
+                        <img src="/img/in%20circle.png" alt="LinkedIn"/>
+                    </a>
+                    <a class="smLink" href="mailto:chev424@gmail.com?Subject=Website" target="_top">
+                        <img src="/img/email.png" alt="Email me"/>
+                    </a>
+                </li>
+            </ul>
+        </div>
     </body>
 <html>
