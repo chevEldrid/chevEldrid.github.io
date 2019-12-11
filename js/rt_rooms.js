@@ -57,6 +57,11 @@ function startGame(args) {
 		endHijack();
 	}
 };
+
+/* =============================
+   |     	  San Diego		       |
+	 ============================= */
+
 //function for action associated with command 'eat cereal'
 function talkToJulia() {
 	basicEcho('"'+player.name + ', If you\'re ready to stop wallowing, It\'s time to activate the operation. It\'s time to bring Vendadores back together..."');
@@ -146,35 +151,122 @@ var gaslamp = {
 	enemies: []
 };
 
-function pickUpDossier() {
-	if(officeSD.enemies.length > 0) {
-		basicEcho('The corrupted Copier blocks your way! It shoots paper in your direction causing minor cuts.');
-		player.health -= 1;
-	} else {
-		basicEcho('The copier defeated, you\'re finally able to pick up the dossier and begin your quest.');
-		//add new stuff about location
-		basicEcho('NEW LOCATION ADDED! NEW ITEMS ADDED TO BACKPACK!');
-	}
-}
-
 var officeSD = {
 	name: 'San Diego Office',
 	desc: 'The office has fallen into disrepair. Most machines have been tainted by ELISA and have left to form it\'s vast army. One however, stayed.',
 	items: [cupcake(), locationDossier()],
-	actions:['pick up dossier'],
-	effects:[pickUpDossier],
+	actions:[],
+	effects:[],
 	directions:['west'],
 	connections:[gaslamp],
 	enemies: [copierGoneWild()]
+};
+
+/* =============================
+   |       		Anaheim  		     |
+	 ============================= */
+
+//Let's try and build a store...
+function openDLShop() {
+	var wares = [[cupcake(), 5], [tequila(), 10]];
+	scope = 'shop';
+	curShopWares = wares;
+	basicEcho('"Hey '+player.name+'! Good to see you again! How\'d I get past the Copier? Oh, well...this game wasn\'t very well QA-ed so there\'s a couple loopholes lying around"');
+	basicEcho('"Buy something! I\'ve always got new stuff in stock!"');
+	buildShop(wares);
+};
+
+var mainStreetDL = {
+	name: 'Main Street',
+	desc: 'You\'ve successfully made it to Anaheim! The park is how you remember from a tech retreat long ago...you see a park ticket wedged between a few stones and somthing resembling a hidden mickey by a far tree...\nYou can also see a shop nearby!',
+	items: [mainStreetHiddenMickey(), disneyTicket()],
+	actions: ['shop'],
+	effects: [openDLShop],
+	directions: ['east'],
+	connections: [centralHubDL],
+	enemies: [alexa(), alexa(), alexa()]
+};
+
+var centralHubDL = {
+	name: 'Central Hub',
+	desc: 'Central Hub',
+	items: [],
+	actions: [],
+	effects: [],
+	directions: ['west', 'north', 'east', 'south'],
+	connections: [mainStreetDL, adventure, frontier, toontown],
+	enemies: []
+};
+
+var adventure = {
+	name: 'Adventureland',
+	desc: 'Adventureland',
+	items: [],
+	actions: [],
+	effects: [],
+	directions: ['south', 'north'],
+	connections: [centralHubDL, frontier],
+	enemies: []
+};
+
+var frontier = {
+	name: 'Frontierland',
+	desc: 'Frontierland',
+	items: [],
+	actions: [],
+	effects: [],
+	directions: ['south', 'west', 'east'],
+	connections: [adventure, centralHubDL, gEdge],
+	enemies: []
+};
+
+var toontown = {
+	name: 'Toontown',
+	desc: 'Toontown',
+	items: [],
+	actions: [],
+	effects: [],
+	directions: ['north'],
+	connections: [toontown],
+	enemies: []
+};
+
+var tomorrow = {
+	name: 'Tomorrowland',
+	desc: 'Tomorrowland',
+	items: [],
+	actions: [],
+	effects: [],
+	directions: [],
+	connections: [],
+	enemies: []
+}
+
+var gEdge = {
+	name: 'The Edge of the Galaxy',
+	desc: 'A wretched hive of scum and villainy',
+	items: [],
+	actions: [],
+	effects: [],
+	directions: ['west'],
+	connections: [frontier],
+	enemies: []
 };
 
 /*
     PURPOSE: To connect rooms at runtime and not throw super errors
 */
 function loadRoomConnections() {
-    sdBeach.connections = [seuss, downtownSD];
+	sdBeach.connections = [seuss, downtownSD];
 	seuss.connections = [sdBeach];
 	downtownSD.connections = [sdBeach];
 	gaslamp.connections = [downtownSD, officeSD];
 	officeSD.connections = [gaslamp];
+	mainStreetDL.connections = [centralHubDL];
+	centralHubDL.connections = [mainStreetDL, adventure, frontier, toontown];
+	adventure.connections = [centralHubDL, frontier];
+	frontier.connections = [adventure, centralHubDL, gEdge];
+	toontown.connections = [toontown];
+	tomorrow.connections = [];
+	gEdge.connections = [frontier];
 }

@@ -187,15 +187,53 @@ function locationDossier(){
 				player.health -= 1;
 			} else {
 				basicEcho('The copier defeated, you\'re finally able to pick up the dossier and begin your quest.');
-				//add new stuff about location
-				basicEcho('NEW LOCATION ADDED! NEW ITEMS ADDED TO BACKPACK!');
+				officeSD.connections.push(mainStreetDL);
+				officeSD.directions.push('to Anaheim');
+				basicEcho('A NEW PATH HAS OPENED! You may now "go to Anaheim" from this location!');
+				basicEcho('Be sure you\'re ready to continue, there\'s no going back...');
 			}
 		},
-		0,
+		0, false, 0, 0, true
+	);
+}
+
+function disneyTicket(){
+	return new Item(
+		'Park Ticket',
+		'A ticket to access the rides in the park',
+		true,
+		function(){return false;},
+		function(){},
+		0, false, 0, 15
+	);
+}
+
+function clubThirtyFourPin(){
+	return new Item(
+		'Club 34 pin',
+		'A specially encoded pin that gives access to the exclusive club 34',
+		true,
+		function(){return false;},
+		function(){}, 
+		0, false, 0, 10
+	);
+}
+
+function mainStreetHiddenMickey(){
+	return new Item(
+		'hidden mickey',
+		'A cleverly hidden mouse head tucked behind a tree on the main drag',
 		false,
-		0,
-		0,
-		true
+		function() {return true;},
+		function(){
+			if(player.hasItem('Club 34 pin') === -1) {
+				player.addItem(clubThirtyFourPin());
+				basicEcho('Tucked behind the symbol is a pin to access Club 34! You put it in your backpack for later');
+			} else {
+				basicEcho('You look behind the symbol, but don\'t see anything!');
+			}
+		},
+		0, false, 0, -1, true
 	);
 }
 
