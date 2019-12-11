@@ -175,6 +175,30 @@ function sdBeachNewspaper(){
 	);
 }
 
+function locationDossier(){
+	return new Item(
+		'Dossier',
+		'A list of last seen locations for all previous Vendadores.',
+		false,
+		function() {return true;},
+		function() {
+			if(officeSD.enemies.length > 0) {
+				basicEcho('The corrupted Copier blocks your way! It shoots paper in your direction causing minor cuts.');
+				player.health -= 1;
+			} else {
+				basicEcho('The copier defeated, you\'re finally able to pick up the dossier and begin your quest.');
+				//add new stuff about location
+				basicEcho('NEW LOCATION ADDED! NEW ITEMS ADDED TO BACKPACK!');
+			}
+		},
+		0,
+		false,
+		0,
+		0,
+		true
+	);
+}
+
 //weapons
 function truffulaBranch(){
 	return new Item(

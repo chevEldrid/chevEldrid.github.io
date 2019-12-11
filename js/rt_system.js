@@ -116,6 +116,10 @@ function inspect(args) {
 	if(index > -1) {
 		let curItem = things[index];
 		basicEcho(curItem.desc);
+		if(curItem.roomItem) {
+			basicEcho('-------------');
+			curItem.use();
+		}
 		if(curItem.takeable) {
 			basicEcho('You put the ' + curItem.name + ' into your bag for later.');
 			player.addItem(curItem);

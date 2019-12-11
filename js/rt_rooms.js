@@ -160,7 +160,7 @@ function pickUpDossier() {
 var officeSD = {
 	name: 'San Diego Office',
 	desc: 'The office has fallen into disrepair. Most machines have been tainted by ELISA and have left to form it\'s vast army. One however, stayed.',
-	items: [cupcake()],
+	items: [cupcake(), locationDossier()],
 	actions:['pick up dossier'],
 	effects:[pickUpDossier],
 	directions:['west'],
