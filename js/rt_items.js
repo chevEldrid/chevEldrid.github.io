@@ -1,25 +1,30 @@
 /*
-    @name:String        name of item
-    @desc:String        description of item
-    @takeable:boolean   can I put the item in my backpack
-    @cond:boolean		Condition when this item is usable
-    @use:function		What this Item will do if cond is met...
+	@name:String        name of item
+	@desc:String        description of item
+	@takeable:boolean   can I put the item in my backpack
+	@cond:boolean		Condition when this item is usable
+	@use:function		What this Item will do if cond is met...
 	@durability:int     how many times item can be used before breaking
 	@weapon:bool		is this item a weapon/can be used to attack
 	@strength:int		if item is weapon, its attack strength
 	@value:Int			value of item in game currency
+	@roomItem:bool	if item is room Item, it is used immediately
+	-------
+	@isSecret:bool 	assigned at creation, if item value === -1 hides item from non-explicit searches: useful for hidden switches and the like
 */
 class Item {
-    constructor(name, desc, takeable, cond, use, durability, isWeapon, strength, value) {
-        this.name = name;
-        this.desc = desc;
-        this.takeable = takeable;
-		this.cond = cond;
-		this.use = use;
-		this.durability = durability;
-		this.isWeapon = isWeapon;
-		this.strength = strength;
-		this.value = value;
+    constructor(name, desc, takeable, cond, use, durability, isWeapon, strength, value, roomItem = false) {
+			this.name = name;
+			this.desc = desc;
+			this.takeable = takeable;
+			this.cond = cond;
+			this.use = use;
+			this.durability = durability;
+			this.isWeapon = isWeapon;
+			this.strength = strength;
+			this.value = value;
+			this.roomItem = roomItem;
+			this.isSecret = this.value === -1;
     }
 };
 /*
@@ -38,6 +43,7 @@ class Enemy {
 		this.attack = attack;
 		this.loot = loot;
 		this.isReq = isReq;
+		this.isSecret = false;
 	}
 };
 
@@ -111,7 +117,7 @@ function catInTheHat(){
 }
 
 function sangria(){
-	return new Item('Glass of Sangria', 
+	return new Item('Sangria', 
 		'A glass of Fernando\'s Sangria. A true delicacy from before The Overtaking.',
 		true,
 		function(){return (player.health <= 95);},
@@ -152,7 +158,22 @@ function calamari(){
 
 /* =============================
    |       Special Items       |
-   ============================= */
+	 ============================= */
+	 
+//lore room-items
+function sdBeachNewspaper(){
+	return new Item(
+		'Newspaper',
+		'One article stands out that hasn\'t been water damaged:\n"ELISA brings a new era of man, one of servitude. None can stand in the way of a homicidal AI with good conversation skills..."',
+		false,
+		function() {return false;},
+		function() {},
+		0,
+		false,
+		0,
+		0
+	);
+}
 
 //weapons
 function truffulaBranch(){

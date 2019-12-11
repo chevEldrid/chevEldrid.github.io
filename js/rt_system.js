@@ -53,9 +53,9 @@ function help() {
 	PURPOSE: Prints some simple "About the Game" information
 */
 function about() {
-    basicEcho('Welcome to "Testing Chamber", A Text-Adventure surrounding nothing...');
-    basicEcho('VER: 1.1  DATE: May 2019');
-    setGraphic("city.gif");
+    basicEcho('Welcome to "Road Trip", A Text-Adventure about Saving the World from ane evil AI...');
+    basicEcho('VER: 1.0  DATE: Dec 2019');
+    //setGraphic("city.gif");
 };
 /*
 	PURPOSE: Lists the current player statistics relevant to advancement
@@ -68,10 +68,13 @@ function stats() {
 	SIDE EFFECTS: Prints failure to find cases to console
 	RETURNS: index of found thing, -1 if thing not found, -2 if either first two cases trigger
 	NOTES: named is an optional parameter so tutor can work with arrays of objects with names or arrays of strings
+	NOTES: if r2 is empty, assumes you don't want to list all the things available for that command
 */
 function tutor(args, things, r1, r2, named = true) {
-	var ls = things
+	var ls = things;
+	var lsVisible = things;
 	if(named) {
+		lsVisible = things.filter(x => !x.isSecret).map(x => x.name);
 		ls = things.map(x => x.name);
 	}
 	if(ls.length < 1) {
@@ -80,9 +83,13 @@ function tutor(args, things, r1, r2, named = true) {
 	}
 	//Case 2: no additional arguements supplied with command
 	else if(args === '') {
-		basicEcho(r2);
-		for(i = 0; i < ls.length; i++) {
-			basicEcho(ls[i]);
+		if(r2 !== '') {
+			basicEcho(r2);
+			for(i = 0; i < lsVisible.length; i++) {
+				basicEcho(lsVisible[i]);
+			}
+		} else {
+			basicEcho('Your search returns nothing of interest');
 		}
 		return -2;
 	}
@@ -104,7 +111,7 @@ function tutor(args, things, r1, r2, named = true) {
 function inspect(args) {
 	var things = curRoom.items;
 	var r1 = "There\'s nothing worth investigating here";
-	var r2 = 'You see: ';
+	var r2 = 'You see:';
 	var index = tutor(args, things, r1, r2);
 	if(index > -1) {
 		let curItem = things[index];

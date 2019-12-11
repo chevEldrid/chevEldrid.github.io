@@ -5,26 +5,26 @@
 */
 
 /*
-    @name:String        		name of Room
-    @desc:String        		description of Room
-    @items:Array<Item>  		items in room
-    @actions:Array<String> 		list of available actions in room
+	@name:String        		name of Room
+	@desc:String        		description of Room
+	@items:Array<Item>  		items in room
+	@actions:Array<String> 		list of available actions in room
 	@effects:Array<function> 	actions available
-    @enemies:Array<Enemy>		list of enemies in the room
-    ---navigation---
-    @directions:Array<String>   Directions from room to travel
-    @connections:Array<Room>    Rooms connected to directions
+	@enemies:Array<Enemy>		list of enemies in the room
+	---navigation---
+	@directions:Array<String>   Directions from room to travel
+	@connections:Array<Room>    Rooms connected to directions
 */
 class Room {
     constructor(name, desc, items, actions, effects, enemies, directions, connections) {
-        this.name = name;
-        this.desc = desc;
-        this.items = items;
-        this.actions = actions;
-		this.effects = effects;
-        this.enemies = enemies;
-        this.directions = directions;
-        this.connections = connections
+			this.name = name;
+			this.desc = desc;
+			this.items = items;
+			this.actions = actions;
+			this.effects = effects;
+			this.enemies = enemies;
+			this.directions = directions;
+			this.connections = connections
     }
 };
 
@@ -63,11 +63,6 @@ function talkToJulia() {
 	basicEcho('"I\'ve sent out a calendar invite for one week from today in Santa Barbara. We need to beat ELISA."');
 };
 
-function readNewspaperBeach() {
-	basicEcho('You pick up the newspaper strewn at your feet, able to make out a single article that hasn\'t been damaged by water:');
-	basicEcho('"ELISA brings a new era of man, one of servitude. None can stand in the way of a homicidal AI with good conversation skills...');
-}
-
 /*
 	Typical room. 
 	Special actions aside listed with associated functions written above
@@ -79,10 +74,10 @@ function readNewspaperBeach() {
 */
 var sdBeach = {
 	name:'The Beach',
-	desc:'You lie in the sand, watching the waves slowly roll in as a shadow clouds your view',
-	items: [sangria()],
-	actions: ['start', 'talk to Julia', 'read newspaper'],
-	effects: [startGame, talkToJulia, readNewspaperBeach],
+	desc:'You lie in the sand, watching the waves slowly roll in as a shadow clouds your view. Lying around you are a glass of Sangria and a Newspaper. Looking up, you can see Julia walking toward you.',
+	items: [sangria(), sdBeachNewspaper()],
+	actions: ['start', 'talk to Julia'],
+	effects: [startGame, talkToJulia],
 	directions: ['down the beach', 'toward town'],
 	connections: [seuss, downtownSD],
 	enemies: []
