@@ -78,7 +78,7 @@ var sdBeach = {
 	items: [sangria(), sdBeachNewspaper()],
 	actions: ['start', 'talk to Julia'],
 	effects: [startGame, talkToJulia],
-	directions: ['down the beach', 'toward town'],
+	directions: ['south', 'east'],
 	connections: [seuss, downtownSD],
 	enemies: []
 };
@@ -90,7 +90,7 @@ var seuss = {
 	items: [catInTheHat(), greenEggsAndHam(), truffulaBranch()],
 	actions: [],
 	effects: [],
-	directions: ['up the beach'],
+	directions: ['north'],
 	connections: [sdBeach],
 	enemies:[tentacle()]
 };
@@ -106,7 +106,7 @@ function crossStreet() {
 		basicEcho('Julia waves to you from the other side, "You have to go the San Diego Office," she says');
 		basicEcho('I\'ve left a dossier on everyones\' last locations. I\'ll see you in Santa Barbara');
 		downtownSD.connections.push(gaslamp);
-		downtownSD.directions.push('to gaslamp district');
+		downtownSD.directions.push('south');
 		basicEcho('A NEW PATH HAS OPENED!');
 	}
 }
@@ -118,7 +118,7 @@ var downtownSD = {
 	items: [bigStick()],
 	actions:['talk to passerby', 'cross the street'],
 	effects:[talkPasserby, crossStreet],
-	directions:['to the beach'],
+	directions:['west'],
 	connections:[sdBeach],
 	enemies: [alexa()]
 };
@@ -141,7 +141,7 @@ var gaslamp = {
 	items: [],
 	actions:['shop'],
 	effects:[openSDShop],
-	directions:['downtown', 'to the office'],
+	directions:['north', 'east'],
 	connections:[downtownSD, officeSD],
 	enemies: []
 };
@@ -163,7 +163,7 @@ var officeSD = {
 	items: [cupcake()],
 	actions:['pick up dossier'],
 	effects:[pickUpDossier],
-	directions:['gaslamp district'],
+	directions:['west'],
 	connections:[gaslamp],
 	enemies: [copierGoneWild()]
 };
