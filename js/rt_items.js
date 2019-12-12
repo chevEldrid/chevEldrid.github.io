@@ -34,15 +34,17 @@ class Item {
 	@attack:int			Enemy attack strength
 	@loot:Array<Item>	Potential loot drops
 	@isReq:bool			if loot is required for character
+	@onKill:func		event that triggers on enemy death
 */
 class Enemy {
-	constructor(name, desc, health, attack, loot, isReq) {
+	constructor(name, desc, health, attack, loot, isReq, onKill) {
 		this.name = name;
 		this.desc = desc;
 		this.health = health;
 		this.attack = attack;
 		this.loot = loot;
 		this.isReq = isReq;
+		this.onKill = onKill;
 		this.isSecret = false;
 	}
 };
@@ -57,10 +59,7 @@ function moldySandwich(){
 		true,
 		function(){return (player.health <= 95);},
 		function(){player.health+=5;player.sanity-=5;basicEcho('You eat it...but you hate yourself for it');},
-		1,
-		false,
-		0,
-		1
+		1, false, 0, 1
 	);
 }
 
@@ -70,10 +69,7 @@ function tequila(){
 		true,
 		function(){return (player.health <= 90);},
 		function(){player.health+=10;player.sanity-=10;basicEcho('An emergency shot of Tequila goes down about as easily as you\'d exepct');},
-		1,
-		false,
-		0,
-		3
+		1, false, 0, 3
 	);
 }
 
@@ -83,10 +79,7 @@ function peanutBrittle(){
 		true,
 		function(){return (player.health <= 93);},
 		function(){player.health+=7;basicEcho('The peanut brittle gives way with a satisfying crunch');},
-		1,
-		false,
-		0,
-		3
+		1, false, 0, 3
 	);
 }
 
@@ -96,10 +89,7 @@ function greenEggsAndHam(){
 		true,
 		function(){return (player.health <= 90);},
 		function(){player.health+=10;basicEcho('You do! You do like green eggs and ham!');},
-		1,
-		false,
-		0,
-		5
+		1, false, 0, 5
 	);
 }
 
@@ -109,10 +99,7 @@ function catInTheHat(){
 		true,
 		function(){return false},
 		function(){},
-		1,
-		false,
-		0,
-		10
+		1, false, 0, 10
 	);
 }
 
@@ -122,10 +109,7 @@ function sangria(){
 		true,
 		function(){return (player.health <= 95);},
 		function(){player.health+=5;player.sanity-=5;basicEcho('You down the glass, eager for more.');},
-		1,
-		false,
-		0,
-		1
+		1, false, 0, 1
 	);
 }
 
@@ -135,10 +119,7 @@ function cupcake(){
 		true,
 		function(){return true},
 		function(){player.health+=15;basicEcho('You finish off the cupcake in an instant, wishing for more.');},
-		1,
-		false,
-		0,
-		5
+		1, false, 0, 5
 	);
 }
 
@@ -149,18 +130,14 @@ function calamari(){
 		true,
 		function(){return (player.health <= 80);},
 		function(){player.health+=20;player.sanity+=20;basicEcho('It brings you some kind of weird pleasure to eat the cousins of the opressors. You\'re a little sick');},
-		1,
-		false,
-		0,
-		5
+		1, false, 0, 5
 	);
 }
 
 /* =============================
-   |       Special Items       |
+   |       	Lore Items  		   |
 	 ============================= */
-	 
-//lore room-items
+
 function sdBeachNewspaper(){
 	return new Item(
 		'Newspaper',
@@ -168,12 +145,45 @@ function sdBeachNewspaper(){
 		false,
 		function() {return false;},
 		function() {},
-		0,
-		false,
-		0,
-		0
+		0, false, 0, 0
 	);
 }
+
+function sdBeachTutorialBook(){
+	return new Item(
+		'Tutorial',
+		'Welcome to the game! Congrats! You just \'inspect\'ed your first item! There are a few other things to look at in this room so try finding those! If you get stuck, type \'help\'!',
+		false,
+		function() {return false;},
+		function() {},
+		0, false, 0, 0
+	);
+}
+
+function downtownSDCombatTutorialBook(){
+	return new Item(
+		'Combat Tutorial',
+		'Wow! You\'re doing great! To progress past this point you need to defeat an enemy. Try typing \'attack\' and then try \'attack\' followed by the specific enemy name! See what happens! Also you might want to \'equip\' that big stick...',
+		false,
+		function() {return false;},
+		function(){},
+		0, false, 0, 0
+	);
+}
+
+function gaslampShopTutorialBook(){
+	return new Item(
+		'Shop Tutorial',
+		'Last tutorial you should have to deal with...Another cool part of this game is the ability to buy and sell items from a shop. Type \'shop\' to check it out!',
+		false,
+		function() {return false;},
+		function(){},
+		0, false, 0, 0
+	);
+}
+/* =============================
+   |       Special Items       |
+	 ============================= */
 
 function locationDossier(){
 	return new Item(
@@ -183,10 +193,10 @@ function locationDossier(){
 		function() {return true;},
 		function() {
 			if(officeSD.enemies.length > 0) {
-				basicEcho('The corrupted Copier blocks your way! It shoots paper in your direction causing minor cuts.');
+				basicEcho('The Corrupted Copier blocks your way! It shoots paper in your direction causing minor cuts.');
 				player.health -= 1;
 			} else {
-				basicEcho('The copier defeated, you\'re finally able to pick up the dossier and begin your quest.');
+				basicEcho('The Copier defeated, you\'re finally able to pick up the dossier and begin your quest.');
 				officeSD.connections.push(mainStreetDL);
 				officeSD.directions.push('to Anaheim');
 				basicEcho('A NEW PATH HAS OPENED! You may now "go to Anaheim" from this location!');
@@ -245,10 +255,7 @@ function truffulaBranch(){
 		true,
 		function() {return false;},
 		function() {},
-		0,
-		true,
-		5,
-		5
+		0, true, 5, 5
 	);
 }
 
@@ -259,10 +266,7 @@ function bigStick(){
 		true,
 		function() {return false;},
 		function() {},
-		0,
-		true,
-		3,
-		2
+		0, true, 3, 2
 	);
 }
 
@@ -270,34 +274,35 @@ function bigStick(){
    |     Special Enemies       |
    ============================= */
 
-   function copierGoneWild() {
-   	return new Enemy('Tainted Copier',
+   function copierGoneWild(onKill) {
+   	return new Enemy('Corrupted Copier',
    		'A brute of a machine made even more hostile than normal by the rogue AI',
-   		50,
-   		7,
-   		[],
-   		false);
+   		25, 7, [], false, onKill);
    }
 
 /* =============================
    |     Generic Enemies       |
    ============================= */
 
-function tentacle() {
-	return new Enemy('Tentacle', 
-	'Looking slightly more threatening than a wet noodle',
-	5,
-	0,
-	[moldySandwich()],
-	false);
+function tentacle(onKill) {
+	return new Enemy(
+		'Tentacle', 
+		'Looking slightly more threatening than a wet noodle',
+		5,
+		0,
+		[moldySandwich()],
+		false,
+		onKill
+	);
 }
 
-function alexa() {
+function alexa(onKill) {
 	return new Enemy('Alexa Speaker',
 		'A smart speaker corrupted by ELISA. About as threatening as a stationary hockey puck',
 		5,
 		1,
 		[sangria(), moldySandwich()],
-		false
+		false,
+		onKill
 	);
 }

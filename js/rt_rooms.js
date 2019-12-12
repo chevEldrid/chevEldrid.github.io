@@ -79,8 +79,8 @@ function talkToJulia() {
 */
 var sdBeach = {
 	name:'The Beach',
-	desc:'You lie in the sand, watching the waves slowly roll in as a shadow clouds your view. Lying around you are a glass of Sangria and a Newspaper. Looking up, you can see Julia walking toward you.',
-	items: [sangria(), sdBeachNewspaper()],
+	desc:'You lie in the sand, watching the waves slowly roll in as a shadow clouds your view. Lying around you are a glass of Sangria and a Newspaper. Looking up, you can see Julia walking toward you. To get started, try \'inspect tutorial\'',
+	items: [sangria(), sdBeachNewspaper(), sdBeachTutorialBook()],
 	actions: ['start', 'talk to Julia'],
 	effects: [startGame, talkToJulia],
 	directions: ['south', 'east'],
@@ -91,7 +91,7 @@ var sdBeach = {
 // ||Room 2 - House of Seuss||
 var seuss = {
 	name: 'House of Seuss',
-	desc: 'One room, two rooms, red rooms, blue rooms! You\'ve entered the House of Seuss',
+	desc: 'One room, two rooms, red rooms, blue rooms! You\'ve entered the House of Seuss! A cat in a hat is lapping quietly at a bowl of milk while some green eggs and ham lay steaming on a counter. You see a truffula branch propped up against the wall.',
 	items: [catInTheHat(), greenEggsAndHam(), truffulaBranch()],
 	actions: [],
 	effects: [],
@@ -104,28 +104,25 @@ function talkPasserby() {
 	basicEcho('"LOOK OUT! IT\'S AN ELISA BOT! KILL IT!"');
 }
 
-function crossStreet() {
-	if(downtownSD.enemies.length > 0) {
-		basicEcho('You must defeat the enemy here first!');
-	} else {
-		basicEcho('Julia waves to you from the other side, "You have to go the San Diego Office," she says');
-		basicEcho('I\'ve left a dossier on everyones\' last locations. I\'ll see you in Santa Barbara');
-		downtownSD.connections.push(gaslamp);
-		downtownSD.directions.push('south');
-		basicEcho('A NEW PATH HAS OPENED!');
-	}
+function defeatedDtSdSpeaker() {
+	basicEcho('-------------');
+	basicEcho('Julia waves to you from the other side, "You have to go the San Diego Office," she says');
+	basicEcho('I\'ve left a dossier on everyones\' last locations. I\'ll see you in Santa Barbara');
+	downtownSD.connections.push(gaslamp);
+	downtownSD.directions.push('south');
+	basicEcho('A NEW PATH HAS OPENED TO THE SOUTH!');
 }
 
 // ||Room 3 - Downtown San Diego||
 var downtownSD = {
 	name: 'Downtown San Diego',
-	desc: 'The city is much as it\'s always been, aside from the bloodthirsty robots',
-	items: [bigStick()],
-	actions:['talk to passerby', 'cross the street'],
-	effects:[talkPasserby, crossStreet],
+	desc: 'The city is much as it\'s always been, aside from the bloodthirsty robots. An Alexa bot stands in front of you, ready to kill. By your feet you see a dusty book called \'combat tutorial\'. A passerby is passing by, shouting.',
+	items: [bigStick(), downtownSDCombatTutorialBook()],
+	actions:['talk to passerby'],
+	effects:[talkPasserby],
 	directions:['west'],
 	connections:[sdBeach],
-	enemies: [alexa()]
+	enemies: [alexa(defeatedDtSdSpeaker)]
 };
 
 //Let's try and build a store...
@@ -142,8 +139,8 @@ function openSDShop() {
 // ||Room 3 - Downtown San Diego||
 var gaslamp = {
 	name: 'Gaslamp district',
-	desc: 'The Gaslamp district, once full of restaurants and bars...now full of sadness',
-	items: [],
+	desc: 'The Gaslamp district, once full of restaurants and bars...now full of sadness. A book called \'Shop Tutorial\' lies on the ground, and you can see someone you vaguely recognize waving to you from behind a shop booth',
+	items: [gaslampShopTutorialBook()],
 	actions:['shop'],
 	effects:[openSDShop],
 	directions:['north', 'east'],
@@ -153,7 +150,7 @@ var gaslamp = {
 
 var officeSD = {
 	name: 'San Diego Office',
-	desc: 'The office has fallen into disrepair. Most machines have been tainted by ELISA and have left to form it\'s vast army. One however, stayed.',
+	desc: 'The office has fallen into disrepair. Most machines have been tainted by ELISA and have left to form it\'s vast army. One however, stayed. A corrupted Copier looms-spewing ink and joking about your desctruction.',
 	items: [cupcake(), locationDossier()],
 	actions:[],
 	effects:[],

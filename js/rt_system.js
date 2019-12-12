@@ -9,11 +9,31 @@
 var sysActions = ['survey', 'help', 'about', 'stats', 'inspect', 'use', 'drop', 'go', 'equip', 'attack'];
 //parallel array for running the commands of the above list
 var sysEffects = [survey, help, about, stats, inspect, use, drop, go, equip, attack];
+//parallel array for basic help descriptions
+var sysDescriptions = [
+	'provides all kinds of useful room info',
+	'prints a short description of all basic actions to console',
+	'basic information about the game itself',
+	'prints current character statistics like health, money, and inventory',
+	'can by used alone to see everything visible in a room, or in combination with an item name to more thoroughly examine it',
+	'can be used alone to view everything in player\'s backpack, or to use a particular backpack item',
+	'can be used to drop a particular item from your backpack. Don\'t worry! It will stay in the room you dropped it in',
+	'can be used alone to list all directions you can visit from current room, or with a direction to move player to that room',
+	'can be used alone to list all possible weapons in player backpack, or with a specific weapon to boost player attack stats',
+	'can be used alone to list all enemies in the current room, or one enemy in particular to engage in combat!'
+];
 
 //SCOPE: Shop - actions available while player is in a shop
 var shopActions = ['buy', 'sell', 'leave', 'help'];
 //parallel array for running the commands in the above list
 var shopEffects = [buyItem, sellItem, leaveShop, help];
+//parallel array for basic help descriptions
+var shopDescriptions = [
+	'used in conjunction with an item name available in the store, will attempt to purchase with existing player funds',
+	'used in conjunction with an item in your backpack to exchange it for item value',
+	'exits the shop environment and brings you back to your current player location',
+	'provides help documentation for shop actions'
+];
 
 //the actual code for the effects
 /*
@@ -38,13 +58,26 @@ function survey() {
 function help() {
 	basicEcho('possible commands at this point are: ');
 	var availActions = actions;
+	var documentedActions = sysActions;
+	var helpTexts = sysDescriptions;
 	if(scope === 'shop') {
 		availActions = shopActions;
+		documentedActions = shopActions;
+		helpTexts = shopDescriptions;
 	}
     for(i = 0; i < availActions.length; i++) {
         //just for the sake of flowy-ness - prevents 'Start' from being listed as a valid command going forward
 		if(availActions[i] != 'start') {
-			basicEcho(availActions[i]);
+			//injects basic action help info
+			var helpIndex = documentedActions.indexOf(availActions[i]);
+			var text = `[${availActions[i]}]`;
+			if(helpIndex > -1) {
+				text += (': ' + helpTexts[helpIndex])
+			} else {
+				text += (': room specific action. Try it and see!');
+			}
+			basicEcho(text);
+			basicEcho('----------------');
 		}
     }
     basicEcho('For further assistance please refer to included documentation or press buttons until something happens.');
@@ -241,6 +274,7 @@ function attack(args) {
 		player.health -= thisEnemy.attack;
 		if(thisEnemy.health <= 0){
 			basicEcho('You killed the '+thisEnemy.name+'!');
+			thisEnemy.onKill && thisEnemy.onKill();
 			roomEnemies.splice(i,1);
 			//basic loot-dropping action...
 			if(thisEnemy.loot) {
@@ -266,7 +300,7 @@ function lootDrop(possibilities, odds) {
         var lootIndex = getRandomInt(1, numPos) - 1;
 		var givenLoot = possibilities[lootIndex];
 		player.backpack.push(givenLoot);
-		basicEcho('Congradulations! You got a '+givenLoot.name+'!');
+		basicEcho('Congratulations! You got a '+givenLoot.name+'!');
 	}
 }
 
