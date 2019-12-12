@@ -195,12 +195,21 @@ var centralHubDL = {
 	enemies: []
 };
 
+function rideBoulderchase(){
+	if(player.hasItem('Park Ticket') > -1) {
+		basicEcho('The ride is almost as you remember it, rugged buggies diving and swerving through an underground labrynth');
+		//include some special benefit to riding...
+	} else {
+		basicEcho('You can\'t ride this without a ticket!');
+	}
+}
+
 var adventure = {
 	name: 'Adventureland',
 	desc: 'You cross the threshold into a land of adventure. Without the constant irrigation of disney staff once lucious groves are now reduced to the desert from whence they came. Rides are collapsing around you due to lack of maintenance. Except of course...Boulderchase. Care for a ride?',
-	items: [],
-	actions: [],
-	effects: [],
+	items: [suspiciousCarpet()],
+	actions: ['ride boulderchase'],
+	effects: [rideBoulderchase],
 	directions: ['south', 'north'],
 	connections: [centralHubDL, frontier],
 	enemies: []
