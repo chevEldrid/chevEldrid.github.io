@@ -57,6 +57,20 @@ function roomTrigger(name, desc, use, value = 0) {
 		true
 	);
 }
+
+function weapon(name, desc, strength, value) {
+	return new Item(
+		name,
+		desc,
+		true,
+		function(){return false;},
+		function(){},
+		0,
+		true,
+		strength,
+		value
+	);
+}
 /*
 	@name:String		name of Enemy
 	@desc:String		quick description of Enemy
@@ -150,6 +164,17 @@ function cupcake(){
 		function(){return true},
 		function(){player.health+=15;basicEcho('You finish off the cupcake in an instant, wishing for more.');},
 		1, false, 0, 5
+	);
+}
+
+function spinach(){
+	return new Item(
+		'spinach',
+		'Leafy greens that make you sad inside',
+		true,
+		function(){return true},
+		function(){player.health+=10; player.sanity+=5;basicEcho('You eat it straight from the bag, like an animal');},
+		1, false, 0, 1
 	);
 }
 
@@ -256,6 +281,14 @@ function clubThirtyFourPin(){
 	);
 }
 
+function thunderRideToken(){
+	return new Item('Thunder Ride Token', 'A commemorative token for riding Mountain of Thunder', true, function(){return false;}, function(){}, 0, false, 0, 1);
+}
+
+function boulderChaseToken(){
+	return new Item('Boulderchase Token', 'A commemorative token for riding Boulderchase', true, function(){return false;}, function(){}, 0, false, 0, 1);
+}
+
 function mainStreetHiddenMickey(){
 	return roomTrigger(
 		'hidden mickey',
@@ -288,7 +321,7 @@ function debris(){
 		'debris',
 		'A pile of broken fake rock and dirt from years of neglect',
 		function(){
-			var chance = getRandomInt(1,3);
+			var chance = getRandomInt(1,10);
 			if(chance === 2) {
 				basicEcho('What in tarnation??? There\'s something here in this pile!');
 				player.addItem(tequila());
@@ -302,7 +335,7 @@ function debris(){
 
 function clubThirtyFourEntrance(){
 	return roomTrigger(
-		'Room 34 Entrance',
+		'Club 34 Entrance',
 		'Just behind a replica of a New Orleans Speakeasy you find the door for Club 34...',
 		function(){
 			if(player.hasItem('Club 34 pin') > -1) {
@@ -317,28 +350,80 @@ function clubThirtyFourEntrance(){
 	);
 }
 
+function toontownDoor(){
+	return roomTrigger(
+		'Door',
+		'Carved out of plastic rock from before the era of ELISA',
+		function(){
+			if(player.hasItem('Thunder Ride Token') > -1 && player.hasItem('Boulderchase Token') > -1) {
+				player.addItem(spinach());
+				basicEcho('It was immediately clear Ishi had been here. From the 20 computers lying in a corner, deranged drawings of vans, and a couple bags of spinach you quickly pick up.');
+			} else {
+				basicEcho('The door remains closed. Try enjoying the park a little more...');
+			}
+		}
+	);
+}
+
+function gEdgeCantina(){
+	return roomTrigger(
+		'Cantina',
+		'Never have you seen a more wretched home of scum and villainy',
+		function(){
+			if(gEdge.enemies.length > 0) {
+				basicEcho('The Cantina remains surrounded by enemies. You can\'t get through!');
+			} else {
+				basicEcho('After wiping your weapon clean from the busted electronics, you enter the dark fast food restaurant looking for your long lost PM...');
+				basicEcho('Huddling over a collection of parfait containers: You see him. A little scragglier than you remember, but it\'s definitely Ishi. You call out.');
+				basicEcho('Ishi stops, turns, recognizing you saying one word: "SUUUUUUUGAR"');
+				if(player.hasItem('cupcake') > -1) {
+					basicEcho('You give Ishi your cupcake which he quickly demolishes before coming around to his old self');
+					player.removeItem('cupcake');
+					basicEcho('"Thanks' + player.name + ', I\'d had a serious craving and these Parfaits are far too healthy for me. What\'s this? You\'re getting the team back together? Last I saw Keith he was in...LA. We should go there next');
+					gEdge.connections.push(downtownLA);
+					gEdge.directions.push('to LA');
+					basicEcho('NEW PATH OPENED \'to LA\', FINISH UP HERE FIRST!');
+				} else {
+					basicEcho('You don\'t possess the right sugar. Ishi scowls at you and goes back to the parfaits.');
+				}
+			}
+		}
+	)
+}
+
 //weapons
 function truffulaBranch(){
-	return new Item(
+	return weapon(
 		'Truffula Branch',
 		'It\'s rare to find a Truffula that hasn\'t been turned into a Thneed...use it well',
-		true,
-		function() {return false;},
-		function() {},
-		0, true, 5, 5
+		5, 5
 	);
 }
 
 function bigStick(){
-	return new Item(
+	return weapon(
 		'Big Stick',
 		'A large branch in a convenient location',
-		true,
-		function() {return false;},
-		function() {},
-		0, true, 3, 2
+		3, 2
 	);
 }
+
+function magicPaintbrush(){
+	return weapon(
+		'Magic Paintbrush',
+		'Magic might be a strong word, but it\'s a large and very durable fake paintbrush',
+		6, 4
+	);
+}
+
+function turkeyLeg(){
+	return weapon(
+		'Turkey Leg',
+		'Originally created as a piece of food, after it showed no signs of going bad over three years...it was decided this might be better as a weapon',
+		5, 4
+	);
+}
+
 
 /* =============================
    |     Special Enemies       |
@@ -378,6 +463,28 @@ function alexa(onKill) {
 		5,
 		1,
 		[sangria(), moldySandwich()],
+		false,
+		onKill
+	);
+}
+
+function googHome(onKill) {
+	return new Enemy('Home Mini',
+		'A smart speaker corrupted by ELISA. About as threatening as a stationary hockey puck',
+		5,
+		1,
+		[spinach()],
+		false,
+		onKill
+	);
+}
+
+function miniMac(onKill) {
+	return new Enemy('Mac Mini',
+		'A more formiddable opponent than your typical puck. The mini can overheat and scald your shins',
+		10,
+		3,
+		[],
 		false,
 		onKill
 	);

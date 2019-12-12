@@ -165,7 +165,7 @@ var officeSD = {
 
 //Let's try and build a store...
 function openDLShop() {
-	var wares = [[cupcake(), 5], [tequila(), 10]];
+	var wares = [[cupcake(), 5], [tequila(), 10], [turkeyLeg(), 7], [cupcake(), 5]];
 	scope = 'shop';
 	curShopWares = wares;
 	basicEcho('"Hey '+player.name+'! Good to see you again! How\'d I get past the Copier? Oh, well...this game wasn\'t very well QA-ed so there\'s a couple loopholes lying around"');
@@ -198,7 +198,8 @@ var centralHubDL = {
 function rideBoulderchase(){
 	if(player.hasItem('Park Ticket') > -1) {
 		basicEcho('The ride is almost as you remember it, rugged buggies diving and swerving through an underground labrynth');
-		//include some special benefit to riding...
+		player.addItem(boulderChaseToken());
+		basicEcho('YOU RECEIVED A RIDE TOKEN FROM BOULDERCHASE');
 	} else {
 		basicEcho('You can\'t ride this without a ticket!');
 	}
@@ -214,6 +215,16 @@ var adventure = {
 	connections: [centralHubDL, frontier],
 	enemies: []
 };
+
+function rideThunderRailroad(){
+	if(player.hasItem('Park Ticket') > -1) {
+		basicEcho('While the ride has gotten even more rickety in recent years, you manage to escape decapitation by adhering to the safety guidelines and not putting your arms in the air like you just don\'t care');
+		player.addItem(thunderRideToken());
+		basicEcho('YOU RECEIVED A RIDE TOKEN FROM THUNDER RAILROAD');
+	} else {
+		basicEcho('You can\'t ride this without a ticket!');
+	}
+}
 
 var frontier = {
 	name: 'Frontierland',
@@ -234,6 +245,7 @@ function mikeBossBattle() {
 	basicEcho('NEW PATH DISCOVERD. YOU MAY NOW \'GO to Frontierland\'. NEW ITEMS HAVE SPAWNED IN THIS LOCATION');
 	//wilds and riches galore
 	club34.items.push(tequila());
+	club34.items.push(magicPaintbrush());
 }
 
 var club34 = {
@@ -249,18 +261,33 @@ var club34 = {
 
 var toontown = {
 	name: 'Toontown',
-	desc: 'Toontown',
-	items: [],
+	desc: 'A weird fog hangs over the entire area, visibility is limited but you can clearly make out a door nestled in the side of a large fake mountain',
+	items: [toontownDoor()],
 	actions: [],
 	effects: [],
-	directions: ['north'],
-	connections: [toontown],
-	enemies: []
+	directions: ['north', 'east'],
+	connections: [centralHubDL, toontown],
+	enemies: [tentacle()]
 };
 
-var tomorrow = {
-	name: 'Tomorrowland',
-	desc: 'Tomorrowland',
+var gEdge = {
+	name: 'The Edge of the Galaxy',
+	desc: 'You\'ve made it to the edge of the park. Scratchings cover the walls asking for help, claiming personal attacks, and the unmistakable mark of the Ishi: "N\'aight". All signs point to the cantina in the back, surrounded by robots.',
+	items: [spinach(), cantina()],
+	actions: [],
+	effects: [],
+	directions: ['west'],
+	connections: [frontier],
+	enemies: [tentacle(), alexa(), googHome(), miniMac()]
+};
+
+/* =============================
+   |       			LA  			     |
+	 ============================= */
+
+var downtownLA = {
+	name: 'Downtown Los Angeles',
+	desc: 'Tom!',
 	items: [],
 	actions: [],
 	effects: [],
@@ -268,17 +295,6 @@ var tomorrow = {
 	connections: [],
 	enemies: []
 }
-
-var gEdge = {
-	name: 'The Edge of the Galaxy',
-	desc: 'A wretched hive of scum and villainy',
-	items: [],
-	actions: [],
-	effects: [],
-	directions: ['west'],
-	connections: [frontier],
-	enemies: []
-};
 
 /*
     PURPOSE: To connect rooms at runtime and not throw super errors
@@ -293,7 +309,6 @@ function loadRoomConnections() {
 	centralHubDL.connections = [mainStreetDL, adventure, frontier, toontown];
 	adventure.connections = [centralHubDL, frontier];
 	frontier.connections = [adventure, centralHubDL, gEdge];
-	toontown.connections = [toontown];
-	tomorrow.connections = [];
+	toontown.connections = [centralHubDL, toontown];
 	gEdge.connections = [frontier];
 }
