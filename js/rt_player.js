@@ -79,7 +79,7 @@ class Player {
     //PURPOSE: String of relevant player statistics
     playerStats() {
         var temp = "";
-        temp += ('CURRENT STATS FOR: ' + this.name +'\n SANITY: ' + this.sanity + '\n HEALTH: ' + this.health + '\n MONEY: ' + this.money + '\n BACKPACK CONTAINS: \n');
+        temp += ('CURRENT STATS FOR: ' + this.name +'\n SANITY: ' + this.sanity + '\n HEALTH: ' + this.health + '\nATTACK STRENGTH: ' + (this.isEquipped() ? this.equip.strength : 1) + '\n MONEY: ' + this.money + '\n BACKPACK CONTAINS: \n');
         if(this.backpack.length < 1) {
             temp+="  nothing\n";
         }

@@ -24,9 +24,39 @@ class Item {
 			this.strength = strength;
 			this.value = value;
 			this.roomItem = roomItem;
+			//
 			this.isSecret = this.value === -1;
     }
 };
+
+function roomObject(name, desc, value = 0) {
+	return new Item(
+		name,
+		desc,
+		false,
+		function(){return false;},
+		function(){},
+		0,
+		false,
+		0,
+		value,
+	);
+}
+
+function roomTrigger(name, desc, use, value = 0) {
+	return new Item(
+		name,
+		desc,
+		false,
+		function(){return true;},
+		use,
+		0,
+		false,
+		0,
+		value,
+		true
+	);
+}
 /*
 	@name:String		name of Enemy
 	@desc:String		quick description of Enemy
@@ -139,46 +169,37 @@ function calamari(){
 	 ============================= */
 
 function sdBeachNewspaper(){
-	return new Item(
+	return roomObject(
 		'Newspaper',
 		'One article stands out that hasn\'t been water damaged:\n"ELISA brings a new era of man, one of servitude. None can stand in the way of a homicidal AI with good conversation skills..."',
-		false,
-		function() {return false;},
-		function() {},
-		0, false, 0, 0
 	);
 }
 
 function sdBeachTutorialBook(){
-	return new Item(
+	return roomObject(
 		'Tutorial',
 		'Welcome to the game! Congrats! You just \'inspect\'ed your first item! There are a few other things to look at in this room so try finding those! If you get stuck, type \'help\'!',
-		false,
-		function() {return false;},
-		function() {},
-		0, false, 0, 0
 	);
 }
 
 function downtownSDCombatTutorialBook(){
-	return new Item(
+	return roomObject(
 		'Combat Tutorial',
 		'Wow! You\'re doing great! To progress past this point you need to defeat an enemy. Try typing \'attack\' and then try \'attack\' followed by the specific enemy name! See what happens! Also you might want to \'equip\' that big stick...',
-		false,
-		function() {return false;},
-		function(){},
-		0, false, 0, 0
 	);
 }
 
 function gaslampShopTutorialBook(){
-	return new Item(
+	return roomObject(
 		'Shop Tutorial',
 		'Last tutorial you should have to deal with...Another cool part of this game is the ability to buy and sell items from a shop. Type \'shop\' to check it out!',
-		false,
-		function() {return false;},
-		function(){},
-		0, false, 0, 0
+	);
+}
+
+function mainStreetMessage(){
+	return roomObject(
+		'message',
+		'The message appears to read: "They trapped me...they trapped me where good diets go to die. Help-"  it seems to cut off abruptly'
 	);
 }
 /* =============================
@@ -186,24 +207,23 @@ function gaslampShopTutorialBook(){
 	 ============================= */
 
 function locationDossier(){
-	return new Item(
+	return roomTrigger(
 		'Dossier',
 		'A list of last seen locations for all previous Vendadores.',
-		false,
-		function() {return true;},
 		function() {
 			if(officeSD.enemies.length > 0) {
 				basicEcho('The Corrupted Copier blocks your way! It shoots paper in your direction causing minor cuts.');
 				player.health -= 1;
 			} else {
 				basicEcho('The Copier defeated, you\'re finally able to pick up the dossier and begin your quest.');
+				basicEcho('On the first page, it reads: "We\'ve traced Ishi\'s location to a particular theme park in Anaheim. After a few years in which he seemed to be buying all the non-ELISA corrupted Vans on the west coast. He seems to have settled. At least for now..."')
 				officeSD.connections.push(mainStreetDL);
 				officeSD.directions.push('to Anaheim');
-				basicEcho('A NEW PATH HAS OPENED! You may now "go to Anaheim" from this location!');
-				basicEcho('Be sure you\'re ready to continue, there\'s no going back...');
+				basicEcho('----------------')
+				basicEcho('A NEW PATH HAS OPENED: To Anaheim! You may now "go to Anaheim" from this location!');
+				basicEcho('Be sure you\'re ready to continue, there\'s no coming back...');
 			}
-		},
-		0, false, 0, 0, true
+		}
 	);
 }
 
@@ -230,11 +250,9 @@ function clubThirtyFourPin(){
 }
 
 function mainStreetHiddenMickey(){
-	return new Item(
+	return roomTrigger(
 		'hidden mickey',
 		'A cleverly hidden mouse head tucked behind a tree on the main drag',
-		false,
-		function() {return true;},
 		function(){
 			if(player.hasItem('Club 34 pin') === -1) {
 				player.addItem(clubThirtyFourPin());
@@ -243,8 +261,19 @@ function mainStreetHiddenMickey(){
 				basicEcho('You look behind the symbol, but don\'t see anything!');
 			}
 		},
-		0, false, 0, -1, true
+		-1
 	);
+}
+
+function suspiciousCarpet(){
+	return roomTrigger(
+		'suspicious carpet',
+		'A tastefully ornate Arabian carpet',
+		function(){
+			player.health -= 10;
+			basicEcho('Why did you step on a suspicious carpet?! Your health takes a plunge as you fall into a deep pit...eventually managing to get back out.');
+		}
+	)
 }
 
 //weapons

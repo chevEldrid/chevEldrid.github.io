@@ -150,7 +150,7 @@ var gaslamp = {
 
 var officeSD = {
 	name: 'San Diego Office',
-	desc: 'The office has fallen into disrepair. Most machines have been tainted by ELISA and have left to form it\'s vast army. One however, stayed. A corrupted Copier looms-spewing ink and joking about your desctruction.',
+	desc: 'The office has fallen into disrepair. Most machines have been tainted by ELISA and have left to form it\'s vast army. One however, stayed. A corrupted Copier looms-spewing ink and joking about your desctruction. It is standing directly between you and the Dossier',
 	items: [cupcake(), locationDossier()],
 	actions:[],
 	effects:[],
@@ -175,19 +175,19 @@ function openDLShop() {
 
 var mainStreetDL = {
 	name: 'Main Street',
-	desc: 'You\'ve successfully made it to Anaheim! The park is how you remember from a tech retreat long ago...you see a park ticket wedged between a few stones and somthing resembling a hidden mickey by a far tree...\nYou can also see a shop nearby!',
-	items: [mainStreetHiddenMickey(), disneyTicket()],
+	desc: 'You\'ve successfully made it to Anaheim! The park is how you remember from a tech retreat long ago...you see a park ticket wedged between a few stones and somthing resembling a hidden mickey by a far tree...there also seems to be a weird message written on a wall.\nYou can also see a shop nearby!',
+	items: [mainStreetHiddenMickey(), disneyTicket(), mainStreetMessage()],
 	actions: ['shop'],
 	effects: [openDLShop],
 	directions: ['east'],
 	connections: [centralHubDL],
-	enemies: [alexa(), alexa(), alexa()]
+	enemies: [alexa()]
 };
 
 var centralHubDL = {
 	name: 'Central Hub',
-	desc: 'Central Hub',
-	items: [],
+	desc: 'A statue of the late Walt stands before you, piercing you with his icy gaze. Judging you, as if you were not worthy to enter the house of mouse. There\'s a food stand within spitting distance that seems well stocked with Tequila and Sangria',
+	items: [tequila(), sangria()],
 	actions: [],
 	effects: [],
 	directions: ['west', 'north', 'east', 'south'],
@@ -197,7 +197,7 @@ var centralHubDL = {
 
 var adventure = {
 	name: 'Adventureland',
-	desc: 'Adventureland',
+	desc: 'You cross the threshold into a land of adventure. Without the constant irrigation of disney staff once lucious groves are now reduced to the desert from whence they came. Rides are collapsing around you due to lack of maintenance. Except of course...Boulderchase. Care for a ride?',
 	items: [],
 	actions: [],
 	effects: [],
