@@ -202,6 +202,13 @@ function mainStreetMessage(){
 		'The message appears to read: "They trapped me...they trapped me where good diets go to die. Help-"  it seems to cut off abruptly'
 	);
 }
+
+function frontierMessage(){
+	return roomObject(
+		'message',
+		'The message reads: "...Don\'t have much time. I\'m running out of supplies. All that is left are the...parfaits...'
+	);
+}
 /* =============================
    |       Special Items       |
 	 ============================= */
@@ -273,7 +280,41 @@ function suspiciousCarpet(){
 			player.health -= 10;
 			basicEcho('Why did you step on a suspicious carpet?! Your health takes a plunge as you fall into a deep pit...eventually managing to get back out.');
 		}
-	)
+	);
+}
+
+function debris(){
+	return roomTrigger(
+		'debris',
+		'A pile of broken fake rock and dirt from years of neglect',
+		function(){
+			var chance = getRandomInt(1,3);
+			if(chance === 2) {
+				basicEcho('What in tarnation??? There\'s something here in this pile!');
+				player.addItem(tequila());
+				basicEcho('You found some Tequila! You put it into your bag for later');
+			} else {
+				basicEcho('Alas, nothing but pebbles');
+			}
+		}
+	);
+}
+
+function clubThirtyFourEntrance(){
+	return roomTrigger(
+		'Room 34 Entrance',
+		'Just behind a replica of a New Orleans Speakeasy you find the door for Club 34...',
+		function(){
+			if(player.hasItem('Club 34 pin') > -1) {
+				basicEcho('You flash your pin to the automatic door security, opening a path from Frontierland');
+				basicEcho('NEW PATH UNLOCKED, YOU MAY NOW \'GO TO CLUB 34\'');
+				frontier.connections.push(club34);
+				frontier.directions.push('to Club 34');
+			} else {
+				basicEcho('The door does its best impression of a door telling you to piss off');
+			}
+		}
+	);
 }
 
 //weapons
@@ -309,6 +350,12 @@ function bigStick(){
    		25, 7, [], false, onKill);
    }
 
+   function mikeClubThirtyFour(onKill) {
+   	return new Enemy('MIKE',
+   		'A more rough around the edges AI just recently given life in Sunny Santa Barbara',
+   		40, 7, [], false, onKill);
+   }
+
 /* =============================
    |     Generic Enemies       |
    ============================= */
@@ -335,3 +382,12 @@ function alexa(onKill) {
 		onKill
 	);
 }
+//HELPER FUNCTIONS
+/*
+	PURPOSE: Return a random integer within the supplied range
+*/
+function getRandomInt(min, max) {
+	min = Math.ceil(min);
+	max = Math.floor(max);
+	return Math.round(Math.random() * (max - min)) + min;
+};

@@ -217,14 +217,35 @@ var adventure = {
 
 var frontier = {
 	name: 'Frontierland',
-	desc: 'Frontierland',
-	items: [],
-	actions: [],
-	effects: [],
+	desc: 'Frontierland almost looks...unchanged. It helps that the desert environment matches the desert environment of most of Southern California. Looking around you swear you see an entrance for the famous Club 34. Up ahead looms the Thunder Railroad, looking a little worse for ware with debris littering the street',
+	items: [debris(), clubThirtyFourEntrance(), frontierMessage()],
+	actions: ['ride Thunder Railroad'],
+	effects: [rideThunderRailroad],
 	directions: ['south', 'west', 'east'],
 	connections: [adventure, centralHubDL, gEdge],
 	enemies: []
 };
+
+function mikeBossBattle() {
+	basicEcho('With a final yell, MIKE collapses - twitching and speaking nonsense about how much more efficient the maintenance in the park could be...');
+	club34.connections.push(frontier);
+	club34.directions.push('to Frontierland');
+	basicEcho('----------')
+	basicEcho('NEW PATH DISCOVERD. YOU MAY NOW \'GO to Frontierland\'. NEW ITEMS HAVE SPAWNED IN THIS LOCATION');
+	//wilds and riches galore
+	club34.items.push(tequila());
+}
+
+var club34 = {
+	name: 'Club34',
+	desc: 'A long undisturbed relic of the elite. You can almost feel the Kanye. Unfortunately you don\'t have much time to take in the sights. Before you stands one of ELISA\'s top generals. MIKE. Good luck.',
+	items: [],
+	actions: [],
+	effects: [],
+	directions: [],
+	connections: [],
+	enemies: [mikeClubThirtyFour(mikeBossBattle)]
+}
 
 var toontown = {
 	name: 'Toontown',
