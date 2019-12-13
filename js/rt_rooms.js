@@ -165,7 +165,7 @@ var officeSD = {
 
 //Let's try and build a store...
 function openDLShop() {
-	var wares = [[cupcake(), 5], [tequila(), 10], [turkeyLeg(), 7], [cupcake(), 5]];
+	var wares = [[cupcake(), 5], [tequila(), 10], [turkeyLeg(), 7]];
 	scope = 'shop';
 	curShopWares = wares;
 	basicEcho('"Hey '+player.name+'! Good to see you again! How\'d I get past the Copier? Oh, well...this game wasn\'t very well QA-ed so there\'s a couple loopholes lying around"');
@@ -243,7 +243,6 @@ function mikeBossBattle() {
 	club34.directions.push('to Frontierland');
 	basicEcho('----------')
 	basicEcho('NEW PATH DISCOVERD. YOU MAY NOW \'GO to Frontierland\'. NEW ITEMS HAVE SPAWNED IN THIS LOCATION');
-	//wilds and riches galore
 	club34.items.push(tequila());
 	club34.items.push(magicPaintbrush());
 }
@@ -273,7 +272,7 @@ var toontown = {
 var gEdge = {
 	name: 'The Edge of the Galaxy',
 	desc: 'You\'ve made it to the edge of the park. Scratchings cover the walls asking for help, claiming personal attacks, and the unmistakable mark of the Ishi: "N\'aight". All signs point to the cantina in the back, surrounded by robots.',
-	items: [spinach(), cantina()],
+	items: [spinach(), gEdgeCantina()],
 	actions: [],
 	effects: [],
 	directions: ['west'],
@@ -287,7 +286,101 @@ var gEdge = {
 
 var downtownLA = {
 	name: 'Downtown Los Angeles',
-	desc: 'Tom!',
+	desc: 'Tom greets you outside his Keyah. "I\'ve lost Keith! He just left me a note about meeting up when I tried to find him-he was gone and not answering his phone! So here we are in Downtown LA and we need to find Keith!" A Rolling Rock lies discarded in the street. Still good!',
+	items: [rollingRock(), keithMessageDTLA()],
+	actions: [],
+	effects: [],
+	directions: ['east'],
+	connections: [concertVenue],
+	enemies: []
+};
+
+var concertVenue = {
+	name: 'Concert Venue',
+	desc: 'Loud music is blasting from all directions, but no one seems to be moving...honestly it\'s kind of awkward, and you wonder how long you want to stay with the motionless crowd. The bar is only stocked with Tequila',
+	items: [tequila(), concertCrowd()],
+	actions: [],
+	effects: [],
+	directions: ['west','south', 'east'],
+	connections: [downtownLA, bookShop, yogaStudio],
+	enemies: []
+};
+
+function openLAStore() {
+	var wares = [[tequila(), 10], [turkeyLeg(), 7], [cupcake(), 5]];
+	scope = 'shop';
+	curShopWares = wares;
+	basicEcho('"Welcome back! Ugh, California is kind of getting to me...it might be time to head back to Shrieveport! Have you ever been? Lovely people! Man, the draft from that bookcase is driving me crazy!"');
+	buildShop(wares);
+};
+
+var bookShop = {
+	name: 'Last Bookstore',
+	desc: 'After dropping most of your supplies with the consierge...which you can\'t believe they still have in the apocalypse...you begin to walk around through the craziest bookstore you\'ve ever seen. Ryan waves to you from his shop',
+	items: [lastBookshelf()],
+	actions: ['shop'],
+	effects: [openLAStore],
+	directions: ['north', 'east'],
+	connections: [concertVenue, beachLA],
+	enemies: []
+};
+
+function talkToLifeguard() {
+	if(player.hasItem('birkenstock') > -1 && player.hasItem('orbeez') > -1 && player.hasItem('sunglasses cord') > -1 && player.hasItem('assorted rings') > -1) {
+		basicEcho('"OHHHHH THAT GUY! Yeah I remember him, he\'s all up and down the beach making friends. Check by the Volleyball courts!"');
+		beachLA.connections.push(volleyballCourt);
+		beachLA.directions.push('to Volleyball courts');
+		basicEcho('NEW PATH OPENED FROM THIS LOCATION! \'Go to volleyball courts\'');
+	} else {
+		basicEcho('"Keith? Never heard of him...maybe if you had more things to help jog my memory..."')
+	}
+}
+
+var beachLA = {
+	name: 'Beach',
+	desc: 'The sunlight blinds, and you find yourself wishing you had sunglasses on the pristine beach. Waves casually roll in as the lifeguard waves to you',
+	items: [sunglasses()],
+	actions: ['talk to lifeguard'],
+	effects: [talkToLifeguard],
+	directions: ['west', 'north'],
+	connections: [bookShop, yogaStudio],
+	enemies: []
+};
+
+var yogaStudio = {
+	name: 'Yoga Studio',
+	desc: 'The mats are mostly full, from waaay towards the front you can see someone guiding everyone through the tree pose. You try to act the part and stand on the empty yoga mat while looking for clues',
+	items: [yogaMat()],
+	actions: [],
+	effects: [],
+	directions: ['south', 'west'],
+	connections: [beachLA, concertVenue],
+	enemies: []
+};
+
+function talkToKeith() {
+	basicEcho('"Oh no way? You\'re getting the Vens back together? For sure I\'ll join! Let me just finish this game."');
+	basicEcho('------------');
+	basicEcho('You go back to Tom to bring him the good news, Keith has been found! He tells you about seeing Jonathan in a mansion up near Malibu...');
+	volleyballCourt.connections.push(malibuStart);
+	volleyballCourt.directions.push('to Malibu');
+	basicEcho('A NEW PATH HAS OPENED! \'Go to Malibu\', FINISH STUFF UP HERE!');
+}
+
+var volleyballCourt = {
+	name: 'Volleyball Court',
+	desc: 'Keith is mid game when he spots you, and comes running over',
+	items: [],
+	actions: ['talk to Keith'],
+	effects: [talkToKeith],
+	directions: ['west'],
+	connections: [beachLA],
+	enemies: []
+}
+
+var malibuStart = {
+	name: 'Malibu',
+	desc: 'Malibu',
 	items: [],
 	actions: [],
 	effects: [],
@@ -311,4 +404,10 @@ function loadRoomConnections() {
 	frontier.connections = [adventure, centralHubDL, gEdge];
 	toontown.connections = [centralHubDL, toontown];
 	gEdge.connections = [frontier];
+	downtownLA.connections = [concertVenue];
+	concertVenue.connections = [downtownLA, bookShop, yogaStudio];
+	bookShop.connections = [concertVenue, beachLA];
+	beachLA.connections = [bookShop, yogaStudio];
+	yogaStudio.connections = [beachLA, concertVenue];
+	volleyballCourt.connections = [beachLA];
 }

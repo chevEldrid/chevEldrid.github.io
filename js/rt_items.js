@@ -189,6 +189,28 @@ function calamari(){
 	);
 }
 
+function earlGray(){
+	return new Item(
+		'Earl Gray Tea',
+		'The favorite Tea of Kings and Ishis',
+		true,
+		function(){return true;},
+		function(){player.health+=5;basicEcho('You sit down for a nice brew and contemplation');},
+		1, false, 0, 3
+	);
+}
+
+function rollingRock(){
+	return new Item(
+		'Rolling Rock',
+		'A bottle of cheap beer that could be one of many different brands. But you\'re confident it\'s Rolling Rock...you think',
+		true,
+		function(){return true;},
+		function(){player.health+=5;player.sanity-=5;basicEcho('You down the warm foamy beer with a little less hesitation than you really should...');},
+		1, false, 0, 3
+	);
+}
+
 /* =============================
    |       	Lore Items  		   |
 	 ============================= */
@@ -234,6 +256,14 @@ function frontierMessage(){
 		'The message reads: "...Don\'t have much time. I\'m running out of supplies. All that is left are the...parfaits...'
 	);
 }
+
+function keithMessageDTLA(){
+	return roomObject(
+		'message',
+		'The message reads: "Hey buddy, we don\'t have a lot of time left. You\'ve got to come out!! I\'m at the Venue."'
+	);
+}
+
 /* =============================
    |       Special Items       |
 	 ============================= */
@@ -287,6 +317,22 @@ function thunderRideToken(){
 
 function boulderChaseToken(){
 	return new Item('Boulderchase Token', 'A commemorative token for riding Boulderchase', true, function(){return false;}, function(){}, 0, false, 0, 1);
+}
+
+function birkenstock(){
+	return new Item('A lone birkenstock', 'In most cases, a single burk would be a larger issue...but Keith never wears shoes anyway', true, function(){return false;}, function(){}, 0, false, 0, 1);
+}
+
+function orbeez(){
+	return new Item('Orbeez', 'One of Keith\'s prized possessions, he\'ll never use it but always treasure it', true, function(){return false;}, function(){}, 0, false, 0, 1);
+}
+
+function sunglassesCord(){
+	return new Item('Sunglasses Cord', 'How will Keith hold on to his Sunglasses???', true, function(){return false;}, function(){}, 0, false, 0, 1);
+}
+
+function assortedRings(){
+	return new Item('Assorted Rings', 'A collection of Keith\'s jewellry, left behind on a yoga matt', true, function(){return false;}, function(){}, 0, false, 0, 1);
 }
 
 function mainStreetHiddenMickey(){
@@ -357,6 +403,7 @@ function toontownDoor(){
 		function(){
 			if(player.hasItem('Thunder Ride Token') > -1 && player.hasItem('Boulderchase Token') > -1) {
 				player.addItem(spinach());
+				player.addItem(earlGray());
 				basicEcho('It was immediately clear Ishi had been here. From the 20 computers lying in a corner, deranged drawings of vans, and a couple bags of spinach you quickly pick up.');
 			} else {
 				basicEcho('The door remains closed. Try enjoying the park a little more...');
@@ -388,7 +435,70 @@ function gEdgeCantina(){
 				}
 			}
 		}
-	)
+	);
+}
+
+function concertCrowd(){
+	return roomTrigger(
+		'Crowd',
+		'The crowd seems to be bopping...a little bit, but with the music as intense as it is you feel a little weird',
+		function(){
+			if(player.hasItem('birkenstock') === -1) {
+				basicEcho('You see something in the crowd! It looks like...one of Keith\'s Birkenstocks? You\'d be worried if he ever wore shoes...');
+				player.addItem(birkenstock());
+			} else {
+				basicEcho('They continue to be awkward');
+			}
+		}
+	);
+}
+
+function lastBookshelf(){
+	return roomTrigger(
+		'Bookcase',
+		'It looks just like any other bookcase but with a subtle twist...',
+		function(){
+			if(player.hasItem('Orbeez') === -1) {
+				player.addItem(orbeez());
+				basicEcho('Keith\'s prized Orbeez??? He wouldn\'t just leave them behind a suspicious bookcase...would he?');
+			} else {
+				basicEcho('The secret room is empty! You must have been here before.')
+			}
+		},
+		-1
+	);
+}
+
+function sunglasses(){
+	return roomTrigger(
+		'sunglasses',
+		'A discarded pair of sunglasses grabs your attention: they look expensive!',
+		function(){
+			if(player.hasItem('sunglasses cord') === -1) {
+				player.addItem(sunglassesCord());
+				basicEcho('These could be Keith\'s sunglasses! The cord is lying next to them in the sand!');
+			} else {
+				basicEcho('Meh. Maybe the owner will come back')
+			}
+		},
+		-1
+	);
+}
+
+function yogaMat(){
+	return roomTrigger(
+		'Yoga Mat',
+		'A sweat-stained mat perfect to re-align yourself after a hard day',
+		function(){
+			if(player.hasItem('assorted Rings') === -1) {
+				player.addItem(assortedRings());
+				basicEcho('Keith\'s rings?? He must have taken them off to keep the flow consistent throughout his core!');
+			} else {
+				basicEcho('Flipping over the mat reveals an equally sweaty mat.')
+			}
+		},
+		-1
+	);
 }
 
 //weapons
