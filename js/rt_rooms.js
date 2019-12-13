@@ -378,14 +378,164 @@ var volleyballCourt = {
 	enemies: []
 }
 
+/* =============================
+   |       		Malibu 			     |
+	 ============================= */
+
 var malibuStart = {
-	name: 'Malibu',
-	desc: 'Malibu',
+	name: 'Mansion Entrance',
+	desc: 'You\'ve made it to Jonathan\'s last known location. Before you stands an incredible Mansion, made vacant by the end days but...it appears to be teeming with something, if not life. Robots are buzzing around in every direction',
 	items: [],
 	actions: [],
 	effects: [],
-	directions: [],
-	connections: [],
+	directions: ['east', 'north'],
+	connections: [malibuMainHall, malibuFrontLawn],
+	enemies: []
+}
+
+function talkToJonathanMainHall() {
+	basicEcho('"Pretty nifty seeee? After ELISA took over I thought I\'d hole up here in Malibu. No distractions, no one bothering me with Oauth, it\'s peaceful"');
+	basicEcho('"Oh, the robots? Well I can\'t exactly maintain a mansion by myself. Even my desk at work was always covered in junk like peanut butter. So, I built a robot arm-workers. Built robot workers."');
+	basicEcho('"Yeah they\'re pretty harmless, go say hi! I\'ll be ready to leave with you guys for Santa Barbara in just a few hours. I need to finish some stuff up here first...Just don\'t go into the Library!"');
+}
+
+var malibuMainHall = {
+	name: 'Main Hall',
+	desc: 'As you step into the main hall, you\'re greeted by a very smug looking Jonathan Easterman. Robots continue to buzz around you as he beckons you over',
+	items: [dormantCleanerRobot(), dormantButlerRobot(), dormanthypeManRobot()],
+	actions: ['talk to Jonathan'],
+	effects: [talkToJonathanMainHall],
+	directions: ['west', 'east', 'north', 'south'],
+	connections: [malibuStart, malibuStaircase, malibuStudy, malibuDiningRoom],
+	enemies: []
+}
+
+var malibuStaircase = {
+	name: 'Staircase',
+	desc: 'You walk up to the beautifully ornate staircase, covered in a rug that really ties the thing together',
+	items: [dormantCleanerRobot()],
+	actions: [],
+	effects: [],
+	directions: ['west', 'upstairs'],
+	connections: [malibuMainHall, malibuBalcony],
+	enemies: []
+}
+
+var malibuBalcony = {
+	name: 'Balcony',
+	desc: 'The balcony gives you a view over the entire interior of the house. You\'ve never seen so many robots before. Could they all be necessary for cleaning? Deep Techno music can be heard from behind a door to the south',
+	items: [dormantButlerRobot(), dormantCleanerRobot()],
+	actions: [],
+	effects: [],
+	directions: ['downstairs', 'south'],
+	connections: [malibuStaircase, malibuBedroom],
+	enemies: []
+}
+
+var malibuBedroom = {
+	name: 'Bedroom',
+	desc: 'A glimpse into Jonathan\'s private life since The Overtaking. ...It looks similar to how you\'d expect. The bed is a bit of a mess, with a loose rolex and usb drive among the pile',
+	items: [rolex(), digiKey()],
+	actions: [],
+	effects: [],
+	directions: ['north'],
+	connections: [malibuBalcony],
+	enemies: []
+}
+
+var malibuLibrary = {
+	name: 'Library',
+	desc: 'Library',
+	items: [dormantButlerRobot(), dormantCleanerRobot()],
+	actions: [],
+	effects: [],
+	directions: ['north', 'west'],
+	connections: [malibuStaircase, malibuDiningRoom],
+	enemies: []
+}
+
+var malibuDiningRoom = {
+	name: 'Dining Room',
+	desc: 'The table looks large enough to feed a small army, if they too could survive on a healthy diet of cold brew, red bull, and seltzer',
+	items: [dormantChefRobot(), dormantCleanerRobot(), redBull(), coldBrew()],
+	actions: [],
+	effects: [],
+	directions: ['east', 'north'],
+	connections: [malibuLibrary, malibuMainHall],
+	enemies: []
+}
+
+var malibuStudy = {
+	name: 'Study',
+	desc: 'This is where the magic happens, you can see a $53,000 mac pro in one corner of the room and a set of decks in the other',
+	items: [dormantCleanerRobot(), macPro(), spinDecks()],
+	actions: [],
+	effects: [],
+	directions: ['south', 'north'],
+	connections: [malibuMainHall, malibuLounge],
+	enemies: []
+}
+
+var malibuLounge = {
+	name: 'Lounge',
+	desc: 'A more relaxed approach to a study, one could almost...lounge here. If it weren\'t for the oddly intimidating statue of Jonathan...',
+	items: [dormantCleanerRobot(), dormanthypeManRobot(), jonStatue()],
+	actions: [],
+	effects: [],
+	directions: ['south', 'west', 'east'],
+	connections: [malibuStudy, malibuFrontLawn, malibuBeach],
+	enemies: []
+}
+
+function openMalibuShop() {
+	var wares = [[cupcake(), 5], [tequila(), 10], [turkeyLeg(), 7]];
+	scope = 'shop';
+	curShopWares = wares;
+	basicEcho('"Hey '+player.name+'! Check it out, we\'re having a \'yard sale\'!');
+	buildShop(wares);
+};
+
+var malibuFrontLawn = {
+	name: 'Front Lawn',
+	desc: 'The lawn sprawls for what seems like miles, so much golden grass and even a little Gazebo. Looks like someone set up shop too!',
+	items: [dormantGardenerRobot()],
+	actions: ['shop'],
+	effects: [openMalibuShop],
+	directions: ['east', 'south'],
+	connections: [malibuLounge, malibuStart],
+	enemies: []
+}
+
+var malibuBeach = {
+	name: 'Beach',
+	desc: 'You can hear the gentle waves crash against the beach, a half buried mech looks on menacingly from right on the ocean edge. It\'s definitely off, right?',
+	items: [dormantOAuth()],
+	actions: [],
+	effects: [],
+	directions: ['west'],
+	connections: [malibuLounge],
+	enemies: []
+}
+
+var malibuUnderground = {
+	name: 'Underground',
+	desc: 'The room is filled with the many different robots scattered around the property. Considering this dank underground cavern doesn\'t have anything to clean or cook...seems highly suspicious',
+	items: [dormantGardenerRobot(), dormantCleanerRobot(), dormantChefRobot(), dormantCleanerRobot(), dormanthypeManRobot()],
+	actions: [],
+	effects: [],
+	directions: ['west', 'up'],
+	connections: [malibuHiddenLair, malibuLibrary],
+	enemies: []
+}
+
+var malibuHiddenLair = {
+	name: 'Hidden Lair',
+	desc: 'You come out into a large, stone cavern. Empty except for the lone robot and the pedestal in the direct center of the room. It seems to be holding a manifesto?',
+	items: [dormanthypeManRobot(), malibuManifesto()],
+	actions: [],
+	effects: [],
+	directions: ['east'],
+	connections: [malibuUnderground],
 	enemies: []
 }
 
@@ -393,21 +543,38 @@ var malibuStart = {
     PURPOSE: To connect rooms at runtime and not throw super errors
 */
 function loadRoomConnections() {
+	//San Diego
 	sdBeach.connections = [seuss, downtownSD];
 	seuss.connections = [sdBeach];
 	downtownSD.connections = [sdBeach];
 	gaslamp.connections = [downtownSD, officeSD];
 	officeSD.connections = [gaslamp];
+	//Anaheim
 	mainStreetDL.connections = [centralHubDL];
 	centralHubDL.connections = [mainStreetDL, adventure, frontier, toontown];
 	adventure.connections = [centralHubDL, frontier];
 	frontier.connections = [adventure, centralHubDL, gEdge];
 	toontown.connections = [centralHubDL, toontown];
 	gEdge.connections = [frontier];
+	//Los Angeles
 	downtownLA.connections = [concertVenue];
 	concertVenue.connections = [downtownLA, bookShop, yogaStudio];
 	bookShop.connections = [concertVenue, beachLA];
 	beachLA.connections = [bookShop, yogaStudio];
 	yogaStudio.connections = [beachLA, concertVenue];
 	volleyballCourt.connections = [beachLA];
+	//Malibu
+	malibuStart.connections = [malibuMainHall, malibuFrontLawn];
+	malibuMainHall.connections = [malibuStart, malibuStaircase, malibuStudy, malibuDiningRoom];
+	malibuStaircase.connections = [malibuMainHall, malibuBalcony];
+	malibuBalcony.connections = [malibuStaircase, malibuBedroom];
+	malibuBedroom.connections = [malibuBalcony];
+	malibuDiningRoom.connections = [malibuLibrary, malibuMainHall];
+	malibuLibrary.connections = [malibuStaircase, malibuDiningRoom];
+	malibuUnderground.connections = [malibuHiddenLair, malibuLibrary];
+	malibuHiddenLair.connections = [malibuUnderground];
+	malibuStudy.connections = [malibuMainHall, malibuLounge];
+	malibuLounge.connections = [malibuStudy, malibuFrontLawn, malibuBeach];
+	malibuFrontLawn.connections = [malibuLounge, malibuStart];
+	malibuBeach.connections = [malibuLounge];
 }

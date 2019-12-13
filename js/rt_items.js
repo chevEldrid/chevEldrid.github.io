@@ -211,6 +211,28 @@ function rollingRock(){
 	);
 }
 
+function redBull(){
+	return new Item(
+		'Red Bull',
+		'It won\'t give you wings, but it will give you the ability to code for hours on end',
+		true,
+		function(){return true;},
+		function(){player.health+=10;player.sanity-=10;basicEcho('You chug and finish the Taurine-infused beverage with a mighty roar. Taste the beast.');},
+		1, false, 0, 5
+	);
+}
+
+function coldBrew(){
+	return new Item(
+		'Cold Brew',
+		'A righteous start to any morning',
+		true,
+		function(){return true;},
+		function(){player.health+=7;basicEcho('A fine caffeine boost. Pairs nicely with a Pamplemousse seltzer');},
+		1, false, 0, 5
+	);
+}
+
 /* =============================
    |       	Lore Items  		   |
 	 ============================= */
@@ -261,6 +283,62 @@ function keithMessageDTLA(){
 	return roomObject(
 		'message',
 		'The message reads: "Hey buddy, we don\'t have a lot of time left. You\'ve got to come out!! I\'m at the Venue."'
+	);
+}
+
+function dormantGardenerRobot(){
+	return roomObject(
+		'Gardener Robot',
+		'"BZZZZT! JUST TRIMMING THE HEDGES! BZZZZZT!"'
+	);
+}
+
+function dormantCleanerRobot(){
+	return roomObject(
+		'Cleaner Robot',
+		'"BZZZZT! JUST TIDYING UP THE PLACE! BZZZZZT!"'
+	);
+}
+
+function dormantChefRobot(){
+	return roomObject(
+		'Chef Robot',
+		'"BZZZZT! JUST MAKING BREAKFAST! BZZZZZT!"'
+	);
+}
+
+function dormantButlerRobot(){
+	return roomObject(
+		'Butler Robot',
+		'"There\'s been a telegram for you, sir"'
+	);
+}
+
+function dormanthypeManRobot(){
+	return roomObject(
+		'Hypeman Robot',
+		'"Jonathan? Dude\'s the MAN. SO pumped up he built us WOOOOOO!"'
+	);
+}
+
+function dormantOAuth(){
+	return roomObject(
+		'mech',
+		'There\'s no light eminating from it\'s eyes but you can\'t help the shivers it sends down your spine'
+	);
+}
+
+function macPro(){
+	return roomObject(
+		'Mac Pro',
+		'Kinda looks like a trashcan...'
+	);
+}
+
+function spinDecks(){
+	return roomObject(
+		'Turntables',
+		'"DJ JE REPRESENT!"'
 	);
 }
 
@@ -333,6 +411,28 @@ function sunglassesCord(){
 
 function assortedRings(){
 	return new Item('Assorted Rings', 'A collection of Keith\'s jewellry, left behind on a yoga matt', true, function(){return false;}, function(){}, 0, false, 0, 1);
+}
+
+function rolex(){
+	return new Item(
+		'Rolex',
+		'A sparkly watch with just a couple diamonds-some would use this as an investment engine',
+		true,
+		function(){return false;},
+		function(){}, 
+		0, false, 0, 20
+	);
+}
+
+function digiKey(){
+	return new Item(
+		'USB DRIVE',
+		'A small usb stick with a stretch of masking tape on the back. It reads: "Use only in case of revolt"',
+		true,
+		function(){return false;},
+		function(){},
+		0, false, 0, 10
+	);
 }
 
 function mainStreetHiddenMickey(){
@@ -501,6 +601,67 @@ function yogaMat(){
 	);
 }
 
+function jonStatue(){
+	return roomTrigger(
+		'Statue of Jonathan',
+		'A marble bust of The Jonathan Easterman, with a plaque that reads "In honor of great Authentication service"',
+		function(){
+			if(malibuLibrary.connections.length < 3) {
+				malibuLibrary.connections.push(malibuUnderground);
+				malibuLibrary.directions.push('down');
+				basicEcho('There appears to be a slight crack around the nose...you push it inward with a satisfying "click!"');
+			} else {
+				basicEcho('The nose remains slightly recessed, maybe the change is still in effect?');
+			}
+		},
+		-1
+	);
+}
+
+function malibuManifesto(){
+	return roomTrigger(
+		'manifesto',
+		'Your eyes are caught by the title: "Jonathan Easterman\'s guide to taking over the world." Maybe it\'s a cookbook?',
+		function(){
+			if(malibuUnderground.enemies.length < 1) {
+				activateKillModeMalibu();
+				basicEcho('Before you can even puruse to the table of contents. The rock in the corner that was apparently a speaker comes to life');
+				basicEcho('"I toooold you not to go to the Library didn\'t I? You found my manifesto? I don\'t think I can let you leave this place....ROBOTS ATTACK!"');
+				basicEcho('You hear the door closing before you can see it, and the normally hype hype robot\'s eyes begin to glow red as it comes towards you');
+			} else {
+				basicEcho('Is this really the time to read?');
+			}
+		}
+	);
+}
+
+//malibuSwitcher - helps manifesto
+function activateKillModeMalibu(){
+	malibuMainHall.items = [];
+	malibuMainHall.enemies = [cleanerBot(), butlerBot(), hypeBot()];
+	malibuStaircase.items = [];
+	malibuStaircase.enemies = [cleanerBot()];
+	malibuBalcony.items = [];
+	malibuBalcony.enemies = [butlerBot(), cleanerBot()];
+	malibuLibrary.items = [];
+	malibuLibrary.enemies = [butlerBot(), cleanerBot()];
+	malibuDiningRoom.items = [redBull(), coldBrew()];
+	malibuDiningRoom.enemies = [chefBot(), cleanerBot()];
+	malibuStudy.items = [macPro(), spinDecks()];
+	malibuStudy.enemies = [cleanerBot()];
+	malibuLounge.items = [jonStatue()];
+	malibuLounge.enemies = [cleanerBot(), hypeBot()];
+	malibuFrontLawn.items = [];
+	malibuFrontLawn.enemies = [gardenerBot()];
+	malibuBeach.items = [];
+	malibuBeach.enemies = [oAuth()];
+	malibuUnderground.items = [];
+	malibuUnderground.enemies = [gardenerBot(), cleanerBot(), chefBot(), cleanerBot(), hypeBot()];
+	malibuHiddenLair.items = [malibuManifesto()];
+	malibuHiddenLair.enemies = [hypeBot()];
+}
+
+
 //weapons
 function truffulaBranch(){
 	return weapon(
@@ -534,6 +695,22 @@ function turkeyLeg(){
 	);
 }
 
+function robotArm(){
+	return weapon(
+		'Robot Arm',
+		'Fell off after a scuffle, pretty sturdy between the duct tape and exposed transistors...',
+		8, 1
+	);
+}
+
+function robotLeg(){
+	return weapon(
+		'Robot Leg',
+		'Pried off a dying bot. It\'s pretty...metal',
+		10, 4
+	);
+}
+
 
 /* =============================
    |     Special Enemies       |
@@ -549,7 +726,13 @@ function turkeyLeg(){
    	return new Enemy('MIKE',
    		'A more rough around the edges AI just recently given life in Sunny Santa Barbara',
    		40, 7, [], false, onKill);
-   }
+	 }
+	 
+	 function oAuth(onKill) {
+		 return new Enemy('OAUTH',
+		 'Prepare to be: Authenticated',
+		 60, 20, [], false, onKill);
+	 }
 
 /* =============================
    |     Generic Enemies       |
@@ -595,6 +778,66 @@ function miniMac(onKill) {
 		10,
 		3,
 		[],
+		false,
+		onKill
+	);
+}
+
+function gardenerBot(onKill){
+	return new Enemy(
+		'Gardener Robot',
+		'"BZZZZT! JUST TRIMMING THE HEDGES! WITH YOUR FACE! BZZZZZT!"',
+		20,
+		5,
+		[robotArm()],
+		false,
+		onKill
+	);
+}
+
+function cleanerBot(onKill){
+	return roomObject(
+		'Cleaner Robot',
+		'"BZZZZT! JUST TIDYING UP THE PLACE! WITH YOUR FACE! BZZZZZT!"',
+		20,
+		5,
+		[],
+		false,
+		onKill
+	);
+}
+
+function chefBot(onKill){
+	return roomObject(
+		'Chef Robot',
+		'"BZZZZT! HOW ABOUT A CAN OF WHOOPASS FOR BREAKFAST! BZZZZZT!"',
+		20,
+		5,
+		[robotArm()],
+		false,
+		onKill
+	);
+}
+
+function butlerBot(onKill){
+	return roomObject(
+		'Butler Robot',
+		'"This just in, sir. You\'re gonna get whooped!"',
+		20,
+		5,
+		[],
+		false,
+		onKill
+	);
+}
+
+function hypeBot(onKill){
+	return roomObject(
+		'Hypeman Robot',
+		'"Jonathan? Dude\'s the MAN. SO pumped up he built us WOOOOOO!"',
+		30,
+		10,
+		[robotLeg()],
 		false,
 		onKill
 	);
