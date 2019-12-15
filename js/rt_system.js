@@ -219,18 +219,22 @@ function drop(args) {
     PURPOSE: Allows player to traverse between rooms, based on unique array of connections from curRoom
 */
 function go(args) {
-    var options = curRoom.directions;
-    var places = curRoom.connections;
-    var r1 = "It would appear...there isn\'t anywhere to go from here";
-    var r2 = "You can go: ";
-    var index = tutor(args, options, r1, r2, false);
-    if(index > -1) {
-    	var place = places[index];
-    	loadRoom(place);
-    	basicEcho(place.desc);
-    }
-    else if(index > -2) {
-    	basicEcho('To go '+args+' isn\'t an option in this room...');
+    if(curRoom.isLocked) {
+    	basicEcho('You can\'t leave this room right now! You\'re trapped!');
+    } else {
+    	var options = curRoom.directions;
+	    var places = curRoom.connections;
+	    var r1 = "It would appear...there isn\'t anywhere to go from here";
+	    var r2 = "You can go: ";
+	    var index = tutor(args, options, r1, r2, false);
+	    if(index > -1) {
+	    	var place = places[index];
+	    	loadRoom(place);
+	    	basicEcho(place.desc);
+	    }
+	    else if(index > -2) {
+	    	basicEcho('To go '+args+' isn\'t an option in this room...');
+	    }
     }
 };
 

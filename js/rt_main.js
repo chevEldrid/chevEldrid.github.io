@@ -128,7 +128,7 @@ function setGraphic(imgPath) {
 jQuery(document).ready(function($) {
 	//GAME INITIALIZERS
 	//loads starting room
-    loadRoom(mainStreetDL);
+    loadRoom(sdBeach);
     //loadRoom(cathedral);
 	//Creates a generic character
     player = createTemplateCharacter();

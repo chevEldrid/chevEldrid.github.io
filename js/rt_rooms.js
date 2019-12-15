@@ -14,9 +14,10 @@
 	---navigation---
 	@directions:Array<String>   Directions from room to travel
 	@connections:Array<Room>    Rooms connected to directions
+	@isLocked:bool              If set to true, can't leave room using go
 */
 class Room {
-    constructor(name, desc, items, actions, effects, enemies, directions, connections) {
+    constructor(name, desc, items, actions, effects, enemies, directions, connections, isLocked) {
 			this.name = name;
 			this.desc = desc;
 			this.items = items;
@@ -24,7 +25,8 @@ class Room {
 			this.effects = effects;
 			this.enemies = enemies;
 			this.directions = directions;
-			this.connections = connections
+			this.connections = connections;
+			this.isLocked = isLocked;
     }
 };
 
@@ -85,7 +87,7 @@ var sdBeach = {
 	effects: [startGame, talkToJulia],
 	directions: ['south', 'east'],
 	connections: [seuss, downtownSD],
-	enemies: []
+	enemies: [],
 };
 
 // ||Room 2 - House of Seuss||
