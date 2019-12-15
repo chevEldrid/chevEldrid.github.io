@@ -545,7 +545,215 @@ var malibuHiddenLair = {
    |       Santa Barbara 	    |
    ============================== */
 
-var SBStart = {
+var sbStart = {
+	name: 'State Street',
+	desc: 'You\'ve barely made it on to state street when you can see the changes ELISA has made: everything is automated and kinda like Terminator. No life, no sound. Deathly still. Scattered human supplies lie at your feet',
+	items: [coldBrew(), redBull()],
+	actions: [],
+	effects: [],
+	directions: ['south'],
+	connections: [sbFunkZone],
+	enemies: []
+}
+
+var sbFunkZone = {
+	name: 'Funk Zone',
+	desc: 'The once vibrantly intoxicated area now stands as a testament to how often sentient robots go out to drink: rarely.',
+	items: [tequila(), rollingRock()],
+	actions: [],
+	effects: [],
+	directions: ['north', 'south'],
+	connections: [sbStart, sbRockGym],
+	enemies: []
+}
+
+function talkToRamon(){
+	basicEcho('"Oh hey '+player.name+', just trying to get this blue v3. Oh what\'s that? You want to go against ELISA? I don\'t know...you say you\'ve got the team back together?"');
+	basicEcho('"Okay, okay. If I\'m the last one on the list..I\'ll help out if you can get Jonathan to play basketball. Deal?"');
+	if(player.hasItem('basketball') > -1) {
+		basicEcho('"Sweet! Only took the apocalypse to get him to play...okay I\'ll give you my badge and be there in a minute okay? Just finishing up."');
+		basicEcho('"Oh and if you\'re planning for the final assault, you might want to go to Old Town. Best place to stock up in this area. Best Software Developer from Appfolio makes his home there as well..."')
+		player.addItem(appfolioIDBadge());
+	} else {
+		basicEcho('You call Jonathan, asking if he\'s game for a round of basketball. Big Basketball.');
+		basicEcho('"Hmmm alright alright I\'ll play, but I have to deal with one of my robots in IV. It must have escaped the mansion and can\'t have ELISA getting access to my code..."');
+	}
+}
+
+var sbRockGym = {
+	name: 'Santa Barbara Rock Gym',
+	desc: 'The gym looks much as you remember it..except of course the complete lack of people. You might be able to climb more often than once every 10 minutes! You swear you can make out Ramon attempting a v3 in the corner, he waves you over.',
+	items: [],
+	actions: ['talk to Ramon'],
+	effects: [talkToRamon],
+	directions: ['north', 'south'],
+	connections: [sbFunkZone, sbBeach],
+	enemies: []
+}
+
+var sbBeach = {
+	name: 'Santa Barbara Beach',
+	desc: 'It\'s actually kind of calming to see the beach free of families and noisy drones. You wouldn\'t be caught saying you like the beach now more than before The Overtaking...but...a lone kayak seems to have washed up complete with paddles and a vest!',
+	items: [],
+	actions: [],
+	effects: [],
+	directions: ['north', 'to Isla Vista'],
+	connections: [sbRockGym, sbIVBeach],
+	enemies: []
+}
+
+var sbIVTrigo = {
+	name: 'Trigo Street',
+	desc: 'Aside from the roaming kill bot squads, IV seems more dead than the week after finals...Trigo looks relatively unchanged from the chaos you remember',
+	items: [],
+	actions: [],
+	effects: [],
+	directions: ['south'],
+	connections: [sbIVDP],
+	enemies: []
+}
+
+function loneHypeBotKill(){
+	basicEcho('You hear a mighty roar as Jonathan comes charging down the street behind the wheel of The Zombie Smasher, completely obliterating the remains of his escaped Hype bot');
+	basicEcho('"Honestly, I\'m kinda bummed you got here before me, never had more fun in this car than right now mowing down all the loose robots. Anyway, I found this basketball in the back. Tell Ramon I\'ll play right after we deal with ELISA"');
+	basicEcho('And with that, Jonathan goes roaring off into the sunset, techno shaking the very ground on which you walk.');
+	player.addItem(basketball());
+}
+
+var sbIVDP = {
+	name: 'DP',
+	desc: 'Once proud party institutions lay vacant, having been abandoned by even the most stubborn frat bros years ago. You look around and something that looks a little out of place: a hypebot, curteousy of JE enterprises',
+	items: [],
+	actions: [],
+	effects: [],
+	directions: ['north', 'south'],
+	connections: [sbIVTrigo, sbIVBeach],
+	enemies: [hypeBot(loneHypeBotKill)]
+}
+
+var sbIVBeach = {
+	name: 'Sands',
+	desc: 'looming cliffs barely hold the houses that already looked unsteady three years ago. Erosion has done them no favors...',
+	items: [],
+	actions: [],
+	effects: [],
+	directions: ['north', 'to downtown'],
+	connections: [sbIVDP, sbBeach],
+	enemies: []
+}
+//TODO: add a ryan shop
+var sbGoletaKellogg = {
+	name: 'Old Town',
+	desc: 'The vibrant community of Old town provides the greatest resistance against ELISA this close to its hub. Stores have become bunkers lining the street, signs written like ReCAPTCHA prompts continue to confound the robot oppressors. One particular sign reads: \'sH0p\'',
+	items: [],
+	actions: [],
+	effects: [],
+	directions: ['south'],
+	connections: [sbGoletaImperial],
+	enemies: []
+}
+function openBar() {
+	var wares = [[tequila(), 5], [rollingRock(), 3], [sangria(), 5]];
+	scope = 'shop';
+	curShopWares = wares;
+	basicEcho('"What do ya want?"');
+	buildShop(wares);
+};
+var sbGoletaImperial = {
+	name: 'The Imperial',
+	desc: 'A local watering hole for all those who have survived the robotic assault. After a hard day of work on the streets of Goleta, all retire to this swanky (machine-gun equipped) drinking place. You can get almost anything you want...provided it\'s not a Long Island',
+	items: [],
+	actions: [],
+	effects: [],
+	directions: ['north', 'east'],
+	connections: [sbGoletaKellogg, sbGoletaTacoBell],
+	enemies: []
+}
+function openTacoBell() {
+	var wares = [[chimichangaloupa(), 5], [taco(), 3], [bajabrew(), 5]];
+	scope = 'shop';
+	curShopWares = wares;
+	basicEcho('"Welcome to Taco Bell, may I take your order?"');
+	buildShop(wares);
+};
+var sbGoletaTacoBell = {
+	name: 'Taco Bell',
+	desc: 'An oasis in this messed up world. Somehow this Taco bell has become neutral turf with both man and machine enjoying the atmosphere of Fairview Taco bell, and indulging in the sweet sweet deliciousness of a Chimichangalupa',
+	items: [],
+	actions: ['shop'],
+	effects: [openTacoBell],
+	directions: ['west'],
+	connections: [sbGoletaImperial],
+	enemies: []
+}
+
+var sbAppfolio1 = {
+	name: 'Engineering',
+	desc: 'State Street',
+	items: [],
+	actions: [],
+	effects: [],
+	directions: ['to hall'],
+	connections: [sbAppfolioHall],
+	enemies: []
+}
+
+var sbAppfolio2 = {
+	name: 'State Street',
+	desc: 'State Street',
+	items: [],
+	actions: [],
+	effects: [],
+	directions: ['to hall'],
+	connections: [sbAppfolioHall],
+	enemies: []
+}
+
+var sbAppfolio3 = {
+	name: 'State Street',
+	desc: 'State Street',
+	items: [],
+	actions: [],
+	effects: [],
+	directions: ['to hall'],
+	connections: [sbAppfolioHall],
+	enemies: []
+}
+
+var sbAppfolio4 = {
+	name: 'State Street',
+	desc: 'State Street',
+	items: [],
+	actions: [],
+	effects: [],
+	directions: ['to hall'],
+	connections: [sbAppfolioHall],
+	enemies: []
+}
+
+var sbAppfolioHall = {
+	name: 'Appfolio Main Entrance',
+	desc: 'The entire campus has been completely fortified to protect the AI inside. Luckily, looks like the old door scanner still works',
+	items: [],
+	actions: [],
+	effects: [],
+	directions: [],
+	connections: [],
+	enemies: []
+}
+
+var sbAppfolioELISA = {
+	name: 'State Street',
+	desc: 'State Street',
+	items: [],
+	actions: [],
+	effects: [],
+	directions: ['to hall'],
+	connections: [sbAppfolioHall],
+	enemies: []
+}
+
+var endgame = {
 	name: 'State Street',
 	desc: 'State Street',
 	items: [],
@@ -555,7 +763,6 @@ var SBStart = {
 	connections: [],
 	enemies: []
 }
-
 /*
     PURPOSE: To connect rooms at runtime and not throw super errors
 */
@@ -594,4 +801,22 @@ function loadRoomConnections() {
 	malibuLounge.connections = [malibuStudy, malibuFrontLawn, malibuBeach];
 	malibuFrontLawn.connections = [malibuLounge, malibuStart];
 	malibuBeach.connections = [malibuLounge];
+	//Santa Barbara
+	sbStart.connections = [sbFunkZone];
+	sbFunkZone.connections = [sbStart, sbRockGym];
+	sbRockGym.connections = [sbFunkZone, sbBeach];
+	sbBeach.connections = [sbRockGym, sbIVBeach];
+	//
+	sbGoletaKellogg.connections = [sbGoletaImperial];
+	sbGoletaImperial.connections = [sbGoletaKellogg, sbGoletaTacoBell];
+	sbGoletaTacoBell.connections = [sbGoletaImperial];
+	//
+	sbIVTrigo.connections = [sbIVDP];
+	sbIVDP.connections = [sbIVTrigo, sbIVBeach];
+	sbIVBeach.connections = [sbIVDP, sbBeach];
+	sbAppfolio1.connections = [sbAppfolioHall];
+	sbAppfolio2.connections  = [sbAppfolioHall];
+	sbAppfolio3.connections  = [sbAppfolioHall];
+	sbAppfolio4.connections  = [sbAppfolioHall];
+	sbAppfolioELISA.connections  = [sbAppfolioHall];
 }

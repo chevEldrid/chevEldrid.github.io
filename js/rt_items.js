@@ -233,6 +233,39 @@ function coldBrew(){
 	);
 }
 
+function chimichangaloupa(){
+	return new Item(
+		'Chimichangalupa',
+		'The best thing since the Quesarito',
+		true,
+		function(){return true;},
+		function(){player.health+=7; player.sanity+=7;basicEcho('For now, it is sustinance. Let us hope you manage to finish the game before Taco Bell takes it\'s real payment...');},
+		1, false, 0, 5
+	);
+}
+
+function taco(){
+	return new Item(
+		'Taco',
+		'The foundation on which the Taco Bell institution was founded',
+		true,
+		function(){return true;},
+		function(){player.health+=5;basicEcho('A safer choice, topped with enough diablo sauce to make me really question your humanity');},
+		1, false, 0, 3
+	);
+}
+
+function bajabrew(){
+	return new Item(
+		'Baja Brew',
+		'A Taco Bell exclusive that has stood the test of time',
+		true,
+		function(){return true;},
+		function(){player.sanity+=20;basicEcho('None of this "coffee" or "red bull" stuff, you want the real deal. The holiest of holies. Baja Blast. With one large gulp you can feel your grip on the world restored');},
+		1, false, 0, 5
+	);
+}
+
 /* =============================
    |       	Lore Items  		   |
 	 ============================= */
@@ -342,6 +375,13 @@ function spinDecks(){
 	);
 }
 
+function kayak(){
+	return roomObject(
+		'kayak',
+		'Looks like the thing is still sea worthy! Could probably take you to Isla Vista...'
+	);
+}
+
 /* =============================
    |       Special Items       |
 	 ============================= */
@@ -435,6 +475,29 @@ function digiKey(){
 	);
 }
 
+function basketball(){
+	return new Item(
+		'basketball',
+		'A basketball that spent three years in a trunk. It\'s a little flat',
+		true,
+		function(){return false;},
+		function(){}, 
+		0, false, 0, 0
+	);
+}
+
+function appfolioIDBadge(){
+	return new Item(
+		'ID Badge',
+		'A plastic white badge with Ramon\'s smiling face',
+		true,
+		function(){return false;},
+		function(){}, 
+		0, false, 0, 0
+	);
+}
+
+//ROOM TRIGGERS
 function mainStreetHiddenMickey(){
 	return roomTrigger(
 		'hidden mickey',
@@ -688,6 +751,22 @@ function jonathanOnKill(){
 	basicEcho('NEW PATH OPENED \'To Santa Barbara\' FROM THIS LOCATION!');
 }
 
+function appfolioMainDoor(){
+	return roomTrigger(
+		'door',
+		'A large glass door equipped with a lowgrade key-card access pad. Maybe the old keys still work?',
+		function(){
+			if(player.hasItem('ID Badge') > -1) {
+				basicEcho('There\'s a brief pause, and then a resounding BEEEEEP! You\'re in!');
+				sbAppfolioHall.directions = ['to engineering', 'to sales', 'to marketing', 'to Customer success', 'to Basketball Court'];
+				sbAppfolioHall.connections = [sbAppfolio1, sbAppfolio2, sbAppfolio3, sbAppfolio4, sbAppfolioELISA];
+			} else {
+				basicEcho('You\'re not getting through this door without an access card');
+			}
+		}
+	)
+}
+
 //weapons
 function truffulaBranch(){
 	return weapon(
@@ -742,29 +821,29 @@ function robotLeg(){
    |     Special Enemies       |
    ============================= */
 
-   function copierGoneWild(onKill) {
-   	return new Enemy('Corrupted Copier',
-   		'A brute of a machine made even more hostile than normal by the rogue AI',
-   		25, 7, [], false, onKill);
-   }
+function copierGoneWild(onKill) {
+	return new Enemy('Corrupted Copier',
+		'A brute of a machine made even more hostile than normal by the rogue AI',
+		25, 7, [], false, onKill);
+}
 
-   function mikeClubThirtyFour(onKill) {
-   	return new Enemy('MIKE',
-   		'A more rough around the edges AI just recently given life in Sunny Santa Barbara',
-   		40, 7, [], false, onKill);
-	 }
-	 
-	 function oAuth(onKill) {
-		 return new Enemy('OAUTH',
-		 'Prepare to be: Authenticated',
-		 60, 20, [], false, onKill);
-	 }
+function mikeClubThirtyFour(onKill) {
+	return new Enemy('MIKE',
+		'A more rough around the edges AI just recently given life in Sunny Santa Barbara',
+		40, 7, [], false, onKill);
+}
 
-	 function roboJonathan(onKill){
-	 	return new Enemy('Beasterman',
-	 		'More than just a Senior Engineer',
- 		50, 15, [], false, onKill);
-	 }
+function oAuth(onKill) {
+	return new Enemy('OAUTH',
+		'Prepare to be: Authenticated',
+		60, 20, [], false, onKill);
+}
+
+function roboJonathan(onKill){
+	return new Enemy('Beasterman',
+		'More than just a Senior Engineer',
+		50, 15, [], false, onKill);
+}
 
 /* =============================
    |     Generic Enemies       |

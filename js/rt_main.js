@@ -30,6 +30,8 @@ var scope = 'global'; //can be 'global' or 'shop'
 var curShopWares = [];
 //Attempt to remove the need for "term" everywhere
 var thisTerm = null;
+//end game special thing, don't want to figure out a better way but I don't need to get this PR approved soooo
+var appfolioKeys = [];
 
 /*
     =========================================================
@@ -128,7 +130,7 @@ function setGraphic(imgPath) {
 jQuery(document).ready(function($) {
 	//GAME INITIALIZERS
 	//loads starting room
-    loadRoom(malibuHiddenLair);
+    loadRoom(sdBeach);
     //loadRoom(cathedral);
 	//Creates a generic character
     player = createTemplateCharacter();
