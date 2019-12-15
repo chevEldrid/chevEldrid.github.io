@@ -617,7 +617,7 @@ function jonStatue(){
 		-1
 	);
 }
-
+//TODO: refactor whole manifesto section. I don't like this amount of non-item logic in the items controller...
 function malibuManifesto(){
 	return roomTrigger(
 		'manifesto',
@@ -638,29 +638,55 @@ function malibuManifesto(){
 //malibuSwitcher - helps manifesto
 function activateKillModeMalibu(){
 	malibuMainHall.items = [];
-	malibuMainHall.enemies = [cleanerBot(), butlerBot(), hypeBot()];
+	malibuMainHall.enemies = [cleanerBot(), butlerBot(), hypeBot(() => {unlockRoom(malibuMainHall);})];
+	malibuMainHall.isLocked = true;
 	malibuStaircase.items = [];
 	malibuStaircase.enemies = [cleanerBot()];
 	malibuBalcony.items = [];
 	malibuBalcony.enemies = [butlerBot(), cleanerBot()];
 	malibuLibrary.items = [];
-	malibuLibrary.enemies = [butlerBot(), cleanerBot()];
+	malibuLibrary.enemies = [butlerBot(), cleanerBot(() => {unlockRoom(malibuLibrary);})];
+	malibuLibrary.isLocked = true;
 	malibuDiningRoom.items = [redBull(), coldBrew()];
 	malibuDiningRoom.enemies = [chefBot(), cleanerBot()];
 	malibuStudy.items = [macPro(), spinDecks()];
 	malibuStudy.enemies = [cleanerBot()];
 	malibuLounge.items = [jonStatue()];
-	malibuLounge.enemies = [cleanerBot(), hypeBot()];
+	malibuLounge.enemies = [cleanerBot(), hypeBot(() => {unlockRoom(malibuLounge);})];
+	malibuLounge.isLocked = true;
 	malibuFrontLawn.items = [];
 	malibuFrontLawn.enemies = [gardenerBot()];
 	malibuBeach.items = [];
 	malibuBeach.enemies = [oAuth()];
+	malibuBeach.isLocked = true;
 	malibuUnderground.items = [];
-	malibuUnderground.enemies = [gardenerBot(), cleanerBot(), chefBot(), cleanerBot(), hypeBot()];
+	malibuUnderground.enemies = [gardenerBot(), cleanerBot(), chefBot(() => {unlockRoom(malibuUnderground);}), cleanerBot(), hypeBot()];
+	malibuUnderground.isLocked = true;
 	malibuHiddenLair.items = [malibuManifesto()];
-	malibuHiddenLair.enemies = [hypeBot()];
+	malibuHiddenLair.enemies = [hypeBot(() => {unlockRoom(malibuHiddenLair);})];
+	malibuHiddenLair.isLocked = true;
+	//setting up end goal
+	malibuStart.items = [];
+	malibuStart.enemies = [roboJonathan(jonathanOnKill)];
+	malibuStart.desc = 'Where once was a quiet lawn, an angry Jonathan in a mech suit stands instead'
 }
 
+function jonathanOnKill(){
+	basicEcho('With a gutteral howl, Jonathan\'s mech breaks down.');
+	basicEcho('Due to a lack of code review, it appears that something in the mech wiring was directly controlling the robots - when it was destroyed, the robots lost focus and turned to anarchy');
+	if(player.hasItem('USB DRIVE') > -1) {
+		basicEcho('Luckily, you managed to snag the backup self-destruct robot key and using hax0r magic shut all the machines down before they can get to where Jonathan is trapped under his mech.');
+		basicEcho('He thanks you, giving you another rolex and a red bull');
+		player.addItem(redBull());
+		player.addItem(rolex());
+	} else {
+		basicEcho('You manage to pull Jonathan out just before the first hype bot makes it over, together you high-tail it out of there...leaving the homicidal robot army to wreck havoc.');
+	}
+	basicEcho('"Alright maybe I got a little stir crazy and wanted to take over the world, it happens. I guess now though I\'ve got nothing else going on sooo let\'s go finish off Elisa!"');
+	malibuStart.connections.push(SBStart);
+	malibuStart.directions.push('to Santa Barbara');
+	basicEcho('NEW PATH OPENED \'To Santa Barbara\' FROM THIS LOCATION!');
+}
 
 //weapons
 function truffulaBranch(){
@@ -734,6 +760,12 @@ function robotLeg(){
 		 60, 20, [], false, onKill);
 	 }
 
+	 function roboJonathan(onKill){
+	 	return new Enemy('Beasterman',
+	 		'More than just a Senior Engineer',
+ 		50, 15, [], false, onKill);
+	 }
+
 /* =============================
    |     Generic Enemies       |
    ============================= */
@@ -796,7 +828,7 @@ function gardenerBot(onKill){
 }
 
 function cleanerBot(onKill){
-	return roomObject(
+	return new Enemy(
 		'Cleaner Robot',
 		'"BZZZZT! JUST TIDYING UP THE PLACE! WITH YOUR FACE! BZZZZZT!"',
 		20,
@@ -808,7 +840,7 @@ function cleanerBot(onKill){
 }
 
 function chefBot(onKill){
-	return roomObject(
+	return new Enemy(
 		'Chef Robot',
 		'"BZZZZT! HOW ABOUT A CAN OF WHOOPASS FOR BREAKFAST! BZZZZZT!"',
 		20,
@@ -820,7 +852,7 @@ function chefBot(onKill){
 }
 
 function butlerBot(onKill){
-	return roomObject(
+	return new Enemy(
 		'Butler Robot',
 		'"This just in, sir. You\'re gonna get whooped!"',
 		20,
@@ -832,11 +864,11 @@ function butlerBot(onKill){
 }
 
 function hypeBot(onKill){
-	return roomObject(
+	return new Enemy(
 		'Hypeman Robot',
 		'"Jonathan? Dude\'s the MAN. SO pumped up he built us WOOOOOO!"',
-		30,
-		10,
+		1,
+		1,
 		[robotLeg()],
 		false,
 		onKill
@@ -850,4 +882,9 @@ function getRandomInt(min, max) {
 	min = Math.ceil(min);
 	max = Math.floor(max);
 	return Math.round(Math.random() * (max - min)) + min;
+};
+
+function unlockRoom(room) {
+	basicEcho('You hear a faint click, and the doors unlock.');
+	room.isLocked = false;
 };

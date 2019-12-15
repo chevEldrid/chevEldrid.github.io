@@ -380,9 +380,9 @@ var volleyballCourt = {
 	enemies: []
 }
 
-/* =============================
-   |       		Malibu 			     |
-	 ============================= */
+/* ==============================
+   |       		Malibu 		    |
+   ============================== */
 
 var malibuStart = {
 	name: 'Mansion Entrance',
@@ -538,6 +538,21 @@ var malibuHiddenLair = {
 	effects: [],
 	directions: ['east'],
 	connections: [malibuUnderground],
+	enemies: []
+}
+
+/* ==============================
+   |       Santa Barbara 	    |
+   ============================== */
+
+var SBStart = {
+	name: 'State Street',
+	desc: 'State Street',
+	items: [],
+	actions: [],
+	effects: [],
+	directions: [],
+	connections: [],
 	enemies: []
 }
 
