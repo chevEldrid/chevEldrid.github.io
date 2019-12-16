@@ -229,7 +229,9 @@ function go(args) {
 	    var index = tutor(args, options, r1, r2, false);
 	    if(index > -1) {
 	    	var place = places[index];
-	    	loadRoom(place);
+				loadRoom(place);
+				basicEcho('You\'ve entered: '+place.name);
+				basicEcho('');
 	    	basicEcho(place.desc);
 	    }
 	    else if(index > -2) {

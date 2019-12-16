@@ -116,7 +116,7 @@ function createCharacter(playerName) {
 function createTemplateCharacter() {
 	return new Player(
         "Nobody",
-        [appfolioIDBadge()],
+        [],
         50,
         50,
         10,

@@ -158,7 +158,8 @@ function sangria(){
 }
 
 function cupcake(){
-	return new Item('cupcake',
+	return new Item(
+		'cupcake',
 		'Delicious homemade brownies with a Vanilla bean frosting',
 		true,
 		function(){return true},
@@ -173,7 +174,7 @@ function spinach(){
 		'Leafy greens that make you sad inside',
 		true,
 		function(){return true},
-		function(){player.health+=10; player.sanity+=5;basicEcho('You eat it straight from the bag, like an animal');},
+		function(){player.health+=10;player.sanity+=5;basicEcho('You eat it straight from the bag, like an animal');},
 		1, false, 0, 1
 	);
 }
@@ -445,7 +446,7 @@ function boulderChaseToken(){
 }
 
 function birkenstock(){
-	return new Item('A lone birkenstock', 'In most cases, a single burk would be a larger issue...but Keith never wears shoes anyway', true, function(){return false;}, function(){}, 0, false, 0, 1);
+	return new Item('birkenstock', 'In most cases, a single burk would be a larger issue...but Keith never wears shoes anyway', true, function(){return false;}, function(){}, 0, false, 0, 1);
 }
 
 function orbeez(){
@@ -611,13 +612,13 @@ function gEdgeCantina(){
 function concertCrowd(){
 	return roomTrigger(
 		'Crowd',
-		'The crowd seems to be bopping...a little bit, but with the music as intense as it is you feel a little weird',
+		'The crowd seems to be bopping...a little bit, but with the music as intense as it is you feel a little weird. Maybe you haven\'t had enough Tequila? Or maybe this just isn\'t a bop.',
 		function(){
 			if(player.hasItem('birkenstock') === -1) {
-				basicEcho('You see something in the crowd! It looks like...one of Keith\'s Birkenstocks? You\'d be worried if he ever wore shoes...');
+				basicEcho('Wait! Something catches your eye in the crowd! It looks like...one of Keith\'s Birkenstocks? This could mean he\'s here but considering how often Keith is actually seen WITH his shoes...probably just means he\'s been here before...');
 				player.addItem(birkenstock());
 			} else {
-				basicEcho('They continue to be awkward');
+				basicEcho('The crowd continue to be awkward');
 			}
 		}
 	);
@@ -651,7 +652,7 @@ function sunglasses(){
 				basicEcho('Meh. Maybe the owner will come back')
 			}
 		},
-		-1
+		0
 	);
 }
 
@@ -673,13 +674,13 @@ function yogaMat(){
 
 function jonStatue(){
 	return roomTrigger(
-		'Statue of Jonathan',
+		'Statue',
 		'A marble bust of The Jonathan Easterman, with a plaque that reads "In honor of great Authentication service"',
 		function(){
 			if(malibuLibrary.connections.length < 3) {
 				malibuLibrary.connections.push(malibuUnderground);
 				malibuLibrary.directions.push('down');
-				basicEcho('There appears to be a slight crack around the nose...you push it inward with a satisfying "click!"');
+				basicEcho('There appears to be a slight crack around the nose...you push it inward with a satisfying "click!" Somewhere, a trapdoor has opened.');
 			} else {
 				basicEcho('The nose remains slightly recessed, maybe the change is still in effect?');
 			}

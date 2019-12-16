@@ -288,7 +288,7 @@ var gEdge = {
 
 var downtownLA = {
 	name: 'Downtown Los Angeles',
-	desc: 'Tom greets you outside his Keyah. "I\'ve lost Keith! He just left me a note about meeting up when I tried to find him-he was gone and not answering his phone! So here we are in Downtown LA and we need to find Keith!" A Rolling Rock lies discarded in the street. Still good!',
+	desc: 'Tom greets you outside his Keyah. "I\'ve lost Keith! He left me a note about meeting up but when I tried to find him-he was gone! So here we are in Downtown LA and we need to find Keith!" He continues to moan a bit. A Rolling Rock lies discarded in the street. Still good!',
 	items: [rollingRock(), keithMessageDTLA()],
 	actions: [],
 	effects: [],
@@ -299,7 +299,7 @@ var downtownLA = {
 
 var concertVenue = {
 	name: 'Concert Venue',
-	desc: 'Loud music is blasting from all directions, but no one seems to be moving...honestly it\'s kind of awkward, and you wonder how long you want to stay with the motionless crowd. The bar is only stocked with Tequila',
+	desc: 'After finally getting through security, you make it into the Venue. Loud music is blasting from all directions, but no one seems to be moving...honestly it\'s kind of awkward, and you wonder how long you want to stay with the motionless crowd. The bar is only stocked with Tequila',
 	items: [tequila(), concertCrowd()],
 	actions: [],
 	effects: [],
@@ -318,7 +318,7 @@ function openLAStore() {
 
 var bookShop = {
 	name: 'Last Bookstore',
-	desc: 'After dropping most of your supplies with the consierge...which you can\'t believe they still have in the apocalypse...you begin to walk around through the craziest bookstore you\'ve ever seen. Ryan waves to you from his shop',
+	desc: 'It\'s a long walk to the Last Bookstore, After dropping most of your supplies with the consierge...which you can\'t believe they still have in the apocalypse...you begin to walk around through the craziest bookstore you\'ve ever seen. Ryan waves to you from his shop',
 	items: [lastBookshelf()],
 	actions: ['shop'],
 	effects: [openLAStore],
@@ -334,13 +334,13 @@ function talkToLifeguard() {
 		beachLA.directions.push('to Volleyball courts');
 		basicEcho('NEW PATH OPENED FROM THIS LOCATION! \'Go to volleyball courts\'');
 	} else {
-		basicEcho('"Keith? Never heard of him...maybe if you had more things to help jog my memory..."')
+		basicEcho('"Keith? Never heard of him...maybe if you had more of his things to help jog my memory..."')
 	}
 }
 
 var beachLA = {
 	name: 'Beach',
-	desc: 'The sunlight blinds, and you find yourself wishing you had sunglasses on the pristine beach. Waves casually roll in as the lifeguard waves to you',
+	desc: 'The sunlight blinds as you step onto the bech, and you find yourself wishing you had sunglasses on this sunny day. Waves casually roll in as the lifeguard waves to you',
 	items: [sunglasses()],
 	actions: ['talk to lifeguard'],
 	effects: [talkToLifeguard],
@@ -351,7 +351,7 @@ var beachLA = {
 
 var yogaStudio = {
 	name: 'Yoga Studio',
-	desc: 'The mats are mostly full, from waaay towards the front you can see someone guiding everyone through the tree pose. You try to act the part and stand on the empty yoga mat while looking for clues',
+	desc: 'You stumble into \'Hidden Power\', Keith\'s favorite local yoga studio here in LA. The mats are mostly full, from waaay towards the front you can see someone guiding everyone through the tree pose. You try to act the part and stand on the empty yoga mat while looking for clues. It doesn\'t seem completely flat...',
 	items: [yogaMat()],
 	actions: [],
 	effects: [],
@@ -447,7 +447,7 @@ var malibuBedroom = {
 
 var malibuLibrary = {
 	name: 'Library',
-	desc: 'Library',
+	desc: 'Books line every wall, things ranging from Philosophy and the foley of man...to O\'Reilly books on Tensorflow gotten from a Euro trip ages ago.',
 	items: [dormantButlerRobot(), dormantCleanerRobot()],
 	actions: [],
 	effects: [],
