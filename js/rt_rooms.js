@@ -547,12 +547,12 @@ var malibuHiddenLair = {
 
 var sbStart = {
 	name: 'State Street',
-	desc: 'You\'ve barely made it on to state street when you can see the changes ELISA has made: everything is automated and kinda like Terminator. No life, no sound. Deathly still. Scattered human supplies lie at your feet',
+	desc: 'You\'ve barely made it on to state street when you can see the changes ELISA has made: everything is automated and kinda like Terminator. No life, no sound. Deathly still. Scattered human supplies lie at your feet. The public bus system is still running though! This is a stop for the 6 and 11.',
 	items: [coldBrew(), redBull()],
 	actions: [],
 	effects: [],
-	directions: ['south'],
-	connections: [sbFunkZone],
+	directions: ['south', 'to IV', 'to Goleta', 'to Appfolio'],
+	connections: [sbFunkZone, sbIVTrigo, sbGoletaKellogg, sbAppfolioHall],
 	enemies: []
 }
 
@@ -577,6 +577,8 @@ function talkToRamon(){
 	} else {
 		basicEcho('You call Jonathan, asking if he\'s game for a round of basketball. Big Basketball.');
 		basicEcho('"Hmmm alright alright I\'ll play, but I have to deal with one of my robots in IV. It must have escaped the mansion and can\'t have ELISA getting access to my code..."');
+		basicEcho('"Also," says Ramon, "Let me give you a new map of places to visit. Things have changed since I last updated my website..."');
+		basicEcho('"Oh wait, this is a text adventure. Graphics are difficult. Basically there are four areas: Downtown (where we are), IV, Goleta, and Appfolio. Public transit will take you to and from each location at one particular point. I\'d offer to drive but...you used all your free ride credits last time."');
 	}
 }
 
@@ -604,12 +606,12 @@ var sbBeach = {
 
 var sbIVTrigo = {
 	name: 'Trigo Street',
-	desc: 'Aside from the roaming kill bot squads, IV seems more dead than the week after finals...Trigo looks relatively unchanged from the chaos you remember',
+	desc: 'Aside from the roaming kill bot squads, IV seems more dead than the week after finals...Trigo looks relatively unchanged from the chaos you remember. The public bus stops here on the 11 line.',
 	items: [],
 	actions: [],
 	effects: [],
-	directions: ['south'],
-	connections: [sbIVDP],
+	directions: ['south', 'to Downtown', 'to Goleta'],
+	connections: [sbIVDP, sbStart, sbGoletaKellogg],
 	enemies: []
 }
 
@@ -641,15 +643,23 @@ var sbIVBeach = {
 	connections: [sbIVDP, sbBeach],
 	enemies: []
 }
-//TODO: add a ryan shop
+
+function openGoletaShop() {
+	var wares = [[cupcake(), 5], [tequila(), 10], [turkeyLeg(), 7]];
+	scope = 'shop';
+	curShopWares = wares;
+	basicEcho('"Hey '+player.name+'! Check it out, we\'re having a \'yard sale\'!');
+	buildShop(wares);
+};
+
 var sbGoletaKellogg = {
 	name: 'Old Town',
-	desc: 'The vibrant community of Old town provides the greatest resistance against ELISA this close to its hub. Stores have become bunkers lining the street, signs written like ReCAPTCHA prompts continue to confound the robot oppressors. One particular sign reads: \'sH0p\'',
+	desc: 'The vibrant community of Old town provides the greatest resistance against ELISA this close to its hub. Stores have become bunkers lining the street, signs written like ReCAPTCHA prompts continue to confound the robot oppressors. One particular sign reads: \'sH0p\'. The 6 and 11 lines stop here',
 	items: [],
-	actions: [],
-	effects: [],
-	directions: ['south'],
-	connections: [sbGoletaImperial],
+	actions: ['shop'],
+	effects: [openGoletaShop],
+	directions: ['south', 'to Downtown', 'to Appfolio', 'to IV'],
+	connections: [sbGoletaImperial, sbStart, sbAppfolioHall, sbIVTrigo],
 	enemies: []
 }
 function openBar() {
@@ -663,8 +673,8 @@ var sbGoletaImperial = {
 	name: 'The Imperial',
 	desc: 'A local watering hole for all those who have survived the robotic assault. After a hard day of work on the streets of Goleta, all retire to this swanky (machine-gun equipped) drinking place. You can get almost anything you want...provided it\'s not a Long Island',
 	items: [],
-	actions: [],
-	effects: [],
+	actions: ['shop'],
+	effects: [openBar],
 	directions: ['north', 'east'],
 	connections: [sbGoletaKellogg, sbGoletaTacoBell],
 	enemies: []
@@ -689,8 +699,8 @@ var sbGoletaTacoBell = {
 
 var sbAppfolio1 = {
 	name: 'Engineering',
-	desc: 'State Street',
-	items: [],
+	desc: 'The open floorplan is making it slightly difficult to get around...A large button stands in the middle of the old Los V bay',
+	items: [upSwitch()],
 	actions: [],
 	effects: [],
 	directions: ['to hall'],
@@ -699,9 +709,9 @@ var sbAppfolio1 = {
 }
 
 var sbAppfolio2 = {
-	name: 'State Street',
-	desc: 'State Street',
-	items: [],
+	name: 'Sales',
+	desc: 'Sectioned desks complete with personal dividers give a kind of caged feel. A large button towers over nearby desks',
+	items: [downSwitch()],
 	actions: [],
 	effects: [],
 	directions: ['to hall'],
@@ -710,9 +720,9 @@ var sbAppfolio2 = {
 }
 
 var sbAppfolio3 = {
-	name: 'State Street',
-	desc: 'State Street',
-	items: [],
+	name: 'Marketing',
+	desc: 'You finally make it over to the marketing department, took long enough. A large button stands silently in the middle of the area',
+	items: [leftSwitch()],
 	actions: [],
 	effects: [],
 	directions: ['to hall'],
@@ -721,9 +731,9 @@ var sbAppfolio3 = {
 }
 
 var sbAppfolio4 = {
-	name: 'State Street',
-	desc: 'State Street',
-	items: [],
+	name: 'Customer Success',
+	desc: 'Big button over heya',
+	items: [rightSwitch()],
 	actions: [],
 	effects: [],
 	directions: ['to hall'],
@@ -733,30 +743,44 @@ var sbAppfolio4 = {
 
 var sbAppfolioHall = {
 	name: 'Appfolio Main Entrance',
-	desc: 'The entire campus has been completely fortified to protect the AI inside. Luckily, looks like the old door scanner still works',
-	items: [],
+	desc: 'The entire campus has been completely fortified to protect the AI inside. Luckily, looks like the old door scanner still works. You can access the 6 bus from here!',
+	items: [appfolioMainDoor(), appfolioAccessPanel()],
 	actions: [],
 	effects: [],
-	directions: [],
-	connections: [],
+	directions: ['to Goleta', 'to Downtown'],
+	connections: [sbGoletaKellogg, sbStart],
 	enemies: []
 }
 
+function finishedIt(){
+	sbAppfolioELISA.isLocked = false;
+	basicEcho('...And with that. The AI is no more. Considering this whole thing only took a couple days, seems like you didn\'t exactly have to wait 3 years huh? Jeez, the story department really should have seen that one...');
+	basicEcho('You\'ve defeated the monster, with the help of your fellow Los Vendadores (who showed up during the battle we swear), and wild cheer goes through the crowd');
+	basicEcho('All around the world, ELISA controlled robots are falling dead now that they no longer are receiving communications from the mother server.');
+	basicEcho('"WAIT!" Yells Jonathan, "Isn\'t ELISA\'s code hosted on AWS? This whole defeating its server thing makes no sense..."');
+	basicEcho('"Maybe," says Ramon, "Or maybe it was ready to die...');
+	basicEcho('--------');
+	basicEcho('NEW PATH OPENED FROM HERE. \'Go to Endgame\'');
+	sbAppfolioELISA.directions.push('to Endgame');
+	sbAppfolioELISA.connections.push(endgame);
+}
+
 var sbAppfolioELISA = {
-	name: 'State Street',
-	desc: 'State Street',
+	name: 'ELISA',
+	desc: 'The gate closes behind you with an almighty thud. Before you stands the largest of all servers. The...mother server. ELISA is in there, you can feel it. Time to end this.',
 	items: [],
 	actions: [],
 	effects: [],
 	directions: ['to hall'],
 	connections: [sbAppfolioHall],
-	enemies: []
+	enemies: [ELISA()],
+	isLocked: true
 }
 
 var endgame = {
-	name: 'State Street',
-	desc: 'State Street',
-	items: [],
+	name: 'Endgame',
+	desc: 'You did it! You finished the game! Whether it was out of obligation or actual enjoyment...we\'re glad you\'re here! At your feet lies one item: A Thank You',
+	items: [thankYou()],
 	actions: [],
 	effects: [],
 	directions: [],
@@ -802,18 +826,20 @@ function loadRoomConnections() {
 	malibuFrontLawn.connections = [malibuLounge, malibuStart];
 	malibuBeach.connections = [malibuLounge];
 	//Santa Barbara
-	sbStart.connections = [sbFunkZone];
+	sbStart.connections = [sbFunkZone, sbIVTrigo, sbGoletaKellogg, sbAppfolioHall];
 	sbFunkZone.connections = [sbStart, sbRockGym];
 	sbRockGym.connections = [sbFunkZone, sbBeach];
 	sbBeach.connections = [sbRockGym, sbIVBeach];
 	//
-	sbGoletaKellogg.connections = [sbGoletaImperial];
+	sbGoletaKellogg.connections = [sbGoletaImperial, sbStart, sbAppfolioHall, sbIVTrigo];
 	sbGoletaImperial.connections = [sbGoletaKellogg, sbGoletaTacoBell];
 	sbGoletaTacoBell.connections = [sbGoletaImperial];
 	//
-	sbIVTrigo.connections = [sbIVDP];
+	sbIVTrigo.connections = [sbIVDP, sbStart, sbGoletaKellogg];
 	sbIVDP.connections = [sbIVTrigo, sbIVBeach];
 	sbIVBeach.connections = [sbIVDP, sbBeach];
+	//
+	sbAppfolioHall.connections = [sbGoletaKellogg, sbStart];
 	sbAppfolio1.connections = [sbAppfolioHall];
 	sbAppfolio2.connections  = [sbAppfolioHall];
 	sbAppfolio3.connections  = [sbAppfolioHall];

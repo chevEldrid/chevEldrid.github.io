@@ -382,6 +382,13 @@ function kayak(){
 	);
 }
 
+function thankYou(){
+	return roomObject(
+		'Thank you',
+		'Thanks so much for everyone at Appfolio who made my experience a really great one. All of you guys are awesome and I hope you guys liked this game, or if you didn\'t hopefully you laughed once. If you didn\'t even do that...well...next August gonna be awkward. love you all'
+	);
+}
+
 /* =============================
    |       Special Items       |
 	 ============================= */
@@ -757,11 +764,93 @@ function appfolioMainDoor(){
 		'A large glass door equipped with a lowgrade key-card access pad. Maybe the old keys still work?',
 		function(){
 			if(player.hasItem('ID Badge') > -1) {
-				basicEcho('There\'s a brief pause, and then a resounding BEEEEEP! You\'re in!');
-				sbAppfolioHall.directions = ['to engineering', 'to sales', 'to marketing', 'to Customer success', 'to Basketball Court'];
-				sbAppfolioHall.connections = [sbAppfolio1, sbAppfolio2, sbAppfolio3, sbAppfolio4, sbAppfolioELISA];
+				basicEcho('There\'s a brief pause, and then a resounding BEEEEEP! You\'re in! Access to all major departments is established, but the way back to where ELISA has set up shop is still blocked by a large panel with four LEDs');
+				if(!sbAppfolioHall.directions.includes('to sales')) {
+					sbAppfolioHall.directions.push('to engineering', 'to sales', 'to marketing', 'to Customer success');
+					sbAppfolioHall.connections.push(sbAppfolio1, sbAppfolio2, sbAppfolio3, sbAppfolio4);
+				}
 			} else {
 				basicEcho('You\'re not getting through this door without an access card');
+			}
+		}
+	)
+}
+
+function appfolioAccessPanel(){
+	return roomTrigger(
+		'panel',
+		'A large panel next to a gate with four lights shaped like arrows. Underneath is the phrase \'KONAMI\'',
+		function(){
+			if(JSON.stringify(appfolioKeys) == JSON.stringify(secretAppfolioKeyPhrase) && appfolioKeys.length > 0) {
+				basicEcho('You hear a rumbling sound as the gate begins to open. All the lights on the panel begin flashing.');
+				sbAppfolioHall.directions.push('to ELISA');
+				sbAppfolioHall.connections.push(sbAppfolioELISA);
+				basicEcho('This is the final battle. Make sure you are prepared...');
+			} else if (appfolioKeys.length === 0) {
+				basicEcho('The lights seemed to be tied to switches inside the building...');
+			} else {
+				basicEcho('The lights flash red, incorrect order, and reset.');
+				appfolioKeys = [];
+			}
+		}
+	)
+}
+
+function upSwitch(){
+	return roomTrigger(
+		'button',
+		'A big button sits in the middle of a pedestal with an up arrow above it.',
+		function(){
+			if(appfolioKeys.length < 4 && !appfolioKeys.includes('up')) {
+				appfolioKeys.push('up');
+				basicEcho('You smack the button, illuminating the arrow above it');
+			} else {
+				basicEcho('The button seems to have already been activated...');
+			}
+		}
+	)
+}
+
+function downSwitch(){
+	return roomTrigger(
+		'button',
+		'A big button sits in the middle of a pedestal with a down arrow above it.',
+		function(){
+			if(appfolioKeys.length < 4 && !appfolioKeys.includes('down')) {
+				appfolioKeys.push('down');
+				basicEcho('You smack the button, illuminating the arrow above it');
+			} else {
+				basicEcho('The button seems to have already been activated...');
+			}
+		}
+	)
+}
+
+function leftSwitch(){
+	return roomTrigger(
+		'button',
+		'A big button sits in the middle of a pedestal with a left arrow above it.',
+		function(){
+			if(appfolioKeys.length < 4 && !appfolioKeys.includes('left')) {
+				appfolioKeys.push('left');
+				basicEcho('You smack the button, illuminating the arrow above it');
+			} else {
+				basicEcho('The button seems to have already been activated...');
+			}
+		}
+	)
+}
+
+function rightSwitch(){
+	return roomTrigger(
+		'button',
+		'A big button sits in the middle of a pedestal with an right arrow above it.',
+		function(){
+			if(appfolioKeys.length < 4 && !appfolioKeys.includes('right')) {
+				appfolioKeys.push('right');
+				basicEcho('You smack the button, illuminating the arrow above it');
+			} else {
+				basicEcho('The button seems to have already been activated...');
 			}
 		}
 	)
@@ -843,6 +932,12 @@ function roboJonathan(onKill){
 	return new Enemy('Beasterman',
 		'More than just a Senior Engineer',
 		50, 15, [], false, onKill);
+}
+
+function ELISA(onKill){
+	return new Enemy('ELISA',
+	'THE AI!!',
+	100, 15, [], false, onKill);
 }
 
 /* =============================
