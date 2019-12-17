@@ -54,6 +54,7 @@ function startGame(args) {
 	else if(promptPos == 1) {
 		player = createCharacter(args);
 		basicEcho('"' + args +' is it? Nice to meet you '+args+'. Please, save the world. Or type \'start\' again to reset."');
+		basicEcho('To Yang while enjoying this game...https://open.spotify.com/playlist/6pVytMa6CN6rUXzhpswjD8?si=mwjod2fcTi-i7f-VGy16hA');
 		basicEcho('');
 		basicEcho(curRoom.desc);
 		endHijack();
@@ -66,8 +67,8 @@ function startGame(args) {
 
 //function for action associated with command 'eat cereal'
 function talkToJulia() {
-	basicEcho('"'+player.name + ', If you\'re ready to stop wallowing, It\'s time to activate the operation. It\'s time to bring Vendadores back together..."');
-	basicEcho('"I\'ve sent out a calendar invite for one week from today in Santa Barbara. We need to beat ELISA."');
+	basicEcho('"Hey '+player.name + ', If you\'re ready It\'s time to bring operation: Take Back Appfolio to market. I\'ve already spoken to the resistance here, but we need help. It\'s time to bring Vendadores back together..."');
+	basicEcho('"To get us all on the same page, I\'ve sent out a calendar invite for one week from today in Santa Barbara. We will need everyone if we\'re going to beat ELISA."');
 };
 
 /*
@@ -93,7 +94,7 @@ var sdBeach = {
 // ||Room 2 - House of Seuss||
 var seuss = {
 	name: 'House of Seuss',
-	desc: 'One room, two rooms, red rooms, blue rooms! You\'ve entered the House of Seuss! A cat in a hat is lapping quietly at a bowl of milk while some green eggs and ham lay steaming on a counter. You see a truffula branch propped up against the wall.',
+	desc: 'One room, two rooms, red rooms, blue rooms! You\'ve entered the House of Seuss! The cat in the hat is lapping quietly at a bowl of milk while some green eggs and ham lay steaming on a counter. You see a truffula branch propped up against the wall.',
 	items: [catInTheHat(), greenEggsAndHam(), truffulaBranch()],
 	actions: [],
 	effects: [],
@@ -108,8 +109,8 @@ function talkPasserby() {
 
 function defeatedDtSdSpeaker() {
 	basicEcho('-------------');
-	basicEcho('Julia waves to you from the other side, "You have to go the San Diego Office," she says');
-	basicEcho('I\'ve left a dossier on everyones\' last locations. I\'ll see you in Santa Barbara');
+	basicEcho('Julia waves to you from the other side, "I\'ve managed to dig up some intel," she says');
+	basicEcho('I\'ve left a dossier on everyones\' last locations in the San Diego office, but had to abandon it when the Copier turned evil? I need to do some other stuff around here, but I\'ll see you in Santa Barbara!"');
 	downtownSD.connections.push(gaslamp);
 	downtownSD.directions.push('south');
 	basicEcho('A NEW PATH HAS OPENED TO THE SOUTH!');
@@ -132,7 +133,7 @@ function openSDShop() {
     var wares = [[peanutBrittle(), 5], [tequila(), 10]];
     scope = 'shop';
     curShopWares = wares;
-    basicEcho('"'+player.name+'? Is that you? It\'s me! Ryan! Oh man it\'s good to see you. Welcome to my shop! I cleared out my desk right before The Overtaking and am now selling whatever I found"');
+    basicEcho('"'+player.name+'? Is that you? It\'s me! Ryan! Oh man it\'s good to see you. Welcome to my shop! I cleared out my desk right before The Overtaking and am now selling whatever I found!"');
     basicEcho('"This is the first shop I\'ve opened after our HQ in Shrieveport. There was so little there ELISA didn\'t even bother conquoring it! It\'s perfect!"');
 	basicEcho('Type either the name of the good you want to buy or type \'leave\' to exit the shop and continue on your travels"');
     buildShop(wares);
@@ -167,17 +168,17 @@ var officeSD = {
 
 //Let's try and build a store...
 function openDLShop() {
-	var wares = [[cupcake(), 5], [tequila(), 10], [turkeyLeg(), 7]];
+	var wares = [[cupcake(), 5], [tequila(), 10], [turkeyLeg(), 7], [cubanFlan(), 5]];
 	scope = 'shop';
 	curShopWares = wares;
-	basicEcho('"Hey '+player.name+'! Good to see you again! How\'d I get past the Copier? Oh, well...this game wasn\'t very well QA-ed so there\'s a couple loopholes lying around"');
-	basicEcho('"Buy something! I\'ve always got new stuff in stock!"');
+	basicEcho('"Hey '+player.name+'! Good to see you again! How\'d I get past the Copier? Oh...this game wasn\'t very well QA-ed and frankly didn\'t even make it through code review so there\'s a couple loopholes lying around"');
+	basicEcho('"Buy something! I\'ve always got new stuff in stock, but you have to hurry-I\'ve got an interview in 10."');
 	buildShop(wares);
 };
 
 var mainStreetDL = {
 	name: 'Main Street',
-	desc: 'You\'ve successfully made it to Anaheim! The park is how you remember from a tech retreat long ago...you see a park ticket wedged between a few stones and somthing resembling a hidden mickey by a far tree...there also seems to be a weird message written on a wall.\nYou can also see a shop nearby!',
+	desc: 'You\'ve successfully made it to Anaheim! Somehow, magical music is playing from the park speakers but slowed down enough to not even be terrifying...just nausiating. The park is how you remember from a tech retreat long ago...you see a park ticket wedged between a few stones and somthing resembling a hidden mickey by a far tree...there also seems to be a weird message written on a wall.\nYou can also see a shop nearby!',
 	items: [mainStreetHiddenMickey(), disneyTicket(), mainStreetMessage()],
 	actions: ['shop'],
 	effects: [openDLShop],
@@ -187,8 +188,8 @@ var mainStreetDL = {
 };
 
 var centralHubDL = {
-	name: 'Central Hub',
-	desc: 'A statue of the late Walt stands before you, piercing you with his icy gaze. Judging you, as if you were not worthy to enter the house of mouse. There\'s a food stand within spitting distance that seems well stocked with Tequila and Sangria',
+	name: 'Central Square',
+	desc: 'A statue of the late Walt stands before you, piercing you with his icy gaze. Judging you, as if you were not worthy to enter the house of mouse. Dost thou dare sodden the ground of the Happiest Place on Earth with your quest to save the World? There\'s a food stand within spitting distance that seems well stocked with Tequila and Sangria',
 	items: [tequila(), sangria()],
 	actions: [],
 	effects: [],
@@ -199,19 +200,19 @@ var centralHubDL = {
 
 function rideBoulderchase(){
 	if(player.hasItem('Park Ticket') > -1) {
-		basicEcho('The ride is almost as you remember it, rugged buggies diving and swerving through an underground labrynth');
+		basicEcho('The ride is almost as you remember it, rugged buggies diving and swerving through an underground labrynth but none too crazy Chris couldn\'t handle it. You take the singles line to get several rides in before moving on. Doesn\'t matter that no one else is in line.');
 		if(player.hasItem('Boulderchase Token') < 0) {
 			basicEcho('YOU RECEIVED A RIDE TOKEN FROM BOULDERCHASE');
 			player.addItem(boulderChaseToken());
 		}
 	} else {
-		basicEcho('You can\'t ride this without a ticket!');
+		basicEcho('The low metal turnstyle appears insurmountable without a ticket to scan.');
 	}
 }
 
 var adventure = {
 	name: 'Adventureland',
-	desc: 'You cross the threshold into a land of adventure. Without the constant irrigation of disney staff once lucious groves are now reduced to the desert from whence they came. Rides are collapsing around you due to lack of maintenance. Except of course...Boulderchase. Care for a ride?',
+	desc: 'You cross the threshold into a land of adventure. Without the constant irrigation and meticulous care of disney staff once lucious groves are reduced to the desert from whence they came. Rides are collapsing around you due to lack of maintenance. You notice the complete lack of Pineapple Dole Whip...probably the first thing to go. Except of course...Boulderchase. Care for a ride? Don\'t even need a Fastpass',
 	items: [suspiciousCarpet()],
 	actions: ['ride boulderchase'],
 	effects: [rideBoulderchase],
@@ -222,19 +223,19 @@ var adventure = {
 
 function rideThunderRailroad(){
 	if(player.hasItem('Park Ticket') > -1) {
-		basicEcho('While the ride has gotten even more rickety in recent years, you manage to escape decapitation by adhering to the safety guidelines and not putting your arms in the air like you just don\'t care');
+		basicEcho('While the ride has gotten even more rickety in recent years, you manage to escape decapitation by adhering to the safety guidelines and not putting your arms in the air like you just don\'t care. Although that one board seems to be shaking a bit...');
 		if(player.hasItem('Thunder Ride Token') < 0) {
 			player.addItem(thunderRideToken());
 			basicEcho('YOU RECEIVED A RIDE TOKEN FROM THUNDER RAILROAD');
 		}
 	} else {
-		basicEcho('You can\'t ride this without a ticket!');
+		basicEcho('You\'d feel too guilty riding this without a proper ticket...');
 	}
 }
 
 var frontier = {
 	name: 'Frontierland',
-	desc: 'Frontierland almost looks...unchanged. It helps that the desert environment matches the desert environment of most of Southern California. Looking around you swear you see an entrance for the famous Club 34. Up ahead looms the Thunder Railroad, looking a little worse for wear with debris littering the street',
+	desc: 'Frontierland almost looks...unchanged. It helps that the desert environment matches the desert look of most of Southern California. Looking around you swear you see an entrance for the famous Club 34 hidden behind the now dilapidated Pirates ride. Up ahead looms the Thunder Railroad, looking a little worse for wear with debris littering the street',
 	items: [debris(), clubThirtyFourEntrance(), frontierMessage()],
 	actions: ['ride Thunder Railroad'],
 	effects: [rideThunderRailroad],
@@ -244,7 +245,7 @@ var frontier = {
 };
 
 function mikeBossBattle() {
-	basicEcho('With a final yell, MIKE collapses - twitching and speaking nonsense about how much more efficient the maintenance in the park could be...');
+	basicEcho('With a final yell, MIKE collapses - twitching and speaking nonsense about how much more efficient the maintenance in the park could be if only they used a contact center to schedule different techs to different areas and while they\'re at it maybe a portal...');
 	club34.connections.push(frontier);
 	club34.directions.push('to Frontierland');
 	basicEcho('----------')
@@ -255,7 +256,7 @@ function mikeBossBattle() {
 
 var club34 = {
 	name: 'Club34',
-	desc: 'A long undisturbed relic of the elite. You can almost feel the Kanye. Unfortunately you don\'t have much time to take in the sights. Before you stands one of ELISA\'s top generals. MIKE. Good luck.',
+	desc: 'A long undisturbed relic of the elite. You can almost feel the Kanye. Unfortunately you don\'t have much time to take in the sights, apart from decadent table settings and the remains of a string quartet, Before you stands one of ELISA\'s top generals. MIKE. Good luck.',
 	items: [],
 	actions: [],
 	effects: [],
@@ -266,8 +267,8 @@ var club34 = {
 
 var toontown = {
 	name: 'Toontown',
-	desc: 'A weird fog hangs over the entire area, visibility is limited but you can clearly make out a door nestled in the side of a large fake mountain',
-	items: [toontownDoor()],
+	desc: 'A weird fog hangs over the entire area, visibility is limited but you can clearly make out a door nestled in the side of a large fake mountain. Looks like one of those Pockets left from the Octopi invasion over Chicago last year...',
+	items: [toontownDoor(), calamari()],
 	actions: [],
 	effects: [],
 	directions: ['north', 'east'],
@@ -277,7 +278,7 @@ var toontown = {
 
 var gEdge = {
 	name: 'The Edge of the Galaxy',
-	desc: 'You\'ve made it to the edge of the park. Scratchings cover the walls asking for help, claiming personal attacks, and the unmistakable mark of the Ishi: "N\'aight". All signs point to the cantina in the back, surrounded by robots.',
+	desc: 'You\'ve made it to the edge of the park. Messages like the ones you\'ve seen throughout the park are much more focused here, all asking for some form of help or rescue from personal attacks. All signs seem to lead to the cantina in the back, surrounded by robots.',
 	items: [spinach(), gEdgeCantina()],
 	actions: [],
 	effects: [],
@@ -313,7 +314,7 @@ var concertVenue = {
 };
 
 function openLAStore() {
-	var wares = [[tequila(), 10], [turkeyLeg(), 7], [cupcake(), 5]];
+	var wares = [[tequila(), 10], [turkeyLeg(), 7], [cupcake(), 5], [flan(), 5]];
 	scope = 'shop';
 	curShopWares = wares;
 	basicEcho('"Welcome back! Ugh, California is kind of getting to me...it might be time to head back to Shrieveport! Have you ever been? Lovely people! Man, the draft from that bookcase is driving me crazy!"');
@@ -400,14 +401,15 @@ var malibuStart = {
 }
 
 function talkToJonathanMainHall() {
-	basicEcho('"Pretty nifty seeee? After ELISA took over I thought I\'d hole up here in Malibu. No distractions, no one bothering me with Oauth, it\'s peaceful"');
-	basicEcho('"Oh, the robots? Well I can\'t exactly maintain a mansion by myself. Even my desk at work was always covered in junk like peanut butter. So, I built a robot arm-workers. Built robot workers."');
-	basicEcho('"Yeah they\'re pretty harmless, go say hi! I\'ll be ready to leave with you guys for Santa Barbara in just a few hours. I need to finish some stuff up here first...Just don\'t go into the Library!"');
+	basicEcho('Jonathan gives you a mean mug expression and a head tilt that seems to imply: \'sup\'. "Pretty nifty huh?" Jonathan says with a wide grin, "After ELISA took over I thought I\'d hole up here in Malibu. No distractions, no one bothering me with Oauth, it\'s peaceful"');
+	basicEcho('"So here I was just chilling, making beats, and it hit me that we could have fully automated the portal back in the day with some serious AI juice. What if we built robots who do all the work? Then we can directly interface them with the portal!"');
+	basicEcho('"Also I can\'t exactly maintain a mansion by myself. Even my desk at work was always covered in junk like peanut butter. So, I built a robot arm-workers. Built robot contractors."');
+	basicEcho('"Yeah they\'re pretty harmless. Julia called ahead and said you\'re trying to get the Vendadores back together, I\'m so in. I\'ll be ready to leave with you guys for Santa Barbara in just a few hours. I need to finish some stuff up here first, feel free to explore...Just don\'t go into the Library!"');
 }
 
 var malibuMainHall = {
 	name: 'Main Hall',
-	desc: 'As you step into the main hall, you\'re greeted by a very smug looking Jonathan Easterman. Robots continue to buzz around you as he beckons you over',
+	desc: 'As you step into the main hall, you\'re greeted by a very smug looking Jonathan Easterman. Robots continue to buzz around you as he beckons you over, dressed to the 9s as always in some nice blue-light glasses',
 	items: [dormantCleanerRobot(), dormantButlerRobot(), dormanthypeManRobot()],
 	actions: ['talk to Jonathan'],
 	effects: [talkToJonathanMainHall],
@@ -418,7 +420,7 @@ var malibuMainHall = {
 
 var malibuStaircase = {
 	name: 'Staircase',
-	desc: 'You walk up to the beautifully ornate staircase, covered in a rug that really ties the thing together',
+	desc: 'You walk up to the beautifully ornate staircase, golden bannisters continuously being polished by one of the many robot staff and covered in a rug that really ties the thing together',
 	items: [dormantCleanerRobot()],
 	actions: [],
 	effects: [],
@@ -440,7 +442,7 @@ var malibuBalcony = {
 
 var malibuBedroom = {
 	name: 'Bedroom',
-	desc: 'A glimpse into Jonathan\'s private life since The Overtaking. ...It looks similar to how you\'d expect. The bed is a bit of a mess, with a loose rolex and usb drive among the pile',
+	desc: 'A glimpse into Jonathan\'s private life since The Overtaking. ...It looks similar to how you\'d expect. The bed is a bit of a mess, with a loose rolex and usb drive among the pile. Something moves in the bag to your right...but you ignore it.',
 	items: [rolex(), digiKey()],
 	actions: [],
 	effects: [],
@@ -451,7 +453,7 @@ var malibuBedroom = {
 
 var malibuLibrary = {
 	name: 'Library',
-	desc: 'Books line every wall, things ranging from Philosophy and the foley of man...to O\'Reilly books on Tensorflow gotten from a Euro trip ages ago.',
+	desc: 'Books line every wall, things ranging from Philosophy and the foley of man...to O\'Reilly books on Tensorflow gotten from a Euro trip ages ago. It truely is an impressive collection that would take many years to finish',
 	items: [dormantButlerRobot(), dormantCleanerRobot()],
 	actions: [],
 	effects: [],
@@ -497,13 +499,14 @@ function openMalibuShop() {
 	var wares = [[cupcake(), 5], [tequila(), 10], [turkeyLeg(), 7]];
 	scope = 'shop';
 	curShopWares = wares;
-	basicEcho('"Hey '+player.name+'! Check it out, we\'re having a \'yard sale\'!');
+	basicEcho('"Hey '+player.name+'! Check it out, we\'re having a \'yard sale\'! Ever since we containerized my shop I can set up a new one almost anywhere, it\'s incredibly convenient! So don\'t be a stranger!');
+	basicEcho('"Buy something!"');
 	buildShop(wares);
 };
 
 var malibuFrontLawn = {
 	name: 'Front Lawn',
-	desc: 'The lawn sprawls for what seems like miles, so much golden grass and even a little Gazebo. Looks like someone set up shop too!',
+	desc: 'The lawn sprawls for what seems like miles, so much golden grass and even a little Gazebo. Ryan seems to have set up shop here between the diamond crusted corn-hole set and the croquet display',
 	items: [dormantGardenerRobot()],
 	actions: ['shop'],
 	effects: [openMalibuShop],
@@ -514,7 +517,7 @@ var malibuFrontLawn = {
 
 var malibuBeach = {
 	name: 'Beach',
-	desc: 'You can hear the gentle waves crash against the beach, a half buried mech looks on menacingly from right on the ocean edge. It\'s definitely off, right?',
+	desc: 'You can hear the gentle waves crash against the beach, a half buried mech looks on menacingly from right on the ocean edge. Even affter you confirm it\'s not a half-buried Statue of Liberty and you\'re not Charlton Heston...you\'re not remotely put at ease. It\'s definitely menacing, right?',
 	items: [dormantOAuth()],
 	actions: [],
 	effects: [],
@@ -525,7 +528,7 @@ var malibuBeach = {
 
 var malibuUnderground = {
 	name: 'Underground',
-	desc: 'The room is filled with the many different robots scattered around the property. Considering this dank underground cavern doesn\'t have anything to clean or cook...seems highly suspicious',
+	desc: 'After dropping from the trap door, you come into a room filled with the many different robots scattered around the property. Rows and rows just lying dormant, waiting for their commands. Considering this dank underground cavern doesn\'t have anything to clean or cook...seems highly suspicious',
 	items: [dormantGardenerRobot(), dormantCleanerRobot(), dormantChefRobot(), dormantCleanerRobot(), dormanthypeManRobot()],
 	actions: [],
 	effects: [],
@@ -536,7 +539,7 @@ var malibuUnderground = {
 
 var malibuHiddenLair = {
 	name: 'Hidden Lair',
-	desc: 'You come out into a large, stone cavern. Empty except for the lone robot and the pedestal in the direct center of the room. It seems to be holding a manifesto?',
+	desc: 'You squirm your way through an almost hidden passage-way, you emerge into a large stone cavern carved by water eons ago. Now, furnished for what could be a rather insidious purpose. It stands empty except for the lone robot and the pedestal holding a manifesto in the direct center of the room. Even still, vibes feel off man',
 	items: [dormanthypeManRobot(), malibuManifesto()],
 	actions: [],
 	effects: [],
@@ -551,7 +554,7 @@ var malibuHiddenLair = {
 
 var sbStart = {
 	name: 'State Street',
-	desc: 'You\'ve barely made it on to state street when you can see the changes ELISA has made: everything is automated and kinda like Terminator. No life, no sound. Deathly still. Scattered human supplies lie at your feet. The public bus system is still running though! This is a stop for the 6 and 11.',
+	desc: 'You\'ve barely made it on to state street when you can see the changes ELISA has made: everything is automated and kinda like Terminator. No life, no sound. Deathly still. Scattered human supplies lie at your feet. The public bus system is still running though! Confirming your suspicion they exist outside the normal flow of time. This is a stop for the 6 and 11.',
 	items: [coldBrew(), redBull()],
 	actions: [],
 	effects: [],
@@ -580,9 +583,9 @@ function talkToRamon(){
 		player.addItem(appfolioIDBadge());
 	} else {
 		basicEcho('You call Jonathan, asking if he\'s game for a round of basketball. Big Basketball.');
-		basicEcho('"Hmmm alright alright I\'ll play, but I have to deal with one of my robots in IV. It must have escaped the mansion and can\'t have ELISA getting access to my code..."');
+		basicEcho('"Hmmm alright alright I\'ll play, but I have to deal with one of my robots in IV. It must have escaped the mansion and can\'t have ELISA getting access to my designs...it\'s leagues above hijacking alexas and minis"');
 		basicEcho('"Also," says Ramon, "Let me give you a new map of places to visit. Things have changed since I last updated my website..."');
-		basicEcho('"Oh wait, this is a text adventure. Graphics are difficult. Basically there are four areas: Downtown (where we are), IV, Goleta, and Appfolio. Public transit will take you to and from each location at one particular point. I\'d offer to drive but...you used all your free ride credits last time."');
+		basicEcho('"...Oh wait, this is a text adventure. Graphics are difficult. Basically there are four areas: Downtown (where we are), IV, Goleta, and Appfolio. Public transit will take you to and from each location at one particular point. I\'d offer to drive but...you used all your free ride credits last time."');
 	}
 }
 
@@ -649,10 +652,11 @@ var sbIVBeach = {
 }
 
 function openGoletaShop() {
-	var wares = [[cupcake(), 5], [tequila(), 10], [turkeyLeg(), 7]];
+	var wares = [[cupcake(), 5], [tequila(), 10], [turkeyLeg(), 7], [cubanFlan(), 3], [flan(), 5], [peanutBrittle(), 5], [sangria(), 3]];
 	scope = 'shop';
 	curShopWares = wares;
-	basicEcho('"Hey '+player.name+'! Check it out, we\'re having a \'yard sale\'!');
+	basicEcho('"Hey '+player.name+'! What do you think about the location? I\'ve been thinking about re-opening M-Special right around here...');
+	basicEcho('"Anyway, get what you can before the final battle! I\'m about to head back to Shrieveport when this is all done!"');
 	buildShop(wares);
 };
 
@@ -703,8 +707,8 @@ var sbGoletaTacoBell = {
 
 var sbAppfolio1 = {
 	name: 'Engineering',
-	desc: 'The open floorplan is making it slightly difficult to get around...A large button stands in the middle of the old Los V bay',
-	items: [upSwitch()],
+	desc: 'The open floorplan is making it slightly difficult to get around...A large button stands in the middle of the old Los V bay, right next to Chev\'s old desk',
+	items: [upSwitch(), chevsDesk()],
 	actions: [],
 	effects: [],
 	directions: ['to hall'],
@@ -712,21 +716,27 @@ var sbAppfolio1 = {
 	enemies: []
 }
 
+function leaveSales(){
+	basicEcho('With that, the robot falls and so open your paths of exit.');
+	sbAppfolio2.isLocked = false;
+}
+
 var sbAppfolio2 = {
 	name: 'Sales',
-	desc: 'Sectioned desks complete with personal dividers give a kind of caged feel. A large button towers over nearby desks',
+	desc: 'Sectioned desks complete with personal dividers give a kind of caged feel. A large button towers over nearby desks, and you can feel an eager Sales bot close in behind you...',
 	items: [downSwitch()],
 	actions: [],
 	effects: [],
 	directions: ['to hall'],
 	connections: [sbAppfolioHall],
-	enemies: []
+	enemies: [salesBot(leaveSales)],
+	isLocked: true
 }
 
 var sbAppfolio3 = {
 	name: 'Marketing',
-	desc: 'You finally make it over to the marketing department, took long enough. A large button stands silently in the middle of the area',
-	items: [leftSwitch()],
+	desc: 'You finally make it over to the marketing department, took long enough. A large button stands silently in the middle of the area, not entirely un-near Julia\'s desk',
+	items: [leftSwitch(), juliasDesk()],
 	actions: [],
 	effects: [],
 	directions: ['to hall'],
@@ -734,15 +744,23 @@ var sbAppfolio3 = {
 	enemies: []
 }
 
+function leaveCS(){
+	basicEcho('The mech falls to one knee, before you deliver the killing blow it swears undying revenge but...we\'ll deal with that in the sequel.');
+	basicEcho('The fight has also revealed some food lying around! Proceed with caution!');
+	sbAppfolio4.items.push(cupcake(), peanutBrittle(), sangria());
+	sbAppfolio4.isLocked = false;
+}
+
 var sbAppfolio4 = {
 	name: 'Customer Success',
-	desc: 'Big button over heya',
+	desc: 'Between you and the button stands a mech you thought you destroyed hours ago in Disneyland. It\'s back for more?!',
 	items: [rightSwitch()],
 	actions: [],
 	effects: [],
 	directions: ['to hall'],
 	connections: [sbAppfolioHall],
-	enemies: []
+	enemies: [],
+	isLocked: true
 }
 
 var sbAppfolioHall = {
@@ -783,7 +801,7 @@ var sbAppfolioELISA = {
 
 var endgame = {
 	name: 'Endgame',
-	desc: 'You did it! You finished the game! Whether it was out of obligation or actual enjoyment...we\'re glad you\'re here! At your feet lies one item: A Thank You',
+	desc: 'You did it! You finished the game! Whether it was out of obligation or actual enjoyment...we\'re glad you\'re here! At your feet lies one item: A Thank You. Now go off and have a celebratory beer',
 	items: [thankYou()],
 	actions: [],
 	effects: [],

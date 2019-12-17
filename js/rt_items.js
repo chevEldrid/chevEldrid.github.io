@@ -99,7 +99,7 @@ class Enemy {
 
 function moldySandwich(){
 	return new Item('Moldy Sandwich', 
-		'A sandwich that has most definitely seen better days',
+		'A sandwich that has most definitely seen better days than the last twelve it spent in your desk',
 		true,
 		function(){return (player.health <= 95);},
 		function(){player.health+=5;player.sanity-=5;basicEcho('You eat it...but you hate yourself for it');},
@@ -109,7 +109,7 @@ function moldySandwich(){
 
 function tequila(){
 	return new Item('Tequila',
-		'Lime and salt not included',
+		'Lime and salt not included. Just like Keith likes it(?)',
 		true,
 		function(){return (player.health <= 90);},
 		function(){player.health+=10;player.sanity-=10;basicEcho('An emergency shot of Tequila goes down about as easily as you\'d exepct');},
@@ -119,11 +119,31 @@ function tequila(){
 
 function peanutBrittle(){
 	return new Item('Peanut Brittle',
-		'Homemade peanut brittle made with love',
+		'Made from the ancient recipe of Ryan Hanni. A delicacy worthy of the finest Dessert-giving',
 		true,
 		function(){return (player.health <= 93);},
 		function(){player.health+=7;basicEcho('The peanut brittle gives way with a satisfying crunch');},
 		1, false, 0, 3
+	);
+}
+
+function flan(){
+	return new Item('Flan',
+	'Ramon\'s signature dish, there\'s never enough',
+	true,
+	function(){return true;},
+	function(){player.health+=10;basicEcho('It\'s gone before you even notice');},
+	1, false, 0, 5
+	);
+}
+
+function cubanFlan(){
+	return new Item('Cuban Flan',
+	'Smells delicious!',
+	true,
+	function(){return true;},
+	function(){player.health+=3;basicEcho('It doesn\'t entirely...not...taste like Flan');},
+	1, false, 0, 5
 	);
 }
 
@@ -160,7 +180,7 @@ function sangria(){
 function cupcake(){
 	return new Item(
 		'cupcake',
-		'Delicious homemade brownies with a Vanilla bean frosting',
+		'Delicious homemade cupcakes with a Vanilla bean frosting',
 		true,
 		function(){return true},
 		function(){player.health+=15;basicEcho('You finish off the cupcake in an instant, wishing for more.');},
@@ -171,10 +191,10 @@ function cupcake(){
 function spinach(){
 	return new Item(
 		'spinach',
-		'Leafy greens that make you sad inside',
+		'A bag of leafy greens that never quite encourages you to eat it',
 		true,
 		function(){return true},
-		function(){player.health+=10;player.sanity+=5;basicEcho('You eat it straight from the bag, like an animal');},
+		function(){player.health+=10;player.sanity+=5;basicEcho('You eat it straight from the bag, handfull after handfull.');},
 		1, false, 0, 1
 	);
 }
@@ -196,7 +216,7 @@ function earlGray(){
 		'The favorite Tea of Kings and Ishis',
 		true,
 		function(){return true;},
-		function(){player.health+=5;basicEcho('You sit down for a nice brew and contemplation');},
+		function(){player.health+=5;basicEcho('After convincing yourself it is in fact tea, you gulp it down heartily.');},
 		1, false, 0, 3
 	);
 }
@@ -207,7 +227,7 @@ function rollingRock(){
 		'A bottle of cheap beer that could be one of many different brands. But you\'re confident it\'s Rolling Rock...you think',
 		true,
 		function(){return true;},
-		function(){player.health+=5;player.sanity-=5;basicEcho('You down the warm foamy beer with a little less hesitation than you really should...');},
+		function(){player.health+=5;player.sanity-=5;basicEcho('You down the warm foamy beer with a little less hesitation than you really should...should have gone with the Tequila');},
 		1, false, 0, 3
 	);
 }
@@ -226,7 +246,7 @@ function redBull(){
 function coldBrew(){
 	return new Item(
 		'Cold Brew',
-		'A righteous start to any morning',
+		'A righteous start to any morning. Good thing you got one before they run out.',
 		true,
 		function(){return true;},
 		function(){player.health+=7;basicEcho('A fine caffeine boost. Pairs nicely with a Pamplemousse seltzer');},
@@ -267,6 +287,17 @@ function bajabrew(){
 	);
 }
 
+function lei(){
+	return new Item(
+		'Lua',
+		'A fake flower necklace used to blend in at Hawaiian happy hours',
+		true,
+		function(){return true;},
+		function(){player.health+=1;basicEcho('You uhhh you eat the lei? I don\'t know why but...yeah. That was weird.');},
+		1, false, 0, 1
+	);
+}
+
 /* =============================
    |       	Lore Items  		   |
 	 ============================= */
@@ -274,21 +305,21 @@ function bajabrew(){
 function sdBeachNewspaper(){
 	return roomObject(
 		'Newspaper',
-		'One article stands out that hasn\'t been water damaged:\n"ELISA brings a new era of man, one of servitude. None can stand in the way of a homicidal AI with good conversation skills..."',
+		'It looks like it\'s been on this beach for ages, just waiting for the player character to take a peek: One article stands out that hasn\'t been water damaged:\n"ELISA brings a new era of man, one of servitude. None can stand in the way of a homicidal AI with good conversation skills..."',
 	);
 }
 
 function sdBeachTutorialBook(){
 	return roomObject(
 		'Tutorial',
-		'Welcome to the game! Congrats! You just \'inspect\'ed your first item! There are a few other things to look at in this room so try finding those! If you get stuck, type \'help\'!',
+		'Welcome to the game! Congrats! You just \'inspect\'ed your first item! There are a few other things to look at in this room so try finding those by just typing \'inspect\'! If you get stuck, type \'help\'! When you\'re ready to move on, type \'talk to Julia\'.',
 	);
 }
 
 function downtownSDCombatTutorialBook(){
 	return roomObject(
 		'Combat Tutorial',
-		'Wow! You\'re doing great! To progress past this point you need to defeat an enemy. Try typing \'attack\' and then try \'attack\' followed by the specific enemy name! See what happens! Also you might want to \'equip\' that big stick...',
+		'Wow! You\'re doing great! To progress past this point you need to defeat an enemy. Try typing \'attack\' and then try \'attack\' followed by the specific enemy name! See what happens! Also you might want to \'equip\' that big stick...fighting with your fists is ill advised',
 	);
 }
 
@@ -302,7 +333,7 @@ function gaslampShopTutorialBook(){
 function mainStreetMessage(){
 	return roomObject(
 		'message',
-		'The message appears to read: "They trapped me...they trapped me where good diets go to die. Help-"  it seems to cut off abruptly'
+		'The message appears to read: "They trapped me...where good diets go to die. I\'m ready to be pissed about it. Help-"  it seems to cut off abruptly'
 	);
 }
 
@@ -316,7 +347,7 @@ function frontierMessage(){
 function keithMessageDTLA(){
 	return roomObject(
 		'message',
-		'The message reads: "Hey buddy, we don\'t have a lot of time left. You\'ve got to come out!! I\'m at the Venue."'
+		'The message reads: "Hey buddy, dude. Cmon. we don\'t have a lot of time left. You\'ve got to come out!! I\'m at the Venue."'
 	);
 }
 
@@ -358,14 +389,14 @@ function dormanthypeManRobot(){
 function dormantOAuth(){
 	return roomObject(
 		'mech',
-		'There\'s no light eminating from it\'s eyes but you can\'t help the shivers it sends down your spine'
+		'There\'s no light eminating from it\'s eyes but you can\'t help the shivers it sends down your spine.'
 	);
 }
 
 function macPro(){
 	return roomObject(
 		'Mac Pro',
-		'Kinda looks like a trashcan...'
+		'Kinda looks like a trashcan...or a cheese grater'
 	);
 }
 
@@ -404,7 +435,7 @@ function locationDossier(){
 				player.health -= 1;
 			} else {
 				basicEcho('The Copier defeated, you\'re finally able to pick up the dossier and begin your quest.');
-				basicEcho('On the first page, it reads: "We\'ve traced Ishi\'s location to a particular theme park in Anaheim. After a few years in which he seemed to be buying all the non-ELISA corrupted Vans on the west coast. He seems to have settled. At least for now..."')
+				basicEcho('On the first page, it reads: "We\'ve traced Ishi\'s location to a particular theme park in Anaheim. After a few years in which he seemed to be buying all the non-ELISA corrupted Computers on the west coast. He seems to have settled. At least for now..."')
 				officeSD.connections.push(mainStreetDL);
 				officeSD.directions.push('to Anaheim');
 				basicEcho('----------------')
@@ -699,7 +730,7 @@ function malibuManifesto(){
 		function(){
 			if(malibuUnderground.enemies.length < 1) {
 				activateKillModeMalibu();
-				basicEcho('Before you can even puruse to the table of contents. The rock in the corner that was apparently a speaker comes to life');
+				basicEcho('...It takes a minute before you realize you can\'t read a word of this. It\'s in the secret squiggle code of the Jonathan. The rock in the corner that was apparently a speaker crackles to life');
 				basicEcho('"I toooold you not to go to the Library didn\'t I? You found my manifesto? I don\'t think I can let you leave this place....ROBOTS ATTACK!"');
 				basicEcho('You hear the door closing before you can see it, and the normally hype hype robot\'s eyes begin to glow red as it comes towards you');
 			} else {
@@ -812,7 +843,7 @@ function upSwitch(){
 				basicEcho('The button seems to have already been activated...');
 			}
 		}
-	)
+	);
 }
 
 function downSwitch(){
@@ -827,7 +858,7 @@ function downSwitch(){
 				basicEcho('The button seems to have already been activated...');
 			}
 		}
-	)
+	);
 }
 
 function leftSwitch(){
@@ -842,7 +873,7 @@ function leftSwitch(){
 				basicEcho('The button seems to have already been activated...');
 			}
 		}
-	)
+	);
 }
 
 function rightSwitch(){
@@ -857,7 +888,43 @@ function rightSwitch(){
 				basicEcho('The button seems to have already been activated...');
 			}
 		}
-	)
+	);
+}
+
+var visitedChevsDesk = false;
+function chevsDesk(){
+	return roomTrigger(
+		'Chev\'s desk',
+		'The desk is littered with legos and containers',
+		function(){
+			if(!visitedChevsDesk) {
+				basicEcho('You rummage around and find some tea and a Harsh Code Review left in a drawer!');
+				player.addItem(earlGray());
+				player.addItem(harshCodeReview());
+				visitedChevsDesk = true;
+			} else {
+				basicEcho('You find nothing else');
+			}
+		}
+	);
+}
+
+var visitedJuliasDesk = false;
+function juliasDesk(){
+	return roomTrigger(
+		'Julia\'s desk',
+		'Only took three years and an apocalypse to go see it',
+		function(){
+			if(!visitedJuliasDesk) {
+				basicEcho('You rummage around and find a pretty gnarly cupcake and a lua!');
+				player.addItem(cupcake());
+				player.addItem(lei());
+				visitedJuliasDesk = true;
+			} else {
+				basicEcho('You find nothing else');
+			}
+		}
+	);
 }
 
 //weapons
@@ -909,6 +976,14 @@ function robotLeg(){
 	);
 }
 
+function harshCodeReview(){
+	return weapon(
+		'Harsh Code Review',
+		'It hurts you more than it hurts me',
+		10, 6
+	);
+}
+
 
 /* =============================
    |     Special Enemies       |
@@ -942,6 +1017,12 @@ function ELISA(onKill){
 	return new Enemy('ELISA',
 	'THE AI!!',
 	100, 15, [], false, onKill);
+}
+
+function mikeCustomerSuccess(onKill) {
+	return new Enemy('MIKE',
+	'Beaten but not broken',
+	60, 10, [], false, onKill);
 }
 
 /* =============================
@@ -1045,9 +1126,21 @@ function hypeBot(onKill){
 	return new Enemy(
 		'Hypeman Robot',
 		'"Jonathan? Dude\'s the MAN. SO pumped up he built us WOOOOOO!"',
-		1,
-		1,
+		20,
+		5,
 		[robotLeg()],
+		false,
+		onKill
+	);
+}
+
+function salesBot(onKill){
+	return new Enemy(
+		'Sales Bot',
+		'What\'s my cut?',
+		25,
+		6,
+		[],
 		false,
 		onKill
 	);

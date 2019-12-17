@@ -327,6 +327,8 @@ function buildShop(wares) {
 		}
 		basicEcho((wares[i][0].name + spacing + "$"+ wares[i][1]));
 	}
+	basicEcho('---');
+	basicEcho('You have: $'+player.money);
 };
 
 //PURPOSE: See if Shop contains given input
