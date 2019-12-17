@@ -302,7 +302,7 @@ function attack(args) {
 function lootDrop(possibilities, odds) {
 	var numPos = possibilities.length;
 	var chance = getRandomInt(1,odds);
-	if(chance == 1) {
+	if(chance == 1 && numPos > 0) {
         var lootIndex = getRandomInt(1, numPos) - 1;
 		var givenLoot = possibilities[lootIndex];
 		player.backpack.push(givenLoot);

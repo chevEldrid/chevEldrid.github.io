@@ -575,7 +575,10 @@ function toontownDoor(){
 			if(player.hasItem('Thunder Ride Token') > -1 && player.hasItem('Boulderchase Token') > -1) {
 				player.addItem(spinach());
 				player.addItem(earlGray());
-				basicEcho('It was immediately clear Ishi had been here. From the 20 computers lying in a corner, deranged drawings of vans, and a couple bags of spinach you quickly pick up.');
+				player.removeItem(thunderRideToken());
+				player.removeItem(boulderChaseToken());
+				player.removeItem(disneyTicket());
+				basicEcho('The door takes your Ride pass and tokens as payment before continuing. It was immediately clear Ishi had been here. From the 20 computers lying in a corner, deranged drawings of vans, and a couple bags of spinach you quickly pick up.');
 			} else {
 				basicEcho('The door remains closed. Try enjoying the park a little more...');
 			}
@@ -596,8 +599,8 @@ function gEdgeCantina(){
 				basicEcho('Ishi stops, turns, recognizing you saying one word: "SUUUUUUUGAR"');
 				if(player.hasItem('cupcake') > -1) {
 					basicEcho('You give Ishi your cupcake which he quickly demolishes before coming around to his old self');
-					player.removeItem('cupcake');
-					basicEcho('"Thanks' + player.name + ', I\'d had a serious craving and these Parfaits are far too healthy for me. What\'s this? You\'re getting the team back together? Last I saw Keith he was in...LA. We should go there next');
+					player.removeItem(cupcake());
+					basicEcho('"Thanks ' + player.name + ', I\'d had a serious craving and these Parfaits are far too healthy for me. What\'s this? You\'re getting the team back together? Last I saw Keith he was in...LA. We should go there next');
 					gEdge.connections.push(downtownLA);
 					gEdge.directions.push('to LA');
 					basicEcho('NEW PATH OPENED \'to LA\', FINISH UP HERE FIRST!');

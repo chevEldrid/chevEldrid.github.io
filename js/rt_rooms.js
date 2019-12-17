@@ -200,8 +200,10 @@ var centralHubDL = {
 function rideBoulderchase(){
 	if(player.hasItem('Park Ticket') > -1) {
 		basicEcho('The ride is almost as you remember it, rugged buggies diving and swerving through an underground labrynth');
-		player.addItem(boulderChaseToken());
-		basicEcho('YOU RECEIVED A RIDE TOKEN FROM BOULDERCHASE');
+		if(player.hasItem('Boulderchase Token') < 0) {
+			basicEcho('YOU RECEIVED A RIDE TOKEN FROM BOULDERCHASE');
+			player.addItem(boulderChaseToken());
+		}
 	} else {
 		basicEcho('You can\'t ride this without a ticket!');
 	}
@@ -221,8 +223,10 @@ var adventure = {
 function rideThunderRailroad(){
 	if(player.hasItem('Park Ticket') > -1) {
 		basicEcho('While the ride has gotten even more rickety in recent years, you manage to escape decapitation by adhering to the safety guidelines and not putting your arms in the air like you just don\'t care');
-		player.addItem(thunderRideToken());
-		basicEcho('YOU RECEIVED A RIDE TOKEN FROM THUNDER RAILROAD');
+		if(player.hasItem('Thunder Ride Token') < 0) {
+			player.addItem(thunderRideToken());
+			basicEcho('YOU RECEIVED A RIDE TOKEN FROM THUNDER RAILROAD');
+		}
 	} else {
 		basicEcho('You can\'t ride this without a ticket!');
 	}
@@ -230,7 +234,7 @@ function rideThunderRailroad(){
 
 var frontier = {
 	name: 'Frontierland',
-	desc: 'Frontierland almost looks...unchanged. It helps that the desert environment matches the desert environment of most of Southern California. Looking around you swear you see an entrance for the famous Club 34. Up ahead looms the Thunder Railroad, looking a little worse for ware with debris littering the street',
+	desc: 'Frontierland almost looks...unchanged. It helps that the desert environment matches the desert environment of most of Southern California. Looking around you swear you see an entrance for the famous Club 34. Up ahead looms the Thunder Railroad, looking a little worse for wear with debris littering the street',
 	items: [debris(), clubThirtyFourEntrance(), frontierMessage()],
 	actions: ['ride Thunder Railroad'],
 	effects: [rideThunderRailroad],
