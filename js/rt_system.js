@@ -63,16 +63,16 @@ function survey() {
 function help() {
 	basicEcho('possible commands at this point are: ');
 	basicEcho('----------------');
-	var availActions = actions;
+	var availActions = sysActions;
 	var helpTexts = sysDescriptions;
 	var specialActions = curRoom.actions;
 	if(scope === 'shop') {
 		availActions = shopActions;
-		documentedActions = shopActions;
+		specialActions = [];
 		helpTexts = shopDescriptions;
 	}
-    for(i = 0; i < sysActions.length; i++) {
-    	basicEcho(`[${sysActions[i]}]: ${helpTexts[i]}`);
+    for(i = 0; i < availActions.length; i++) {
+    	basicEcho(`[${availActions[i]}]: ${helpTexts[i]}`);
     	basicEcho('----------------');
     }
     for(j = 0; j < specialActions.length; j++) {

@@ -576,7 +576,7 @@ var sbFunkZone = {
 
 function talkToRamon(){
 	basicEcho('"'+player.name+'!!!!!! What\'s up, man? Just trying to get this blue v3. Oh what\'s that? You want to go against ELISA? I don\'t know...you say you\'ve got the team back together?"');
-	basicEcho('"Okay, okay. If I\'m the last one on the list..I\'ll help out if you can get Jonathan to play basketball. Deal?"');
+	basicEcho('"Okay, okay. If I\'m the last one on the list..I\'ll help out if you can get Jonathan to play basketball. Deal?"\n');
 	if(player.hasItem('basketball') > -1) {
 		basicEcho('"Sweet! Only took the apocalypse to get him to play...okay I\'ll give you my badge and be there in a minute okay? Just finishing up."');
 		basicEcho('"Oh and if you\'re planning for the final assault, you might want to go to Old Town. Best place to stock up in this area. Best Software Developer from Appfolio makes his home there as well..."')
@@ -603,7 +603,7 @@ var sbRockGym = {
 var sbBeach = {
 	name: 'Santa Barbara Beach',
 	desc: 'It\'s actually kind of calming to see the beach free of families and noisy drones. You wouldn\'t be caught saying you like the beach now more than before The Overtaking...but...a lone kayak seems to have washed up complete with paddles and a vest!',
-	items: [],
+	items: [kayak()],
 	actions: [],
 	effects: [],
 	directions: ['north', 'to Isla Vista'],
@@ -620,15 +620,15 @@ var sbIVTrigo = {
 	name: 'Trigo Street',
 	desc: 'Aside from the roaming kill bot squads, IV seems more dead than the week after finals...Trigo looks relatively unchanged from the chaos you remember, Ciarra still seems to be around riding her bike. She pulls up to talk for a minute. The public bus stops here on the 11 line.',
 	items: [],
-	actions: [],
-	effects: [],
+	actions: ['talk to Ciarra'],
+	effects: [talkToCiarra],
 	directions: ['south', 'to Downtown', 'to Goleta'],
 	connections: [sbIVDP, sbStart, sbGoletaKellogg],
 	enemies: []
 }
 
 function loneHypeBotKill(){
-	basicEcho('You hear a mighty roar as Jonathan comes charging down the street behind the wheel of The Zombie Smasher, completely obliterating the remains of his escaped Hype bot');
+	basicEcho('You hear a mighty roar as Jonathan comes charging down the street behind the wheel of The Zombie Smasher, completely obliterating the remains of his escaped hypebot');
 	basicEcho('"Honestly, I\'m kinda bummed you got here before me, never had more fun in this car than right now mowing down all the loose robots. Anyway, I found this basketball in the back. Tell Ramon I\'ll play right after we deal with ELISA"');
 	basicEcho('And with that, Jonathan goes roaring off into the sunset, techno shaking the very ground on which you walk.');
 	player.addItem(basketball());
@@ -636,7 +636,7 @@ function loneHypeBotKill(){
 
 var sbIVDP = {
 	name: 'DP',
-	desc: 'Once proud party institutions lay vacant, having been abandoned by even the most stubborn frat bros years ago. You look around and something that looks a little out of place: a hypebot, curteousy of JE enterprises',
+	desc: 'Once proud party institutions lay vacant, having been abandoned by even the most stubborn frat bros years ago. You look around and see something that looks a little out of place: a hypebot, curteousy of JE enterprises',
 	items: [],
 	actions: [],
 	effects: [],
@@ -661,7 +661,7 @@ function openGoletaShop() {
 	scope = 'shop';
 	curShopWares = wares;
 	basicEcho('"Hey '+player.name+'! What do you think about the location? I\'ve been thinking about re-opening M-Special right around here...');
-	basicEcho('"Anyway, get what you can before the final battle! I\'m about to head back to Shrieveport when this is all done!"');
+	basicEcho('"Anyway, get what you can before the final battle! I\'m about to head back to Shrieveport when this is all done!"\n');
 	buildShop(wares);
 };
 

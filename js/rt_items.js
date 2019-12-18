@@ -458,7 +458,7 @@ function dirtBike(){
 
 function ramonsKeyChain(){
 	return roomObject(
-		'Ramons Key Chain',
+		'keychain',
 		'You\'d take it with you but...the thing weighs 30 pounds'
 	);
 } //check
@@ -843,8 +843,8 @@ function appfolioMainDoor(){
 			if(player.hasItem('ID Badge') > -1) {
 				basicEcho('There\'s a brief pause, and then a resounding BEEEEEP! You\'re in! Access to all major departments is established, but the way back to where ELISA has set up shop is still blocked by a large panel with four LEDs');
 				if(!sbAppfolioHall.directions.includes('to sales')) {
-					sbAppfolioHall.directions.push('to engineering', 'to sales', 'to marketing', 'to Customer success');
-					sbAppfolioHall.connections.push(sbAppfolio1, sbAppfolio2, sbAppfolio3, sbAppfolio4);
+					sbAppfolioHall.directions.push('to engineering','to Customer success', 'to sales', 'to marketing');
+					sbAppfolioHall.connections.push(sbAppfolio1, sbAppfolio4, sbAppfolio2, sbAppfolio3);
 				}
 			} else {
 				basicEcho('You\'re not getting through this door without an access card');
@@ -863,6 +863,7 @@ function appfolioAccessPanel(){
 				sbAppfolioHall.directions.push('to ELISA');
 				sbAppfolioHall.connections.push(sbAppfolioELISA);
 				basicEcho('This is the final battle. Make sure you are prepared...');
+				basicEcho('NEW PATH OPENED: \'Go to ELISA');
 			} else if (appfolioKeys.length === 0) {
 				basicEcho('The lights seemed to be tied to switches inside the building...');
 			} else {
@@ -998,7 +999,7 @@ function turkeyLeg(){
 	return weapon(
 		'Turkey Leg',
 		'Originally created as a piece of food, after it showed no signs of going bad over three years...it was decided this might be better as a weapon',
-		5, 4
+		8, 4
 	);
 }
 
@@ -1006,7 +1007,7 @@ function robotArm(){
 	return weapon(
 		'Robot Arm',
 		'Fell off after a scuffle, pretty sturdy between the duct tape and exposed transistors...',
-		8, 1
+		10, 1
 	);
 }
 
@@ -1014,7 +1015,7 @@ function robotLeg(){
 	return weapon(
 		'Robot Leg',
 		'Pried off a dying bot. It\'s pretty...metal',
-		10, 4
+		12, 4
 	);
 }
 
@@ -1022,7 +1023,7 @@ function harshCodeReview(){
 	return weapon(
 		'Harsh Code Review',
 		'It hurts you more than it hurts me',
-		10, 6
+		15, 6
 	);
 }
 
@@ -1118,7 +1119,7 @@ function miniMac(onKill) {
 
 function gardenerBot(onKill){
 	return new Enemy(
-		'Gardener Robot',
+		'Gardener bot',
 		'"BZZZZT! JUST TRIMMING THE HEDGES! WITH YOUR FACE! BZZZZZT!"',
 		20,
 		5,
@@ -1130,7 +1131,7 @@ function gardenerBot(onKill){
 
 function cleanerBot(onKill){
 	return new Enemy(
-		'Cleaner Robot',
+		'Cleaner bot',
 		'"BZZZZT! JUST TIDYING UP THE PLACE! WITH YOUR FACE! BZZZZZT!"',
 		20,
 		5,
@@ -1142,7 +1143,7 @@ function cleanerBot(onKill){
 
 function chefBot(onKill){
 	return new Enemy(
-		'Chef Robot',
+		'Chef bot',
 		'"BZZZZT! HOW ABOUT A CAN OF WHOOPASS FOR BREAKFAST! BZZZZZT!"',
 		20,
 		5,
@@ -1154,7 +1155,7 @@ function chefBot(onKill){
 
 function butlerBot(onKill){
 	return new Enemy(
-		'Butler Robot',
+		'Butler bot',
 		'"This just in, sir. You\'re gonna get whooped!"',
 		20,
 		5,
@@ -1166,7 +1167,7 @@ function butlerBot(onKill){
 
 function hypeBot(onKill){
 	return new Enemy(
-		'Hypeman Robot',
+		'hypebot',
 		'"Jonathan? Dude\'s the MAN. SO pumped up he built us WOOOOOO!"',
 		20,
 		5,

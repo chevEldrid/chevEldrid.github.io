@@ -106,7 +106,7 @@ function createCharacter(playerName) {
 	return new Player(
         playerName,
         [],
-        50,
+        100,
         50,
         10,
         null
@@ -117,7 +117,7 @@ function createTemplateCharacter() {
 	return new Player(
         "Nobody",
         [],
-        50,
+        100,
         50,
         10,
         null
