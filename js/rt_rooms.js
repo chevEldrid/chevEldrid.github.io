@@ -611,9 +611,14 @@ var sbBeach = {
 	enemies: []
 }
 
+function talkToCiarra(){
+	basicEcho('"Weeeeeeee! Wait are you going to fight ELISA? At Appfolio? Can I come???"');
+	basicEcho('"Are you taking the bus? Why don\'t you bike ride anymore?" ...you don\'t have a good response');
+}
+
 var sbIVTrigo = {
 	name: 'Trigo Street',
-	desc: 'Aside from the roaming kill bot squads, IV seems more dead than the week after finals...Trigo looks relatively unchanged from the chaos you remember. The public bus stops here on the 11 line.',
+	desc: 'Aside from the roaming kill bot squads, IV seems more dead than the week after finals...Trigo looks relatively unchanged from the chaos you remember, Ciarra still seems to be around riding her bike. She pulls up to talk for a minute. The public bus stops here on the 11 line.',
 	items: [],
 	actions: [],
 	effects: [],
