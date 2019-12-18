@@ -413,13 +413,55 @@ function kayak(){
 		'Looks like the thing is still sea worthy! Could probably take you to Isla Vista...'
 	);
 }
-
-function thankYou(){
+//added for extra fun - NEED HOMES!------------------------------------------------------------------------------
+function inspired(){
 	return roomObject(
-		'Thank you',
-		'Thanks so much for everyone at Appfolio who made my experience a really great one. All of you guys are awesome and I hope you guys liked this game, or if you didn\'t hopefully you laughed once. If you didn\'t even do that...well...next August gonna be awkward. love you all'
+		'Inspired',
+		'Not sure if you\'ve read it, but there\'s this book called inspired...'
 	);
-}
+} //check
+
+function legoSet(){
+	return roomObject(
+		'Underwater Base',
+		'Limited edition OG underwater base complete with divers and fancy plastic glass. Made in the 90s, when sets were BOMB'
+	);
+} //check
+
+function blueLightGlasses(){
+	return roomObject(
+		'blue-light glasses',
+		'give the wearer the feeling they\'re intelligence grew three sizes'
+	);
+} //check
+
+function drawingOfAuthFlow(){
+	return roomObject(
+		'auth flow',
+		'It makes a little less sense than it did when it was explained...arrows and boxes and scribbles...you don\'t remember any of it'
+	);
+} //check
+
+function beerKeg(){
+	return roomObject(
+		'Beer Keg',
+		'Ryan\'s personal project, almost fitting that the last beer on tap before ELISA was M-Special...'
+	);
+} //check
+
+function dirtBike(){
+	return roomObject(
+		'Dirt Bike',
+		'With no electricty, it\'s basically a super heavy bicycle. You\'ve definitely ridden on the back of this thing before...felt a little like doing the Titanic pose with Ishi'
+	);
+} //check
+
+function ramonsKeyChain(){
+	return roomObject(
+		'Ramons Key Chain',
+		'You\'d take it with you but...the thing weighs 30 pounds'
+	);
+} //check
 
 /* =============================
    |       Special Items       |
@@ -778,7 +820,7 @@ function activateKillModeMalibu(){
 
 function jonathanOnKill(){
 	basicEcho('With a gutteral howl, Jonathan\'s mech breaks down.');
-	basicEcho('Due to a lack of code review, it appears that something in the mech wiring was directly controlling the robots - when it was destroyed, the robots lost focus and turned to anarchy');
+	basicEcho('Due to a lack of code review, it appears that something in the mech wiring was directly controlling the robots. QA probably could have caught it, but this is SuckerPunch all over again - when it was destroyed, the robots lost focus and turned to anarchy');
 	if(player.hasItem('USB DRIVE') > -1) {
 		basicEcho('Luckily, you managed to snag the backup self-destruct robot key and using hax0r magic shut all the machines down before they can get to where Jonathan is trapped under his mech.');
 		basicEcho('He thanks you, giving you another rolex and a red bull');
@@ -787,7 +829,7 @@ function jonathanOnKill(){
 	} else {
 		basicEcho('You manage to pull Jonathan out just before the first hype bot makes it over, together you high-tail it out of there...leaving the homicidal robot army to wreck havoc.');
 	}
-	basicEcho('"Alright maybe I got a little stir crazy and wanted to take over the world, it happens. I guess now though I\'ve got nothing else going on sooo let\'s go finish off Elisa!"');
+	basicEcho('"Alright alright sorry mate, maaaaaaaaybe I got a little stir crazy and wanted to take over the world, it happens. Anyway, sorry, do you want to mob on this ELISA thing? Wouldn\'t mind getting access to her designs for uh...research."');
 	malibuStart.connections.push(SBStart);
 	malibuStart.directions.push('to Santa Barbara');
 	basicEcho('NEW PATH OPENED \'To Santa Barbara\' FROM THIS LOCATION!');
@@ -916,7 +958,7 @@ function juliasDesk(){
 		'Only took three years and an apocalypse to go see it',
 		function(){
 			if(!visitedJuliasDesk) {
-				basicEcho('You rummage around and find a pretty gnarly cupcake and a lua!');
+				basicEcho('You rummage around and find a pretty gnarly cupcake and a lei!');
 				player.addItem(cupcake());
 				player.addItem(lei());
 				visitedJuliasDesk = true;

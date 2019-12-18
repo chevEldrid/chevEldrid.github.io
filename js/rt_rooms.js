@@ -54,7 +54,7 @@ function startGame(args) {
 	else if(promptPos == 1) {
 		player = createCharacter(args);
 		basicEcho('"' + args +' is it? Nice to meet you '+args+'. Please, save the world. Or type \'start\' again to reset."');
-		basicEcho('To Yang while enjoying this game...https://open.spotify.com/playlist/6pVytMa6CN6rUXzhpswjD8?si=mwjod2fcTi-i7f-VGy16hA');
+		basicEcho('To Yang while enjoying this game...https://open.spotify.com/playlist/2uPl7Ds6tZrssZCn8WR1nr?si=iZttCLjNRLiG-7iN04iyVw');
 		basicEcho('');
 		basicEcho(curRoom.desc);
 		endHijack();
@@ -267,8 +267,8 @@ var club34 = {
 
 var toontown = {
 	name: 'Toontown',
-	desc: 'A weird fog hangs over the entire area, visibility is limited but you can clearly make out a door nestled in the side of a large fake mountain. Looks like one of those Pockets left from the Octopi invasion over Chicago last year...',
-	items: [toontownDoor(), calamari()],
+	desc: 'A weird fog hangs over the entire area, visibility is limited but you can clearly make out a door nestled in the side of a large fake mountain. Looks like one of those Pockets left from the Octopi invasion over Chicago last year...Ishi\'s bike is leaning against a wall',
+	items: [toontownDoor(), calamari(), dirtBike()],
 	actions: [],
 	effects: [],
 	directions: ['north', 'east'],
@@ -453,8 +453,8 @@ var malibuBedroom = {
 
 var malibuLibrary = {
 	name: 'Library',
-	desc: 'Books line every wall, things ranging from Philosophy and the foley of man...to O\'Reilly books on Tensorflow gotten from a Euro trip ages ago. It truely is an impressive collection that would take many years to finish',
-	items: [dormantButlerRobot(), dormantCleanerRobot()],
+	desc: 'Books line every wall, things ranging from Philosophy and the foley of man...to O\'Reilly books on Tensorflow gotten from a Euro trip ages ago. It truely is an impressive collection that would take many years to finish. Lying on the varnished coffee table, are Jonathan\'s favorite spectacles',
+	items: [dormantButlerRobot(), dormantCleanerRobot(), blueLightGlasses()],
 	actions: [],
 	effects: [],
 	directions: ['north', 'west'],
@@ -475,8 +475,8 @@ var malibuDiningRoom = {
 
 var malibuStudy = {
 	name: 'Study',
-	desc: 'This is where the magic happens, you can see a $53,000 mac pro in one corner of the room and a set of decks in the other',
-	items: [dormantCleanerRobot(), macPro(), spinDecks()],
+	desc: 'This is where the magic happens, you can see a $53,000 mac pro in one corner of the room and a set of decks in the other. Framed on the wall, is Jonathan\'s most proud drawing.',
+	items: [dormantCleanerRobot(), macPro(), spinDecks(), drawingOfAuthFlow()],
 	actions: [],
 	effects: [],
 	directions: ['south', 'north'],
@@ -575,7 +575,7 @@ var sbFunkZone = {
 }
 
 function talkToRamon(){
-	basicEcho('"Oh hey '+player.name+', just trying to get this blue v3. Oh what\'s that? You want to go against ELISA? I don\'t know...you say you\'ve got the team back together?"');
+	basicEcho('"'+player.name+'!!!!!! What\'s up, man? Just trying to get this blue v3. Oh what\'s that? You want to go against ELISA? I don\'t know...you say you\'ve got the team back together?"');
 	basicEcho('"Okay, okay. If I\'m the last one on the list..I\'ll help out if you can get Jonathan to play basketball. Deal?"');
 	if(player.hasItem('basketball') > -1) {
 		basicEcho('"Sweet! Only took the apocalypse to get him to play...okay I\'ll give you my badge and be there in a minute okay? Just finishing up."');
@@ -583,7 +583,7 @@ function talkToRamon(){
 		player.addItem(appfolioIDBadge());
 	} else {
 		basicEcho('You call Jonathan, asking if he\'s game for a round of basketball. Big Basketball.');
-		basicEcho('"Hmmm alright alright I\'ll play, but I have to deal with one of my robots in IV. It must have escaped the mansion and can\'t have ELISA getting access to my designs...it\'s leagues above hijacking alexas and minis"');
+		basicEcho('"Hmmm alright alright I\'ll play, but I have to deal with one of my robots in IV. It must have escaped the mansion and can\'t have ELISA getting access to my designs...they\'re leagues above hijacked alexas and minis"');
 		basicEcho('"Also," says Ramon, "Let me give you a new map of places to visit. Things have changed since I last updated my website..."');
 		basicEcho('"...Oh wait, this is a text adventure. Graphics are difficult. Basically there are four areas: Downtown (where we are), IV, Goleta, and Appfolio. Public transit will take you to and from each location at one particular point. I\'d offer to drive but...you used all your free ride credits last time."');
 	}
@@ -591,8 +591,8 @@ function talkToRamon(){
 
 var sbRockGym = {
 	name: 'Santa Barbara Rock Gym',
-	desc: 'The gym looks much as you remember it..except of course the complete lack of people. You might be able to climb more often than once every 10 minutes! You swear you can make out Ramon attempting a v3 in the corner, he waves you over.',
-	items: [],
+	desc: 'The gym looks much as you remember it..except of course the complete lack of people. You might be able to climb more often than once every 10 minutes! You swear you can make out Ramon attempting a v3 in the corner, he waves you over. You can see his keychain creating its own gravitational pull on the ground',
+	items: [ramonsKeyChain()],
 	actions: ['talk to Ramon'],
 	effects: [talkToRamon],
 	directions: ['north', 'south'],
@@ -670,6 +670,7 @@ var sbGoletaKellogg = {
 	connections: [sbGoletaImperial, sbStart, sbAppfolioHall, sbIVTrigo],
 	enemies: []
 }
+
 function openBar() {
 	var wares = [[tequila(), 5], [rollingRock(), 3], [sangria(), 5]];
 	scope = 'shop';
@@ -677,6 +678,7 @@ function openBar() {
 	basicEcho('"What do ya want?"');
 	buildShop(wares);
 };
+
 var sbGoletaImperial = {
 	name: 'The Imperial',
 	desc: 'A local watering hole for all those who have survived the robotic assault. After a hard day of work on the streets of Goleta, all retire to this swanky (machine-gun equipped) drinking place. You can get almost anything you want...provided it\'s not a Long Island',
@@ -687,6 +689,7 @@ var sbGoletaImperial = {
 	connections: [sbGoletaKellogg, sbGoletaTacoBell],
 	enemies: []
 }
+
 function openTacoBell() {
 	var wares = [[chimichangaloupa(), 5], [taco(), 3], [bajabrew(), 5]];
 	scope = 'shop';
@@ -694,6 +697,7 @@ function openTacoBell() {
 	basicEcho('"Welcome to Taco Bell, may I take your order?"');
 	buildShop(wares);
 };
+
 var sbGoletaTacoBell = {
 	name: 'Taco Bell',
 	desc: 'An oasis in this messed up world. Somehow this Taco bell has become neutral turf with both man and machine enjoying the atmosphere of Fairview Taco bell, and indulging in the sweet sweet deliciousness of a Chimichangalupa',
@@ -707,8 +711,8 @@ var sbGoletaTacoBell = {
 
 var sbAppfolio1 = {
 	name: 'Engineering',
-	desc: 'The open floorplan is making it slightly difficult to get around...A large button stands in the middle of the old Los V bay, right next to Chev\'s old desk',
-	items: [upSwitch(), chevsDesk()],
+	desc: 'The open floorplan is making it slightly difficult to get around...A large button stands in the middle of the old Los V bay, right next to Chev\'s old desk. There\'s so much stuff here from before The Overtaking...feels almost like December, 2019',
+	items: [upSwitch(), chevsDesk(), legoSet(), beerKeg()],
 	actions: [],
 	effects: [],
 	directions: ['to hall'],
@@ -723,7 +727,7 @@ function leaveSales(){
 
 var sbAppfolio2 = {
 	name: 'Sales',
-	desc: 'Sectioned desks complete with personal dividers give a kind of caged feel. A large button towers over nearby desks, and you can feel an eager Sales bot close in behind you...',
+	desc: 'Sectioned desks complete with personal dividers give a kind of caged impression. A large button towers over nearby desks, and you can feel an eager Sales bot close in behind you...',
 	items: [downSwitch()],
 	actions: [],
 	effects: [],
@@ -759,14 +763,14 @@ var sbAppfolio4 = {
 	effects: [],
 	directions: ['to hall'],
 	connections: [sbAppfolioHall],
-	enemies: [],
+	enemies: [mikeCustomerSuccess(leaveCS)],
 	isLocked: true
 }
 
 var sbAppfolioHall = {
 	name: 'Appfolio Main Entrance',
-	desc: 'The entire campus has been completely fortified to protect the AI inside. Luckily, looks like the old door scanner still works. You can access the 6 bus from here!',
-	items: [appfolioMainDoor(), appfolioAccessPanel()],
+	desc: 'The entire campus has been completely fortified to protect the AI inside. Luckily, looks like the old door scanner still works. On the ground, you see the Appfolio bible. You can access the 6 bus from here!',
+	items: [appfolioMainDoor(), appfolioAccessPanel(), inspired()],
 	actions: [],
 	effects: [],
 	directions: ['to Goleta', 'to Downtown'],
@@ -781,6 +785,7 @@ function finishedIt(){
 	basicEcho('All around the world, ELISA controlled robots are falling dead now that they no longer are receiving communications from the mother server.');
 	basicEcho('"WAIT!" Yells Jonathan, "Isn\'t ELISA\'s code hosted on AWS? This whole defeating its server thing makes no sense..."');
 	basicEcho('"Maybe," says Ramon, "Or maybe it was ready to die...');
+	basicEcho('Jonathan looks up into the air, thinking, before going "Naaaaaah, this kid just wanted to make sure they had sequel material" He looks down at you and shakes his head, as if his standing desk was above yours');
 	basicEcho('--------');
 	basicEcho('NEW PATH OPENED FROM HERE. \'Go to Endgame\'');
 	sbAppfolioELISA.directions.push('to Endgame');
@@ -795,16 +800,22 @@ var sbAppfolioELISA = {
 	effects: [],
 	directions: ['to hall'],
 	connections: [sbAppfolioHall],
-	enemies: [ELISA()],
+	enemies: [ELISA(finishedIt)],
 	isLocked: true
+}
+
+function goodbyeAppfolio() {
+	basicEcho('Thanks so much for everyone at Appfolio who made my experience a really great one. All of you guys are awesome and I hope you guys liked this game, or if you didn\'t hopefully you laughed once.');
+	basicEcho('If you didn\'t even do that...well...next August gonna be awkward. I know I couldn\'t fit every moment or personal attack into a single game, but I did my best to chose some of the things I\'ll miss most when I go back to school.');
+	basicEcho('You\'re all amazing people, have a fantastic 2/3 year, look forward to seeing y\'all make that cheddar. Peace out.');
 }
 
 var endgame = {
 	name: 'Endgame',
-	desc: 'You did it! You finished the game! Whether it was out of obligation or actual enjoyment...we\'re glad you\'re here! At your feet lies one item: A Thank You. Now go off and have a celebratory beer',
-	items: [thankYou()],
-	actions: [],
-	effects: [],
+	desc: 'You did it! You finished the game! Whether it was out of obligation or actual enjoyment...we\'re glad you\'re here! There\'s one final command from here, type \'goodbye\'. Now go off and have a celebratory beer',
+	items: [],
+	actions: ['goodbye'],
+	effects: [goodbyeAppfolio],
 	directions: [],
 	connections: [],
 	enemies: []

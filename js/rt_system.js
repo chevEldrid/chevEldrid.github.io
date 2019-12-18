@@ -40,15 +40,20 @@ var shopDescriptions = [
 	PURPOSE: Repeats the description of the room, as if the Player is surveying it.
 */
 function survey() {
-	basicEcho(curRoom.desc, {keepWords: true});
+	basicEcho(curRoom.desc + '\n');
 	//add code to show all available specific room actions and items
 	inspect("");
+	basicEcho('');
+	attack('');
+	basicEcho('');
 	//specific room actions
-	basicEcho("Special actions here include: ", {keepWords: true});
-	for(i = 0; i < curRoom.actions.length; i++) {
-        //just for the sake of flowy-ness - prevents 'Start' from being listed as a valid command going forward
-		if(curRoom.actions[i] != 'start') {
-			basicEcho(curRoom.actions[i], {keepWords: true});
+	if(curRoom.actions.length > 0) {
+		basicEcho("Special actions here include: ");
+		for(i = 0; i < curRoom.actions.length; i++) {
+        	//just for the sake of flowy-ness - prevents 'Start' from being listed as a valid command going forward
+			if(curRoom.actions[i] != 'start') {
+				basicEcho(curRoom.actions[i]);
+			}
 		}
 	}
 };
@@ -57,28 +62,24 @@ function survey() {
 */
 function help() {
 	basicEcho('possible commands at this point are: ');
+	basicEcho('----------------');
 	var availActions = actions;
-	var documentedActions = sysActions;
 	var helpTexts = sysDescriptions;
+	var specialActions = curRoom.actions;
 	if(scope === 'shop') {
 		availActions = shopActions;
 		documentedActions = shopActions;
 		helpTexts = shopDescriptions;
 	}
-    for(i = 0; i < availActions.length; i++) {
-        //just for the sake of flowy-ness - prevents 'Start' from being listed as a valid command going forward
-		if(availActions[i] != 'start') {
-			//injects basic action help info
-			var helpIndex = documentedActions.indexOf(availActions[i]);
-			var text = `[${availActions[i]}]`;
-			if(helpIndex > -1) {
-				text += (': ' + helpTexts[helpIndex])
-			} else {
-				text += (': room specific action. Try it and see!');
-			}
-			basicEcho(text);
-			basicEcho('----------------');
-		}
+    for(i = 0; i < sysActions.length; i++) {
+    	basicEcho(`[${sysActions[i]}]: ${helpTexts[i]}`);
+    	basicEcho('----------------');
+    }
+    for(j = 0; j < specialActions.length; j++) {
+    	if(specialActions[j] != 'start') {
+    		basicEcho(`[${specialActions[j]}]: room specific action. Try it and see!`);
+    		basicEcho('----------------');
+    	}
     }
     basicEcho('For further assistance please refer to included documentation or press buttons until something happens.');
 };
@@ -268,7 +269,7 @@ function equip(args) {
 function attack(args) {
 	var roomEnemies = curRoom.enemies;
 	var r1 = 'There\'s nothing worth fighting here...';
-	var r2 = 'You scan the area and see: ';
+	var r2 = 'The enemies you can make out from here are: ';
 	var index = tutor(args, roomEnemies, r1, r2);
 	if(index > -1) {
 		var thisEnemy = roomEnemies[index];
@@ -406,3 +407,16 @@ function getRandomInt(min, max) {
 	return Math.round(Math.random() * (max - min)) + min;
 };
 
+function loadCharacter() {
+	console.log('call the function \'loadEnvironment\'');
+	console.log('You need room, inventory[], name, health, money');
+	console.log('THERE IS NO TYPE CHECKING SO KNOW WHAT YOU ARE DOING!');
+};
+
+function loadEnvironment(room, inventory, name, health, money) {
+	loadRoom(room);
+	player.name = name;
+	player.backpack = inventory;
+	player.health = health;
+	player.money = money;
+};
