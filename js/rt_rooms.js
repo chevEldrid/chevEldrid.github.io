@@ -779,7 +779,7 @@ var sbAppfolio4 = {
 
 var sbAppfolioHall = {
 	name: 'Appfolio Main Entrance',
-	desc: 'The entire campus has been completely fortified to protect the AI inside. Luckily, looks like the old door scanner still works. On the ground, you see the Appfolio bible. You can access the 6 bus from here!',
+	desc: 'The entire campus has been completely fortified to protect the AI inside. Luckily, looks like the old door still works. To your right, you see a large metal panel blocking the way around back. On the ground, you see the Appfolio bible. It feels fitting to return. You can almost picture everyone running around the office...Matt sitting in the kitchen ready to hit you with some knowledge first thing in the moring. You can access the 6 bus from here!',
 	items: [appfolioMainDoor(), appfolioAccessPanel(), inspired()],
 	actions: [],
 	effects: [],
