@@ -669,7 +669,7 @@ function gEdgeCantina(){
 			} else {
 				basicEcho('After wiping your weapon clean from the busted electronics, you enter the dark fast food restaurant looking for your long lost PM...');
 				basicEcho('Huddling over a collection of parfait containers: You see him. A little scragglier than you remember, but it\'s definitely Ishi. You call out.');
-				basicEcho('Ishi stops, turns, recognizing you saying one word: "SUUUUUUUGAR"');
+				basicEcho('Ishi stops, turns, recognizing you saying one word: "SUUUUUUUGAR" It must be 3pm.');
 				if(player.hasItem('cupcake') > -1) {
 					basicEcho('You give Ishi your cupcake which he quickly demolishes before coming around to his old self');
 					player.removeItem(cupcake());
@@ -678,7 +678,7 @@ function gEdgeCantina(){
 					gEdge.directions.push('to LA');
 					basicEcho('NEW PATH OPENED \'to LA\', FINISH UP HERE FIRST!');
 				} else {
-					basicEcho('You don\'t possess the right sugar. Ishi scowls at you and goes back to the parfaits.');
+					basicEcho('You don\'t possess the right sugar. This is big, bigger than Cabinet of Iniquity sugar. He needs...Julia baked-goods level of sugar. Ishi scowls at you and goes back to the parfaits.');
 				}
 			}
 		}

@@ -151,6 +151,11 @@ var gaslamp = {
 	enemies: []
 };
 
+function crazyCopier(){
+	basicEcho('The Copier goes down with a crash, spilling coins that must have jammed in the bottom drawer!');
+	player.money += 10;
+}
+
 var officeSD = {
 	name: 'San Diego Office',
 	desc: 'The office has fallen into disrepair. Most machines have been tainted by ELISA and have left to form it\'s vast army. One however, stayed. A corrupted Copier looms-spewing ink and joking about your desctruction. It is standing directly between you and the Dossier',

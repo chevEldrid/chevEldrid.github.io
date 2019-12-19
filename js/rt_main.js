@@ -71,7 +71,8 @@ function loadRoom(room) {
 	RETURNS: The extra arguments inputted after command
 */
 function parseInput(input) {
-	var inputs = input.split(" ");
+	var trimmed = input.trim();
+	var inputs = trimmed.split(" ");
 	command = inputs[0];
 	inputs.shift();
 	arguments = inputs;
