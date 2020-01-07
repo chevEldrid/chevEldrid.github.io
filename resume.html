@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-109687520-1"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'UA-109687520-1');
+        </script>
+        <title>Chev's Resume</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!--og info-->
+        <meta property="og:type" content="website">
+        <meta property="og:site_name" content="Personal Design Website">
+        <!--Different by page-->
+        <meta propert="og:resume" content="Personal Resume">
+        <link rel="mountainIcon" href="mountainIcon.png">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <style>
+            .resume {
+                display: grid;
+                grid-template-columns: 1fr;
+                grid-template-areas:
+                    "name" 
+                    "contact"
+                    "work" 
+                    "education"
+                    "skills";
+            }
+
+            @media (min-width: 900px) {
+                .resume {
+                    display: grid;
+                    grid-template-columns: 2fr 1fr;
+                    grid-template-areas:
+                        "name contact"
+                        "work work"
+                        "education education"
+                        "skills skills";
+                }
+            }
+
+            @media (min-width: 1200px) {
+                .resume {
+                    display: grid;
+                    grid-template-columns: 2fr 1fr;
+                    grid-template-rows: 1fr 2fr 2fr 2fr;
+                    grid-template-areas:
+                        "name contact"
+                        "work education"
+                        "work projects"
+                        "work skills";
+                    width : 210mm;
+                    height: 297mm;
+                    border: 1px solid red;
+                }
+            }
+
+            .grid-area {
+                padding: 1em 1em 1em 1em;
+                border : 1px black solid;
+            }
+
+            .name {
+                grid-area: name;
+            }
+
+            .contact {
+                grid-area: contact;
+            }
+
+            .work {
+                grid-area: work;
+            }
+
+            .education {
+                grid-area: education;
+            }
+
+            .skills {
+                grid-area: skills;
+            }
+
+            .circle {
+                border       : 1px solid black;
+                height       : 30px;
+                width        : 30px;
+                border-radius: 50%;
+            }
+
+            /* align cv to center of page */
+
+            .wrapper {
+                padding       : 0;
+                display: flex;
+                flex-direction: column;
+                align-items   : center;
+            }
+
+            .section-title {
+
+            }
+        </style>
+    </head>
+    <body>
+        <!--https://css-tricks.com/new-year-new-job-lets-make-a-grid-powered-resume/-->
+        <main class="wrapper">
+            <article class="resume">
+                <section class="grid-area name">
+                    <h1>Chev Eldrid</h1>
+                    <h3>Software Engineer</h3>
+                </section>
+                <section class="grid-area contact">
+                    <div class="circle"></div>
+                </section>
+                <section class="grid-area work">
+                    <div class="section-title border-top border-bottom">Work Experience</div>
+                    <br />
+                    <div class="appfolio-experience">
+                        <h4>Software Development Intern</h4>
+                        <p><b>Appfolio, Inc.</b> July 2019 - Dec 2019 · Santa Barbara, CA</p>
+                        <ul>
+                            <li>Extended functionality of a Rails API allowing specific users to  edit database records while maintaining data integrity</li>
+                            <li>Performed comprehensive code reviews of fellow developers to identify holes in test coverage, verbose code, and style issues</li>
+                            <li>Created a payment status indicator affecting over 6000 users by further integrating SQL data into api response</li>
+                            <li>Refactored React codebase to take advantage of state management solutions, decreasing page load time by 25%</li>
+                        </ul>
+                    </div>
+                    <div class="hercules-experience">
+                        <h4>Web Development Co-op</h4>
+                        <p><b>Hercules Capital</b> July 2018 - Dec 2018 · Palo Alto, CA</p>
+                        <ul>
+                            <li>Architected intranet site improvements  including personalized portals and document uploads into an ASP.Net framework</li>
+                            <li>Engineered a new workflow application in C# to streamline company processes after identifying pain points in automation</li>
+                            <li>Identified poorly optimized SQL connection libraries, upgrading them and improving response time by as much as 50%</li>
+                        </ul>
+                    </div>
+                    <div class="gmo-experience">
+                        <h4>Data Governance Co-op</h4>
+                        <p><b>GMO LLC</b> July 2017 - Dec 2017 · Boston, MA</p>
+                        <ul>
+                            <li>Led the adoption effort of the Infogix platform to provide real time insights on investment data pulled from a SQL Server</li>
+                            <li>Wrote automated Javascript programs for analyzing contract data to identify spending trends in Business Licenses</li>
+                            <li>Worked directly with the Data3Sixty team to discuss improvements, bug fixes, and creating the best possible end product</li>
+                        </ul>
+                    </div>
+                </section>
+                <section class="grid-area education">
+                    <div class="section-title border-top border-bottom">Education</div>
+                    <b>Bachelors in Computer Science</b>
+                    <br />
+                    <p>Northeastern University 2015-2020 · Boston, USA</p>
+                    <p>GPA: 3.4/4.0</p>
+                </section>
+                <section class="grid-area projects">
+                    <div class="section-title border-top border-bottom">Projects</div>
+                    <h6>Automated Trading Card Sorter</h6>
+                    <p><i>Lead Developer</i> · Summer 2019</p>
+                    <a href="https://github.com/chevEldrid/karn-sorter">Github Page</a>
+                </section>
+                <section class="grid-area skills">
+                    <div class="section-title border-top border-bottom">Skills</div>
+                    <h6>Languages</h6>
+                    <p>JavaScript | C# | HTML | CSS | Ruby | Python | Java | C++ | MySQL</p>
+                    <h6>Frameworks</h6>
+                    <p>React | Rails | Chai | Mocha</p>
+                </section>
+            </article>
+        </main>
+    </body>
+<html>
