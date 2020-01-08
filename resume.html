@@ -21,6 +21,7 @@
         <meta propert="og:resume" content="Personal Resume">
         <link rel="mountainIcon" href="mountainIcon.png">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <style>
             .resume {
                 display: grid;
@@ -51,7 +52,7 @@
                 .resume {
                     display: grid;
                     grid-template-columns: 2fr 1fr;
-                    grid-template-rows: 1fr 2fr 2fr 2fr;
+                    grid-template-rows: 2fr 3fr 3fr 3fr;
                     grid-template-areas:
                         "name contact"
                         "work education"
@@ -65,6 +66,7 @@
 
             .grid-area {
                 padding: 1em 1em 1em 1em;
+                /*for dev purposes*/
                 border : 1px black solid;
             }
 
@@ -84,19 +86,16 @@
                 grid-area: projects;
             }
 
+            .projects p {
+                margin-bottom: 0;
+            }
+
             .education {
                 grid-area: education;
             }
 
             .skills {
                 grid-area: skills;
-            }
-
-            .circle {
-                border       : 1px solid black;
-                height       : 30px;
-                width        : 30px;
-                border-radius: 50%;
             }
 
             /* align cv to center of page */
@@ -109,7 +108,10 @@
             }
 
             .section-title {
-
+                margin-bottom: 1rem;
+                border-bottom-color: #484848 !important; 
+                border-top-color: #484848 !important;
+                color: #484848;
             }
         </style>
     </head>
@@ -118,15 +120,16 @@
         <main class="wrapper">
             <article class="resume">
                 <section class="grid-area name">
-                    <h1>Chev Eldrid</h1>
+                    <h1>Sacheverel Eldrid</h1>
                     <h3>Software Engineer</h3>
                 </section>
                 <section class="grid-area contact">
-                    <div class="circle"></div>
+                    <p><span class="fa fa-phone"></span>: +1 518-429-9652</p>
+                    <p><span class="fa fa-envelope"></span>: chev424@gmail.com</p>
+                    <p><span class="fa fa-laptop"></span>: <a href="https://chevEldrid.github.io">chevEldrid.github.io</a></p>
                 </section>
                 <section class="grid-area work">
-                    <div class="section-title border-top border-bottom">Work Experience</div>
-                    <br />
+                    <div class="section-title border-top border-bottom">WORK EXPERIENCE</div>
                     <div class="appfolio-experience">
                         <h4>Software Development Intern</h4>
                         <p><b>Appfolio, Inc.</b> July 2019 - Dec 2019 · Santa Barbara, CA</p>
@@ -157,20 +160,24 @@
                     </div>
                 </section>
                 <section class="grid-area education">
-                    <div class="section-title border-top border-bottom">Education</div>
+                    <div class="section-title border-top border-bottom">EDUCATION</div>
                     <b>Bachelors in Computer Science</b>
                     <br />
                     <p>Northeastern University 2015-2020 · Boston, USA</p>
                     <p>GPA: 3.4/4.0</p>
                 </section>
                 <section class="grid-area projects">
-                    <div class="section-title border-top border-bottom">Projects</div>
-                    <h6>Automated Trading Card Sorter</h6>
+                    <div class="section-title border-top border-bottom">PROJECTS</div>
+                    <h6><a href="https://github.com/chevEldrid/karn-sorter">Automated Trading Card Sorter</a></h6>
                     <p><i>Lead Developer</i> · Summer 2019</p>
-                    <a href="https://github.com/chevEldrid/karn-sorter">Github Page</a>
+                    <p><span class="fa fa-code"></span>: Python · AWS Rekognition</p>
+                    <br />
+                    <h6><a href="https://github.com/chevEldrid/planeswalk">MTG Planechase</a></h6>
+                    <p><i>Lead Developer</i> · Fall 2019</p>
+                    <p><span class="fa fa-code"></span>: JavaScript · React · AWS S3</p>
                 </section>
                 <section class="grid-area skills">
-                    <div class="section-title border-top border-bottom">Skills</div>
+                    <div class="section-title border-top border-bottom">SKILLS</div>
                     <h6>Languages</h6>
                     <p>JavaScript | C# | HTML | CSS | Ruby | Python | Java | C++ | MySQL</p>
                     <h6>Frameworks</h6>
