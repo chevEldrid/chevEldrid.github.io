@@ -60,7 +60,6 @@
                         "work skills";
                     width : 210mm;
                     height: 297mm;
-                    border: 1px solid red;
                 }
             }
 
@@ -90,6 +89,14 @@
                 margin-bottom: 0;
             }
 
+            .projects h6 {
+                margin-bottom: 0;
+            }
+
+            .skills h6 {
+                margin-bottom: 0;
+            }
+
             .education {
                 grid-area: education;
             }
@@ -101,7 +108,7 @@
             /* align cv to center of page */
 
             .wrapper {
-                padding       : 0;
+                padding: 0;
                 display: flex;
                 flex-direction: column;
                 align-items   : center;
@@ -113,6 +120,43 @@
                 border-top-color: #484848 !important;
                 color: #484848;
             }
+
+            .bottom-padding {
+                margin-bottom: 0.5em;
+            }
+
+            .linebreak {
+                margin-bottom: 1em;
+            }
+
+            /* Printing Specifics */
+            @media print {
+                .resume {
+                    display: grid;
+                    grid-template-columns: 2fr 1fr;
+                    grid-template-areas:
+                        "name contact"
+                        "work work"
+                        "education education"
+                        "projects projects"
+                        "skills skills";
+                }
+
+                .bottom-padding {
+                    margin-bottom: 0.25em;
+                }
+
+                .hyperlink {
+                    color: black;
+                }
+
+                .linebreak {
+                    margin-bottom: 0.5em;
+                }
+            }
+
+            /* Printing Specifics */
+            @page { size: auto; margin: 0mm }
         </style>
     </head>
     <body>
@@ -124,15 +168,15 @@
                     <h3>Software Engineer</h3>
                 </section>
                 <section class="grid-area contact">
-                    <p><span class="fa fa-phone"></span>: +1 518-429-9652</p>
-                    <p><span class="fa fa-envelope"></span>: chev424@gmail.com</p>
-                    <p><span class="fa fa-laptop"></span>: <a href="https://chevEldrid.github.io">chevEldrid.github.io</a></p>
+                    <p class="bottom-padding"><span class="fa fa-phone"></span>: +1 518-429-9652</p>
+                    <p class="bottom-padding"><span class="fa fa-envelope"></span>: chev424@gmail.com</p>
+                    <p class="bottom-padding"><span class="fa fa-laptop"></span>: <a class="hyperlink" href="https://chevEldrid.github.io">chevEldrid.github.io</a></p>
                 </section>
                 <section class="grid-area work">
                     <div class="section-title border-top border-bottom">WORK EXPERIENCE</div>
                     <div class="appfolio-experience">
-                        <h4>Software Development Intern</h4>
-                        <p><b>Appfolio, Inc.</b> July 2019 - Dec 2019 · Santa Barbara, CA</p>
+                        <h4 class="bottom-padding">Software Development Intern</h4>
+                        <p class="bottom-padding"><b>Appfolio, Inc.</b> July 2019 - Dec 2019 · Santa Barbara, CA</p>
                         <ul>
                             <li>Extended functionality of a Rails API allowing specific users to  edit database records while maintaining data integrity</li>
                             <li>Performed comprehensive code reviews of fellow developers to identify holes in test coverage, verbose code, and style issues</li>
@@ -141,8 +185,8 @@
                         </ul>
                     </div>
                     <div class="hercules-experience">
-                        <h4>Web Development Co-op</h4>
-                        <p><b>Hercules Capital</b> July 2018 - Dec 2018 · Palo Alto, CA</p>
+                        <h4 class="bottom-padding">Web Development Co-op</h4>
+                        <p class="bottom-padding"><b>Hercules Capital</b> July 2018 - Dec 2018 · Palo Alto, CA</p>
                         <ul>
                             <li>Architected intranet site improvements  including personalized portals and document uploads into an ASP.Net framework</li>
                             <li>Engineered a new workflow application in C# to streamline company processes after identifying pain points in automation</li>
@@ -150,8 +194,8 @@
                         </ul>
                     </div>
                     <div class="gmo-experience">
-                        <h4>Data Governance Co-op</h4>
-                        <p><b>GMO LLC</b> July 2017 - Dec 2017 · Boston, MA</p>
+                        <h4 class="bottom-padding">Data Governance Co-op</h4>
+                        <p class="bottom-padding"><b>GMO LLC</b> July 2017 - Dec 2017 · Boston, MA</p>
                         <ul>
                             <li>Led the adoption effort of the Infogix platform to provide real time insights on investment data pulled from a SQL Server</li>
                             <li>Wrote automated Javascript programs for analyzing contract data to identify spending trends in Business Licenses</li>
@@ -161,29 +205,29 @@
                 </section>
                 <section class="grid-area education">
                     <div class="section-title border-top border-bottom">EDUCATION</div>
-                    <b>Bachelors in Computer Science</b>
+                    <b class="bottom-padding">Bachelors in Computer Science</b>
                     <br />
-                    <p>Northeastern University 2015-2020 · Boston, USA</p>
-                    <p>GPA: 3.4/4.0</p>
+                    <p class="bottom-padding">Northeastern University 2015-2020 · Boston, USA</p>
+                    <p class="bottom-padding">GPA: 3.4/4.0</p>
                 </section>
                 <section class="grid-area projects">
                     <div class="section-title border-top border-bottom">PROJECTS</div>
-                    <h6><a href="https://github.com/chevEldrid/karn-sorter">Automated Trading Card Sorter</a></h6>
-                    <p><i>Lead Developer</i> · Summer 2019</p>
-                    <p><span class="fa fa-code"></span>: Python · AWS Rekognition</p>
-                    <br />
-                    <h6><a href="https://github.com/chevEldrid/planeswalk">MTG Planechase</a></h6>
-                    <p><i>Lead Developer</i> · Fall 2019</p>
-                    <p><span class="fa fa-code"></span>: JavaScript · React · AWS S3</p>
+                    <h6><a class="hyperlink" href="https://github.com/chevEldrid/karn-sorter">Automated Trading Card Sorter</a></h6>
+                    <p class="bottom-padding"><i>Lead Developer</i> · Summer 2019</p>
+                    <p class="bottom-padding"><span class="fa fa-code"></span>: Python · AWS Rekognition</p>
+                    <div class="linebreak"></div>
+                    <h6><a class="hyperlink" href="https://github.com/chevEldrid/planeswalk">MTG Planechase</a></h6>
+                    <p class="bottom-padding"><i>Lead Developer</i> · Fall 2019</p>
+                    <p class="bottom-padding"><span class="fa fa-code"></span>: JavaScript · React · AWS S3</p>
                 </section>
                 <section class="grid-area skills">
                     <div class="section-title border-top border-bottom">SKILLS</div>
-                    <h6>Languages</h6>
-                    <p>JavaScript | C# | HTML | CSS | Ruby | Python | Java | C++ | MySQL</p>
-                    <h6>Frameworks</h6>
-                    <p>React | Rails | Chai | Mocha</p>
-                    <h6>Software</h6>
-                    <p>AWS</p>
+                    <h6 class="bottom-padding">Languages</h6>
+                    <p class="bottom-padding">JavaScript | C# | HTML | CSS | Ruby | Python | Java | C++ | MySQL</p>
+                    <h6 class="bottom-padding">Frameworks</h6>
+                    <p class="bottom-padding">React | Rails | Chai | Mocha</p>
+                    <h6 class="bottom-padding">Software</h6>
+                    <p class="bottom-padding">AWS</p>
                 </section>
             </article>
         </main>
