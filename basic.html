@@ -62,9 +62,9 @@
       <div class="col-md-1"></div>
       <div class="col-md-10">
         <div id="Button-row" class="text-center mobile-view">
-          <button type="button" class="btn btn-light" onclick="dropCount()">-</button>
+          <button type="button" class="btn btn-light" onclick="changeCount(-1)">-</button>
           <button id="CCount" cmccount="0" type="button" class="btn btn-light" onclick="generate()">x = 0</button>
-          <button type="button" class="btn btn-light" onclick="addCount()">+</button>
+          <button type="button" class="btn btn-light" onclick="changeCount(1)">+</button>
           <button type="button" class="btn btn-light" data-toggle="modal" data-target="#formatModal">
             Settings
           </button>
@@ -85,7 +85,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="formatModalLabel">Momir Settings</h5>
-            <button type="button" class="close" data-dismiss="modal" onclick="clearList()" aria-label="Close">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -155,22 +155,13 @@
       var x = parseInt(genButton.getAttribute('cmccount'));
       generateCard(x);
     }
-    //increase CCount cmcCount by one
-    function addCount() {
-      var genButton = document.getElementById("CCount");
-      var newX = parseInt(genButton.getAttribute('cmccount')) + 1;
-      if (newX > 16)
-        newX = 16;
-      genButton.setAttribute('cmccount', newX);
-      genButton.innerText = "x = " + newX;
-    }
 
-    //increase CCount cmcCount by one
-    function dropCount() {
+    //changes cmcCount by changeValue
+    function changeCount(changeValue) {
       var genButton = document.getElementById("CCount");
-      var newX = parseInt(genButton.getAttribute('cmccount')) - 1;
-      if (newX < 0)
-        newX = 0;
+      var newX = parseInt(genButton.getAttribute('cmccount')) + changeValue;
+      if (newX > 16) newX = 16;
+      if (newX < 0) newX = 0;
       genButton.setAttribute('cmccount', newX);
       genButton.innerText = "x = " + newX;
     }
