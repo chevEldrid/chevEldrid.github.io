@@ -1,0 +1,44 @@
+<div>
+    {% if include.style == "single" %}
+        <div class="text-center">
+            <img 
+                src="{{ include.pic1 }}" 
+                style="max-width: {{ include.width | default: 50%}};" 
+                alt="{{ include.pic1Alt | default: 'uploaded image'}}" 
+                class="img-fluid"
+            >
+        </div>
+        {% if include.caption %}
+            <div class="text-center flavor-text">
+                <i>{{ include.caption }}</i>
+            </div>
+        {% endif %}
+    {% else %}
+        <div class="row">
+            {% if include.pic3 %}
+                <div class="col-4 inline-card">
+                    <img src="{{ include.pic1 }}" class="img-fluid" loading="lazy" alt="{{ include.pic1Alt | default: 'uploaded image'}}">
+                </div>
+                <div class="col-4 inline-card">
+                    <img src="{{ include.pic2 }}" class="img-fluid" loading="lazy" alt="{{ include.pic2Alt | default: 'uploaded image'}}">
+                </div>
+                <div class="col-4 inline-card">
+                    <img src="{{ include.pic3 }}" class="img-fluid" loading="lazy" alt="{{ include.pic3Alt | default: 'uploaded image'}}">
+                </div>
+            {% elsif include.pic2 %}
+                <div class="col-2"></div>
+                <div class="col-4 inline-card">
+                    <img src="{{ include.pic1 }}" class="img-fluid" loading="lazy" alt="{{ include.pic1Alt | default: 'uploaded image'}}">
+                </div>
+                <div class="col-4 inline-card">
+                    <img src="{{ include.pic2 }}" class="img-fluid" loading="lazy" alt="{{ include.pic2Alt | default: 'uploaded image'}}">
+                </div>
+            {% else %}
+                <div class="col-4"></div>
+                <div class="col-4 inline-card">
+                    <img src="{{ include.pic1 }}" class="img-fluid" loading="lazy" alt="{{ include.pic1Alt | default: 'uploaded image'}}">
+                </div>
+            {% endif %}
+        </div>
+    {% endif %}
+</div>
