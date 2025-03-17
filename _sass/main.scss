@@ -1,0 +1,78 @@
+$base-background: #fbc651;
+$base-text: #4f5b66;
+$blog-background: #FFFDD0;
+$blog-text: black;
+$blog-highlight: red;
+
+//base/background color-schemes
+.indexScheme {
+    background-color: $base-background;
+    color: $base-text;
+}
+
+.blogScheme {
+    background-color: $blog-background;
+    color: $blog-text;
+}
+//index page
+#Name {
+    font-size: 16pt;
+    font-size: calc(16pt + 3vw);
+    font-family: 'Courgette', cursive;
+    font-weight: 500;
+    font-style: normal;
+    margin: 0 0 0 0;
+}
+
+.landing {
+    text-align: center;
+    font-family: Helvetica;
+    color: $base-text;
+    top: 50%;
+    transform: perspective(1px) translateY(50%);
+}
+
+.intro {
+    margin: 0 0 0.5em 0;
+    font-size: 13pt;
+    font-size: calc(11px + 1vw);
+    color: $base-text;
+    a {
+        color: $base-text;
+    }
+}
+
+.bio {
+    margin: 0 0 0.1em 0;
+    font-size: 13pt;
+    font-size: calc(11px + 1vw);
+    color: $base-text;
+    a {
+        color: $base-text;
+        text-decoration: underline;
+    }
+}
+
+.list-inline {
+    list-style: none;
+    padding-left: 0;
+    margin: 3em 0 0 0;
+}
+
+.smLink {
+    text-decoration: none
+}
+//blog
+.blogPost {
+    color: $blog-text;
+    a {
+        color: $blog-highlight;
+    }
+}
+
+.fourOhfour {
+    margin: 0 0 0 0;
+    p {
+        margin-bottom: 0;
+    }
+}

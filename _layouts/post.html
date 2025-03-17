@@ -1,0 +1,26 @@
+---
+layout: default
+---
+<div class="row">
+  <div class="col-md-2"></div>
+  <div class="col-md-8 mt-2">
+    <div class="blogPost">
+        <a href="{% link blog/index.html %}">&larr; posts</a>
+        <h1>{{ page.title }} ({{page.date | date_to_string}})</h1>
+        <hr \>
+        {{ content }}
+        <div class="PageNavigation">
+            {% if page.previous.url %}
+                <div class="float-left">
+                    <a class="prev" href="{{page.previous.url}}">&laquo; {{page.previous.title}}</a>
+                </div>
+            {% endif %}
+            {% if page.next.url %}
+                <div class="float-right">
+                    <a class="next" href="{{page.next.url}}">{{page.next.title}} &raquo;</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+  </div>
+</div>
