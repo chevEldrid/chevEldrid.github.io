@@ -35,7 +35,7 @@ $blog-highlight: red;
 .intro {
     margin: 0 0 0.5em 0;
     font-size: 13pt;
-    font-size: calc(11px + 1vw);
+    font-size: calc(15px + 1vw);
     color: $base-text;
     a {
         color: $base-text;
@@ -45,7 +45,7 @@ $blog-highlight: red;
 .bio {
     margin: 0 0 0.1em 0;
     font-size: 13pt;
-    font-size: calc(11px + 1vw);
+    font-size: calc(10px + 1vw);
     color: $base-text;
     a {
         color: $base-text;
@@ -62,6 +62,12 @@ $blog-highlight: red;
 .smLink {
     text-decoration: none
 }
+
+.footerLink {
+    text-decoration: none;
+    color: $blog-text;
+}
+
 //blog
 .blogPost {
     color: $blog-text;
