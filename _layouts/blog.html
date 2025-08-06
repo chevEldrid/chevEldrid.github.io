@@ -5,7 +5,7 @@ layout: default
     <div class="row mt-2">
         <div class="col-md-2"></div>
         <div class="col-md-8">
-            <h3>Recent Posts</h3>
+            <h3>Recent Blogs</h3>
             <hr class="mt-0">
         </div>
     </div>
@@ -13,9 +13,31 @@ layout: default
         <div class="col-md-2"></div>
         <div class="col-md-8">
             {% for post in site.posts %}
-                <li>
-                    <a href="{{post.url}}"><b>{{post.title}}</b>: {{post.hook}} - ({{post.date | date_to_string}})</a>
-                </li>
+            {% if post.categories contains "nonfiction" %}
+            <li>
+                <a href="{{post.url}}"><b>{{post.title}}</b>: {{post.hook}} - ({{post.date | date_to_string}})</a>
+            </li>
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <h3>Recent Stories</h3>
+            <hr class="mt-0">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            {% for post in site.posts %}
+            {% if post.categories contains "fiction" %}
+            <li>
+                <a href="{{post.url}}"><b>{{post.title}}</b>: {{post.hook}} - ({{post.date | date_to_string}})</a>
+            </li>
+            {% endif %}
             {% endfor %}
         </div>
     </div>
