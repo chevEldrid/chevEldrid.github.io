@@ -3,7 +3,7 @@ layout: post
 title: "Goodbye Crunchyroll"
 hook: "I'll never see orange the same"
 date: 2025-03-21 10:21:38 -0700
-categories: tech nonfiction
+categories: nonfiction tech
 ---
 
 Eighteen months later and I'm already jumping to a new opportunity. I definitely didn't think my time at Crunchyroll would be so short but...I suppose that's how these things happen. Starting Monday I'll be working for [Truewind](https://www.truewind.ai/), a "Digital Accounting" startup that just closed their series A in December! This is a crazy opportunity to finally fulfill my dream of working for a startup and I could not be more excited. I'm definitely more prepared than I would have been post-AppFolio given the incredibly technical role I had at Crunchyroll, and with everything else I think this is the perfect time to take the risk associated for working with a company of this size.
@@ -18,4 +18,4 @@ Not doing much this week, given the immediate turnaround from Crunchy to Truewin
 
 - **Picture Support**: Not sure about pictures at the top of blogs, I like the minimal approach for now. BUT I think the ability to add in-line pictures would really benefit the look of everything. So once again we'll be ripping from [hexdrinkers](hexdrinkers.com) to add that ability for future posts.
 
-- **Fiction**: Another main reason I started this blog was to have a place to post little snippets of fiction I'm working on. They'll be sorted separately from the nonfiction blog posts, and eventually probably follow a slightly different style guide but for now I just want to get them _on here_ starting with a recently rejected story about two ghosts in New Orleans. It's awesome I swear.
+- **Fiction**: Another main reason I started this blog was to have a place to post little snippets of fiction I'm working on. They'll be sorted separately from the nonfiction blog posts, and eventually probably follow a slightly different style guide but for now I just want to get them _on here_ starting with a recently rejected story about two ghosts in New Orleans.

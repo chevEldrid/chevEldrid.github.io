@@ -3,7 +3,7 @@ layout: post
 title: "Welcome!"
 hook: "Obligatory Website Update"
 date: 2025-03-17 10:21:38 -0700
-categories: tech nonfiction
+categories: nonfiction tech
 ---
 
 Today’s the day! With every new opportunity comes the refresh of cheveldrid.github.io and this time we’re adding a blog component. Originally, I tried to do this back in 2017 with the first iteration of my personal site while working at GMO. I was enamored with [Ruby on Wheels](https://ruby-on-wheels.github.io/) - a tech blog from a github developer who had managed to convert an old army jeep and code on the road. I loved the style, the look. I saw he used something called “[jekyll](https://jekyllrb.com/)” but given my only experience was with raw html/css/js at the time, I opted to instead just duplicate the raw html output files and code each “next page” link by hand. Naturally, this was not exactly scalable. After writing each piece it would take 30 minutes to an hour to manually build out the rest of the required html and it turned every piece into a tangled nightmare of links. You can still find the wreckage in past [cheveldrid.github.io](https://github.com/chevEldrid/chevEldrid.github.io/commit/650e5765ae925027c656e638a97bc749d43d6b7a) commit history if you’re feeling crazy.
